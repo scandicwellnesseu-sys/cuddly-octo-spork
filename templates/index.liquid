@@ -1,0 +1,128 @@
+{% comment %}
+  The homepage template for the Supplements Strong Theme
+{% endcomment %}
+
+<!-- Hero Section -->
+{% section 'hero-banner' %}
+
+<!-- Featured Products -->
+{% if collections.frontpage.products.size > 0 %}
+  <div class="container">
+    <section class="featured-products mt-5">
+      <h2 class="text-center mb-4">Featured Supplements</h2>
+      <div class="row">
+        {% for product in collections.frontpage.products limit: 4 %}
+          <div class="col-3">
+            {% render 'product-card', product: product %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-4">
+        <a href="{{ collections.frontpage.url }}" class="btn btn-primary">View All Products</a>
+      </div>
+    </section>
+  </div>
+{% endif %}
+
+<!-- Categories Section -->
+{% if collections.size > 1 %}
+  <div class="container">
+    <section class="categories-section mt-5">
+      <h2 class="text-center mb-4">Shop by Category</h2>
+      <div class="row">
+        {% for collection in collections limit: 6 %}
+          {% unless collection.handle == 'frontpage' %}
+            <div class="col-4">
+              <div class="card">
+                {% if collection.image %}
+                  <img src="{{ collection.image | img_url: '400x400' }}" alt="{{ collection.title }}" class="card-img-top">
+                {% endif %}
+                <div class="card-body text-center">
+                  <h5 class="card-title">{{ collection.title }}</h5>
+                  <p class="card-text">{{ collection.description | truncate: 100 }}</p>
+                  <a href="{{ collection.url }}" class="btn btn-secondary">Shop {{ collection.title }}</a>
+                </div>
+              </div>
+            </div>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endif %}
+
+<!-- Trust Badges Section -->
+<div class="container">
+  <section class="trust-section mt-5">
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <span>🧬</span>
+        <span>Lab Tested</span>
+      </div>
+      <div class="trust-badge">
+        <span>🌿</span>
+        <span>Natural Ingredients</span>
+      </div>
+      <div class="trust-badge">
+        <span>🚚</span>
+        <span>Free Shipping</span>
+      </div>
+      <div class="trust-badge">
+        <span>💯</span>
+        <span>Money Back Guarantee</span>
+      </div>
+      <div class="trust-badge">
+        <span>🏆</span>
+        <span>Award Winning</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Newsletter Section -->
+{% section 'newsletter-signup' %}
+
+<!-- Information Sections -->
+{% section 'info-blocks' %}
+
+<style>
+  .featured-products {
+    padding: 3rem 0;
+  }
+  
+  .categories-section {
+    padding: 3rem 0;
+    background-color: #f8f9fa;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .trust-section {
+    padding: 2rem 0;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    .categories-section .col-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    .trust-badges {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .trust-badge {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+</style>
