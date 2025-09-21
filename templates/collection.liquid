@@ -1,0 +1,357 @@
+{% comment %}
+  Collection template for Supplements Strong Theme
+{% endcomment %}
+
+<div class="container">
+  <div class="collection-page">
+    
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb mt-3">
+      <a href="/">Home</a>
+      <span> / </span>
+      <span>{{ collection.title }}</span>
+    </nav>
+
+    <!-- Collection Header -->
+    <div class="collection-header mt-4 mb-4">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h1 class="collection-title">{{ collection.title }}</h1>
+          {% if collection.description != blank %}
+            <div class="collection-description">
+              {{ collection.description }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-4 text-right">
+          {% if collection.image %}
+            <img 
+              src="{{ collection.image | img_url: '300x300' }}" 
+              alt="{{ collection.title }}"
+              class="collection-image"
+            >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Sorting -->
+    <div class="collection-toolbar">
+      <div class="row align-items-center">
+        <div class="col-6">
+          <div class="collection-filters">
+            <!-- Filter by availability -->
+            <div class="filter-group">
+              <label>
+                <input type="checkbox" data-filter="available" value="true"> 
+                In Stock Only
+              </label>
+            </div>
+            
+            <!-- Filter by price range -->
+            <div class="filter-group">
+              <label for="price-min">Price Range:</label>
+              <div class="price-range">
+                <input type="number" id="price-min" placeholder="Min" data-filter="price-min">
+                <span>-</span>
+                <input type="number" id="price-max" placeholder="Max" data-filter="price-max">
+              </div>
+            </div>
+            
+            <!-- Filter by tags -->
+            {% assign available_tags = collection.all_tags %}
+            {% if available_tags.size > 0 %}
+              <div class="filter-group">
+                <label>Filter by:</label>
+                <select data-filter="tags" class="form-control">
+                  <option value="">All Products</option>
+                  {% for tag in available_tags %}
+                    <option value="{{ tag | handle }}">{{ tag }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="col-6 text-right">
+          <div class="collection-sorting">
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by" data-sort class="form-control">
+              <option value="manual">Featured</option>
+              <option value="best-selling">Best Selling</option>
+              <option value="title-ascending">A-Z</option>
+              <option value="title-descending">Z-A</option>
+              <option value="price-ascending">Price: Low to High</option>
+              <option value="price-descending">Price: High to Low</option>
+              <option value="created-descending">Newest First</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="collection-products mt-4">
+      {% if collection.products.size > 0 %}
+        <div class="row" data-products-grid>
+          {% for product in collection.products %}
+            <div class="col-3 product-item" 
+                 data-available="{{ product.available }}"
+                 data-price="{{ product.price }}"
+                 data-tags="{{ product.tags | join: ',' | downcase }}"
+                 data-title="{{ product.title | downcase }}">
+              {% render 'product-card', product: product %}
+            </div>
+          {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if paginate.pages > 1 %}
+          <nav class="pagination-nav mt-5">
+            {{ paginate | default_pagination }}
+          </nav>
+        {% endif %}
+        
+      {% else %}
+        <div class="empty-collection text-center mt-5">
+          <h3>No products found</h3>
+          <p>This collection is empty or no products match your current filters.</p>
+          <a href="/collections" class="btn btn-primary">Browse All Collections</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Load More Button (for AJAX loading) -->
+    {% if collection.products.size >= 12 %}
+      <div class="text-center mt-4">
+        <button class="btn btn-secondary" data-load-more style="display: none;">
+          Load More Products
+        </button>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+  .collection-header {
+    padding: 2rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .collection-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+  
+  .collection-toolbar {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+  }
+  
+  .collection-filters,
+  .collection-sorting {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .filter-group label {
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .price-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .price-range input {
+    width: 80px;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+  }
+  
+  .form-control {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .product-item {
+    margin-bottom: 2rem;
+  }
+  
+  .product-item.hidden {
+    display: none;
+  }
+  
+  .pagination-nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .empty-collection {
+    padding: 3rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    .collection-toolbar .row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .collection-toolbar .col-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      text-align: left !important;
+    }
+    
+    .collection-filters,
+    .collection-sorting {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .product-item {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .product-item {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const productsGrid = document.querySelector('[data-products-grid]');
+    const productItems = document.querySelectorAll('.product-item');
+    const sortSelect = document.querySelector('[data-sort]');
+    const filterInputs = document.querySelectorAll('[data-filter]');
+    
+    // Sorting functionality
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        const sortValue = this.value;
+        const url = new URL(window.location);
+        url.searchParams.set('sort_by', sortValue);
+        window.location.href = url.toString();
+      });
+      
+      // Set current sort value from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentSort = urlParams.get('sort_by');
+      if (currentSort) {
+        sortSelect.value = currentSort;
+      }
+    }
+    
+    // Filtering functionality
+    function applyFilters() {
+      const availableFilter = document.querySelector('[data-filter="available"]:checked');
+      const priceMin = document.querySelector('[data-filter="price-min"]').value;
+      const priceMax = document.querySelector('[data-filter="price-max"]').value;
+      const tagsFilter = document.querySelector('[data-filter="tags"]').value;
+      
+      productItems.forEach(item => {
+        let show = true;
+        
+        // Filter by availability
+        if (availableFilter && item.dataset.available !== 'true') {
+          show = false;
+        }
+        
+        // Filter by price range
+        if (priceMin && parseInt(item.dataset.price) < (parseInt(priceMin) * 100)) {
+          show = false;
+        }
+        
+        if (priceMax && parseInt(item.dataset.price) > (parseInt(priceMax) * 100)) {
+          show = false;
+        }
+        
+        // Filter by tags
+        if (tagsFilter && !item.dataset.tags.includes(tagsFilter)) {
+          show = false;
+        }
+        
+        // Show/hide item
+        if (show) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+      
+      // Update results count
+      const visibleProducts = document.querySelectorAll('.product-item:not(.hidden)');
+      console.log(`Showing ${visibleProducts.length} of ${productItems.length} products`);
+    }
+    
+    // Add event listeners to filter inputs
+    filterInputs.forEach(input => {
+      input.addEventListener('change', applyFilters);
+      input.addEventListener('input', applyFilters);
+    });
+    
+    // Load more functionality (for future AJAX implementation)
+    const loadMoreBtn = document.querySelector('[data-load-more]');
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', function() {
+        // Implementation for loading more products via AJAX
+        console.log('Load more products');
+      });
+    }
+    
+    // Clear filters functionality
+    function addClearFiltersButton() {
+      const toolbar = document.querySelector('.collection-toolbar .row');
+      const clearBtn = document.createElement('button');
+      clearBtn.textContent = 'Clear Filters';
+      clearBtn.className = 'btn btn-secondary btn-sm';
+      clearBtn.style.marginLeft = '1rem';
+      
+      clearBtn.addEventListener('click', function() {
+        // Reset all filter inputs
+        filterInputs.forEach(input => {
+          if (input.type === 'checkbox') {
+            input.checked = false;
+          } else {
+            input.value = '';
+          }
+        });
+        
+        // Remove hidden class from all products
+        productItems.forEach(item => {
+          item.classList.remove('hidden');
+        });
+      });
+      
+      const filtersContainer = document.querySelector('.collection-filters');
+      if (filtersContainer) {
+        filtersContainer.appendChild(clearBtn);
+      }
+    }
+    
+    addClearFiltersButton();
+  });
+</script>

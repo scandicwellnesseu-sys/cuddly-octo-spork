@@ -1,0 +1,420 @@
+{% comment %}
+  Newsletter signup section
+{% endcomment %}
+
+{% if section.settings.enable_newsletter %}
+  <section class="newsletter-section" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+    <div class="container">
+      <div class="newsletter-content">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <div class="newsletter-text">
+              {% if section.settings.heading != blank %}
+                <h2 class="newsletter-heading">{{ section.settings.heading }}</h2>
+              {% endif %}
+              
+              {% if section.settings.description != blank %}
+                <p class="newsletter-description">{{ section.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+          
+          <div class="col-6">
+            <div class="newsletter-form-wrapper">
+              <form action="{{ routes.customer_url }}" method="post" class="newsletter-form" id="newsletter-form">
+                <input type="hidden" name="form_type" value="customer">
+                <input type="hidden" name="utf8" value="✓">
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                
+                <div class="newsletter-input-group">
+                  <input 
+                    type="email" 
+                    name="contact[email]" 
+                    placeholder="{{ section.settings.input_placeholder | default: 'Enter your email address' }}"
+                    class="newsletter-input"
+                    required
+                    autocomplete="email"
+                  >
+                  <button type="submit" class="newsletter-submit">
+                    {{ section.settings.button_text | default: 'Subscribe' }}
+                  </button>
+                </div>
+                
+                {% if section.settings.show_privacy_text %}
+                  <p class="newsletter-privacy">
+                    {{ section.settings.privacy_text | default: 'We respect your privacy. Unsubscribe at any time.' }}
+                  </p>
+                {% endif %}
+              </form>
+              
+              <div class="newsletter-success" style="display: none;">
+                <p>✓ Thank you for subscribing!</p>
+              </div>
+              
+              <div class="newsletter-error" style="display: none;">
+                <p>There was an error. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {% if section.settings.show_benefits %}
+          <div class="newsletter-benefits">
+            <div class="row">
+              <div class="col-4 text-center">
+                <div class="benefit-item">
+                  <span class="benefit-icon">📧</span>
+                  <h4>Weekly Tips</h4>
+                  <p>Get expert wellness advice delivered to your inbox</p>
+                </div>
+              </div>
+              <div class="col-4 text-center">
+                <div class="benefit-item">
+                  <span class="benefit-icon">🎁</span>
+                  <h4>Exclusive Offers</h4>
+                  <p>Be the first to know about sales and new products</p>
+                </div>
+              </div>
+              <div class="col-4 text-center">
+                <div class="benefit-item">
+                  <span class="benefit-icon">📚</span>
+                  <h4>Health Guides</h4>
+                  <p>Access our library of wellness resources</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+<style>
+  .newsletter-section {
+    padding: 4rem 0;
+  }
+  
+  .newsletter-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .newsletter-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .newsletter-description {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+  }
+  
+  .newsletter-form-wrapper {
+    max-width: 400px;
+    margin-left: auto;
+  }
+  
+  .newsletter-input-group {
+    display: flex;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+  }
+  
+  .newsletter-input {
+    flex: 1;
+    border: none;
+    padding: 1rem;
+    background: transparent;
+    color: inherit;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .newsletter-input::placeholder {
+    color: rgba(255,255,255,0.7);
+  }
+  
+  .newsletter-submit {
+    background: {{ section.settings.button_color | default: 'var(--color-accent)' }};
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .newsletter-submit:hover {
+    background: {{ section.settings.button_hover_color | default: '#e68900' }};
+  }
+  
+  .newsletter-privacy {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    opacity: 0.8;
+    text-align: center;
+  }
+  
+  .newsletter-success,
+  .newsletter-error {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .newsletter-success {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+  }
+  
+  .newsletter-error {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+  }
+  
+  .newsletter-benefits {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .benefit-item {
+    padding: 1rem;
+  }
+  
+  .benefit-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .benefit-item h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .benefit-item p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .newsletter-section {
+      padding: 3rem 0;
+    }
+    
+    .newsletter-content .row {
+      flex-direction: column;
+    }
+    
+    .newsletter-content .col-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+    
+    .newsletter-content .col-6:last-child {
+      margin-bottom: 0;
+    }
+    
+    .newsletter-form-wrapper {
+      margin-left: 0;
+      max-width: none;
+    }
+    
+    .newsletter-heading {
+      font-size: 1.75rem;
+    }
+    
+    .newsletter-benefits .col-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .newsletter-input-group {
+      flex-direction: column;
+    }
+    
+    .newsletter-submit {
+      border-radius: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('newsletter-form');
+    const successMessage = document.querySelector('.newsletter-success');
+    const errorMessage = document.querySelector('.newsletter-error');
+    
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const email = formData.get('contact[email]');
+        
+        // Basic email validation
+        if (!email || !email.includes('@')) {
+          showError('Please enter a valid email address.');
+          return;
+        }
+        
+        // Submit form
+        fetch(form.action, {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            showSuccess();
+            form.reset();
+          } else {
+            showError('There was an error. Please try again.');
+          }
+        })
+        .catch(error => {
+          console.error('Newsletter signup error:', error);
+          showError('There was an error. Please try again.');
+        });
+      });
+    }
+    
+    function showSuccess() {
+      successMessage.style.display = 'block';
+      errorMessage.style.display = 'none';
+      
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 5000);
+    }
+    
+    function showError(message) {
+      errorMessage.querySelector('p').textContent = message;
+      errorMessage.style.display = 'block';
+      successMessage.style.display = 'none';
+      
+      setTimeout(() => {
+        errorMessage.style.display = 'none';
+      }, 5000);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Newsletter signup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable newsletter signup",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stay in the Loop"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Get the latest wellness tips, exclusive offers, and product updates delivered straight to your inbox."
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Privacy"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_privacy_text",
+      "label": "Show privacy text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "privacy_text",
+      "label": "Privacy text",
+      "default": "We respect your privacy. Unsubscribe at any time."
+    },
+    {
+      "type": "header",
+      "content": "Benefits"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show newsletter benefits",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#2E7D32"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#FF9800"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#e68900"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter signup"
+    }
+  ]
+}
+{% endschema %}

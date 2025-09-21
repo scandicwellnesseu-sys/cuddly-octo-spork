@@ -1,0 +1,435 @@
+{% comment %}
+  Info blocks section for displaying key information
+{% endcomment %}
+
+{% if section.blocks.size > 0 %}
+<section class="info-blocks-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="container">
+    <div class="info-blocks-content">
+      
+      {% if section.settings.heading != blank %}
+        <h2 class="section-heading text-center">{{ section.settings.heading }}</h2>
+      {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <p class="section-description text-center">{{ section.settings.description }}</p>
+      {% endif %}
+      
+      <div class="row">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'info_block' %}
+              <div class="col-{{ section.settings.blocks_per_row }} info-block-wrapper">
+                <div class="info-block" {{ block.shopify_attributes }}>
+                  
+                  {% if block.settings.icon_image %}
+                    <div class="info-block-icon">
+                      <img 
+                        src="{{ block.settings.icon_image | img_url: '80x80' }}" 
+                        alt="{{ block.settings.icon_image.alt | default: block.settings.heading }}"
+                        width="60"
+                        height="60"
+                      >
+                    </div>
+                  {% elsif block.settings.icon_emoji != blank %}
+                    <div class="info-block-icon emoji-icon">
+                      <span>{{ block.settings.icon_emoji }}</span>
+                    </div>
+                  {% endif %}
+                  
+                  {% if block.settings.heading != blank %}
+                    <h3 class="info-block-heading">{{ block.settings.heading }}</h3>
+                  {% endif %}
+                  
+                  {% if block.settings.text != blank %}
+                    <div class="info-block-text">
+                      {{ block.settings.text | newline_to_br }}
+                    </div>
+                  {% endif %}
+                  
+                  {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+                    <div class="info-block-button">
+                      <a href="{{ block.settings.button_link }}" class="btn btn-secondary btn-sm">
+                        {{ block.settings.button_text }}
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+              
+            {% when 'text_block' %}
+              <div class="col-12 text-block-wrapper">
+                <div class="text-block" {{ block.shopify_attributes }}>
+                  {% if block.settings.heading != blank %}
+                    <h3 class="text-block-heading text-center">{{ block.settings.heading }}</h3>
+                  {% endif %}
+                  
+                  {% if block.settings.text != blank %}
+                    <div class="text-block-content">
+                      {{ block.settings.text }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+              
+            {% when 'image_text' %}
+              <div class="col-6 image-text-wrapper">
+                <div class="image-text-block" {{ block.shopify_attributes }}>
+                  <div class="row align-items-center">
+                    <div class="col-6">
+                      {% if block.settings.image %}
+                        <div class="image-text-image">
+                          <img 
+                            src="{{ block.settings.image | img_url: '400x400' }}" 
+                            alt="{{ block.settings.image.alt | default: block.settings.heading }}"
+                            class="img-fluid"
+                          >
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    <div class="col-6">
+                      <div class="image-text-content">
+                        {% if block.settings.heading != blank %}
+                          <h3 class="image-text-heading">{{ block.settings.heading }}</h3>
+                        {% endif %}
+                        
+                        {% if block.settings.text != blank %}
+                          <div class="image-text-text">
+                            {{ block.settings.text | newline_to_br }}
+                          </div>
+                        {% endif %}
+                        
+                        {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+                          <div class="image-text-button">
+                            <a href="{{ block.settings.button_link }}" class="btn btn-primary">
+                              {{ block.settings.button_text }}
+                            </a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<style>
+  .info-blocks-section {
+    padding: 4rem 0;
+  }
+  
+  .section-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+  
+  .section-description {
+    font-size: 1.125rem;
+    color: #6c757d;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .info-block {
+    text-align: center;
+    padding: 2rem 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .info-block-icon {
+    margin-bottom: 1.5rem;
+  }
+  
+  .info-block-icon img {
+    border-radius: 50%;
+  }
+  
+  .emoji-icon span {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  
+  .info-block-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+  
+  .info-block-text {
+    flex: 1;
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .info-block-button {
+    margin-top: auto;
+  }
+  
+  .text-block {
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+  }
+  
+  .text-block-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+  
+  .text-block-content {
+    color: #6c757d;
+    line-height: 1.6;
+  }
+  
+  .image-text-block {
+    padding: 2rem 0;
+  }
+  
+  .image-text-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+  
+  .image-text-text {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .image-text-image {
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  
+  .col-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  
+  @media (max-width: 768px) {
+    .info-blocks-section {
+      padding: 3rem 0;
+    }
+    
+    .section-heading {
+      font-size: 1.75rem;
+    }
+    
+    .info-block-wrapper {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+    
+    .image-text-wrapper {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+    
+    .image-text-block .row {
+      flex-direction: column;
+    }
+    
+    .image-text-block .col-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    .info-block {
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Info blocks",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Why Choose Our Supplements?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "We're committed to providing the highest quality supplements to support your health and wellness journey."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "blocks_per_row",
+      "label": "Blocks per row",
+      "options": [
+        {
+          "value": "3",
+          "label": "4 blocks per row"
+        },
+        {
+          "value": "4",
+          "label": "3 blocks per row"
+        },
+        {
+          "value": "6",
+          "label": "2 blocks per row"
+        }
+      ],
+      "default": "4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_block",
+      "name": "Info block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Icon emoji (if no image)",
+          "default": "🧬"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Lab Tested"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Every product is rigorously tested by third-party laboratories to ensure purity and potency."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    },
+    {
+      "type": "text_block",
+      "name": "Text block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "image_text",
+      "name": "Image with text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Info blocks",
+      "blocks": [
+        {
+          "type": "info_block",
+          "settings": {
+            "icon_emoji": "🧬",
+            "heading": "Lab Tested",
+            "text": "Every product is rigorously tested by third-party laboratories to ensure purity and potency."
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "icon_emoji": "🌿",
+            "heading": "Natural Ingredients",
+            "text": "We source only the finest natural ingredients from trusted suppliers around the world."
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "icon_emoji": "🏆",
+            "heading": "Award Winning",
+            "text": "Our products have received recognition from leading health and wellness organizations."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

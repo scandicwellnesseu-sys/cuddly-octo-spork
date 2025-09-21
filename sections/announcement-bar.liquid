@@ -1,0 +1,152 @@
+{% comment %}
+  Announcement bar section for promotions and important messages
+{% endcomment %}
+
+{% if section.settings.enable_announcement %}
+  <div class="announcement-bar" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+    <div class="container">
+      <div class="announcement-content">
+        
+        {% if section.settings.announcement_text != blank %}
+          <div class="announcement-text">
+            {% if section.settings.announcement_link != blank %}
+              <a href="{{ section.settings.announcement_link }}" class="announcement-link">
+                {{ section.settings.announcement_text }}
+              </a>
+            {% else %}
+              {{ section.settings.announcement_text }}
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        {% if section.settings.show_close_button %}
+          <button class="announcement-close" aria-label="Close announcement">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+  .announcement-bar {
+    padding: 0.75rem 0;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .announcement-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .announcement-text {
+    flex: 1;
+  }
+  
+  .announcement-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .announcement-link:hover {
+    text-decoration: underline;
+  }
+  
+  .announcement-close {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .announcement-close:hover {
+    background-color: rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .announcement-bar {
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const closeButton = document.querySelector('.announcement-close');
+    const announcementBar = document.querySelector('.announcement-bar');
+    
+    if (closeButton && announcementBar) {
+      closeButton.addEventListener('click', function() {
+        announcementBar.style.display = 'none';
+        // Save to localStorage to remember user's choice
+        localStorage.setItem('announcement-closed', 'true');
+      });
+      
+      // Check if user previously closed the announcement
+      if (localStorage.getItem('announcement-closed') === 'true') {
+        announcementBar.style.display = 'none';
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_announcement",
+      "label": "Enable announcement bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $50!"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link (optional)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#2E7D32"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Show close button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}
