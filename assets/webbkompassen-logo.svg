@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Webbkompassen logotyp</title>
+  <desc id="desc">Vit kompassikon och text på blå bakgrundsgradient</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b3d91" />
+      <stop offset="50%" stop-color="#0d6cc6" />
+      <stop offset="100%" stop-color="#1b9ad7" />
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#bg)" />
+  <g fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M90 280c38-84 122-140 210-140s172 56 210 140" />
+    <path d="M90 280h320" />
+    <path d="M250 120v220" />
+  </g>
+  <g fill="#ffffff">
+    <path d="M250 120l-36 190 36-52 36 52-36-190z" />
+    <path d="M250 168l-78 126 78-62 78 62-78-126z" />
+    <path d="M250 214l-120 82 120-46 120 46-120-82z" />
+    <circle cx="250" cy="280" r="14" />
+    <circle cx="166" cy="280" r="8" />
+    <circle cx="334" cy="280" r="8" />
+  </g>
+  <g fill="#ffffff" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
+    <text x="250" y="350" font-size="46" font-weight="600" letter-spacing="4">WEBBKOMPASSEN</text>
+    <text x="250" y="392" font-size="20" letter-spacing="6">DIN DIGITALA FRAMGÅNG</text>
+  </g>
+</svg>
