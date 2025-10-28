@@ -1,6 +1,6 @@
-# ScandicWellness Chatbot
+# AI-baserad strategi för kryptohandelssignaler
 
-En enkel, fristående webbapp som låter kunder få snabb rådgivning om vitaminer och kosttillskott via en chattbot.
+En statisk webbplats som presenterar en komplett strategi och affärsmodell för AI-drivna kryptohandelssignaler. Sidan beskriver hur trendföljning kan förstärkas med maskininlärning och sentimentanalys, hur riskhantering sker samt hur signalerna kommersialiseras via en prenumerationsmodell.
 
 ## Kom igång
 
@@ -8,10 +8,12 @@ En enkel, fristående webbapp som låter kunder få snabb rådgivning om vitamin
    ```bash
    python -m http.server 8000
    ```
-2. Surfa till `http://localhost:8000` och börja chatta med ScandicBot.
+2. Surfa till `http://localhost:8000` för att utforska strategin och affärsmodellen.
 
 ## Funktioner
 
-- Färdiga svar för vanliga frågor om frakt, prenumeration och kundtjänst.
-- Produktrekommendationer baserade på nyckelord inom energi, immunförsvar, återhämtning m.m.
-- Snabbknappar för populära frågor och ett modernt, responsivt gränssnitt.
+- Navigering via automatisk innehållsförteckning som följer rullning.
+- Sammanhängande avsnitt om strategi, AI-stack, sentimentanalys, riskhantering och affärsmodell.
+- Tabell över rekommenderad prisstruktur och arbetsflöde för signalproduktionen.
+- Fördjupat "Steg 1"-avsnitt som beskriver hur dataplattformen för pris- och sentimentströmmar etableras.
+- Responsiv design anpassad för både desktop och mobil.
