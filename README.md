@@ -1,17 +1,18 @@
-# ScandicWellness Chatbot
+# Lyxify Agency Website
 
-En enkel, fristående webbapp som låter kunder få snabb rådgivning om vitaminer och kosttillskott via en chattbot.
+This project is a one-page agency website for Lyxify, a company specializing in creating Shopify stores, SEO optimization, lead analysis, and digital marketing.
 
-## Kom igång
+## How to View
 
-1. Öppna `index.html` i din webbläsare, eller starta en enkel server:
-   ```bash
-   python -m http.server 8000
-   ```
-2. Surfa till `http://localhost:8000` och börja chatta med ScandicBot.
+1.  Open the `index.html` file in your web browser to view the website.
+2.  Alternatively, you can run a simple local server. For example, using Python:
+    ```bash
+    python -m http.server
+    ```
+    Then, navigate to `http://localhost:8000` in your browser.
 
-## Funktioner
+## Project Structure
 
-- Färdiga svar för vanliga frågor om frakt, prenumeration och kundtjänst.
-- Produktrekommendationer baserade på nyckelord inom energi, immunförsvar, återhämtning m.m.
-- Snabbknappar för populära frågor och ett modernt, responsivt gränssnitt.
+*   `index.html`: The main HTML file containing the structure of the website.
+*   `styles.css`: The CSS file for styling the website.
+*   `script.js`: The JavaScript file for interactive features like smooth scrolling.

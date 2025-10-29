@@ -3,37 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScandicWellness Chatbot</title>
+    <title>Lyxify - Din Partner för Shopify & Digital Tillväxt</title>
+    <meta name="description" content="Lyxify är din expertpartner för att bygga och optimera Shopify-butiker. Vi erbjuder skräddarsydd utveckling, SEO, och digital marknadsföring för att maximera din e-handel.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <main class="app">
-        <header class="app__header">
-            <h1>ScandicWellness</h1>
-            <p>Din digitala coach för vitaminer och kosttillskott</p>
-        </header>
 
-        <section class="chat" aria-live="polite">
-            <div class="chat__messages" id="chatMessages"></div>
-            <div class="chat__suggestions" id="chatSuggestions" aria-label="Snabbrekommendationer"></div>
-            <form class="chat__form" id="chatForm" aria-label="Skicka meddelande till ScandicWellness chatbot">
-                <label class="chat__label" for="userInput">Skriv din fråga</label>
-                <div class="chat__input-wrapper">
-                    <input type="text" id="userInput" name="userInput" placeholder="Fråga om produkter, leverans eller råd" autocomplete="off" required>
-                    <button type="submit" class="chat__send">Skicka</button>
-                </div>
-            </form>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="#" class="logo">Lyxify</a>
+                <ul>
+                    <li><a href="#services">Tjänster</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#reviews">Omdömen</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <h1>Vi Bygger Shopify-butiker som Konverterar</h1>
+                <p class="subtitle">Från idé till lansering och vidare. Specialister på e-handel, SEO och marknadsföring.</p>
+                <a href="#contact" class="btn btn-primary">Starta ditt projekt</a>
+            </div>
         </section>
 
-        <section class="info">
-            <h2>Så fungerar chatten</h2>
-            <ul>
-                <li>Få snabba svar om vitaminer, mineraler och wellnessprogram.</li>
-                <li>Be om rekommendationer efter mål som energi, immunförsvar eller återhämtning.</li>
-                <li>Få hjälp med beställningar, frakt och prenumerationer.</li>
-            </ul>
+        <section id="services" class="services-section">
+            <div class="container">
+                <h2>Våra Tjänster</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Shopify-utveckling</h3>
+                        <p>Vi skapar skräddarsydda, högpresterande och mobilanpassade Shopify-butiker från grunden.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>SEO-optimering</h3>
+                        <p>Öka din synlighet på Google. Vi hjälper dig att ranka högre än dina konkurrenter och driva organisk trafik.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Leads-analys</h3>
+                        <p>Förstå dina kunder. Vi analyserar data för att identifiera värdefulla leads och optimera din konvertering.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Digital Marknadsföring</h3>
+                        <p>Nå ut till din målgrupp med träffsäkra kampanjer på sociala medier och Google Ads.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio-section">
+            <div class="container">
+                <h2>Vårt Arbete</h2>
+                <p>Här är några av de butiker vi har hjälpt att lyckas.</p>
+                <!-- Placeholder for portfolio items -->
+                <div class="portfolio-grid">
+                    <div class="portfolio-item"><span>Exempelprojekt 1</span></div>
+                    <div class="portfolio-item"><span>Exempelprojekt 2</span></div>
+                    <div class="portfolio-item"><span>Exempelprojekt 3</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <div class="trustpilot-widget">
+                    <div class="widget-header">
+                        <h3>Excellent</h3>
+                        <div class="trustpilot-stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p>Based on <strong>123 reviews</strong></p>
+                        <div class="trustpilot-logo">Trustpilot</div>
+                    </div>
+                    <div class="widget-reviews">
+                        <div class="review">
+                            <div class="review-stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <h4>Otroligt kunniga!</h4>
+                            <p>"Vår försäljning har ökat markant sedan vi anlitade Lyxify!"</p>
+                            <p class="author">Anna S, 2 days ago</p>
+                        </div>
+                        <div class="review">
+                            <div class="review-stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <h4>Bästa byrån vi jobbat med</h4>
+                            <p>"De levererade över förväntan på både design och SEO."</p>
+                            <p class="author">Markus L, 5 days ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Kontakta Oss</h2>
+                <p>Redo att ta nästa steg? Fyll i formuläret så återkommer vi inom 24 timmar.</p>
+                <form id="contact-form">
+                    <input type="text" name="name" placeholder="Ditt namn" required>
+                    <input type="email" name="email" placeholder="Din e-post" required>
+                    <textarea name="message" placeholder="Berätta om ditt projekt" required></textarea>
+                    <button type="submit" class="btn btn-primary">Skicka Meddelande</button>
+                </form>
+            </div>
         </section>
     </main>
-    <script src="script.js" defer></script>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Lyxify. Alla rättigheter förbehållna.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
