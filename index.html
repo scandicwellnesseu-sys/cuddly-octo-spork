@@ -3,37 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScandicWellness Chatbot</title>
+    <title>Lyxify.se | Shopify-partner för premium e-handel</title>
+    <meta name="description" content="Lyxify.se är Shopify-partnern som bygger, optimerar och marknadsför konverterande e-handlar för svenska entreprenörer och varumärken.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <main class="app">
-        <header class="app__header">
-            <h1>ScandicWellness</h1>
-            <p>Din digitala coach för vitaminer och kosttillskott</p>
-        </header>
+    <header class="site-header" id="top">
+        <div class="container">
+            <a class="site-header__logo" href="#top" aria-label="Lyxify.se">
+                <span class="logo__mark">Lyxify</span>
+                <span class="logo__tag">Shopify Partner</span>
+            </a>
+            <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Öppna menyn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="site-header__nav" id="primary-nav" aria-label="Huvudmeny" data-state="closed" aria-hidden="false">
+                <a href="#services">Tjänster</a>
+                <a href="#cases">Case</a>
+                <a href="#about">Om oss</a>
+                <a href="#resources">Resurser</a>
+                <a href="#contact" class="link-highlight">Kontakt</a>
+            </nav>
+            <a class="cta cta--primary site-header__cta" href="#contact">Boka strategisamtal</a>
+        </div>
+    </header>
 
-        <section class="chat" aria-live="polite">
-            <div class="chat__messages" id="chatMessages"></div>
-            <div class="chat__suggestions" id="chatSuggestions" aria-label="Snabbrekommendationer"></div>
-            <form class="chat__form" id="chatForm" aria-label="Skicka meddelande till ScandicWellness chatbot">
-                <label class="chat__label" for="userInput">Skriv din fråga</label>
-                <div class="chat__input-wrapper">
-                    <input type="text" id="userInput" name="userInput" placeholder="Fråga om produkter, leverans eller råd" autocomplete="off" required>
-                    <button type="submit" class="chat__send">Skicka</button>
+    <main>
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="container hero__content">
+                <div class="hero__copy">
+                    <span class="eyebrow">Shopify Partner sedan 2018</span>
+                    <h1 id="hero-heading">Shopify-experter som bygger din e-handelssuccé</h1>
+                    <p>
+                        Lyxify.se hjälper svenska entreprenörer och varumärken att bygga, optimera och skala
+                        premium e-handlar. Vi kombinerar teknik, design och datadriven marknadsföring för att skapa
+                        webbutiker som konverterar – från idé till lönsam verklighet.
+                    </p>
+                    <div class="hero__actions">
+                        <a class="cta cta--primary" href="#contact">Begär offert</a>
+                        <a class="cta cta--ghost" href="#services">Utforska tjänster</a>
+                    </div>
+                    <dl class="hero__stats" aria-label="Resultat vi levererar">
+                        <div>
+                            <dt>+62%</dt>
+                            <dd>genomsnittlig försäljningsökning efter 6 månader</dd>
+                        </div>
+                        <div>
+                            <dt>50+ </dt>
+                            <dd>byggda och optimerade Shopify-butiker</dd>
+                        </div>
+                        <div>
+                            <dt>4.9/5</dt>
+                            <dd>kundnöjdhet på kontinuerlig support</dd>
+                        </div>
+                    </dl>
                 </div>
-            </form>
+                <aside class="hero__badge" aria-label="Shopify Partner">
+                    <svg viewBox="0 0 160 160" role="img" aria-labelledby="shopify-badge-title">
+                        <defs>
+                            <linearGradient id="badgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#34d399" />
+                                <stop offset="100%" stop-color="#059669" />
+                            </linearGradient>
+                        </defs>
+                        <title id="shopify-badge-title">Shopify Partner Badge</title>
+                        <circle cx="80" cy="80" r="75" class="badge__ring"></circle>
+                        <path class="badge__bag" d="M56 56l8-16h36l8 16v48a12 12 0 0 1-12 12H68a12 12 0 0 1-12-12z"></path>
+                        <text x="80" y="120" class="badge__text">Shopify Partner</text>
+                    </svg>
+                    <p>Certifierad Shopify-partner • 5+ års erfarenhet</p>
+                </aside>
+            </div>
         </section>
 
-        <section class="info">
-            <h2>Så fungerar chatten</h2>
-            <ul>
-                <li>Få snabba svar om vitaminer, mineraler och wellnessprogram.</li>
-                <li>Be om rekommendationer efter mål som energi, immunförsvar eller återhämtning.</li>
-                <li>Få hjälp med beställningar, frakt och prenumerationer.</li>
-            </ul>
+        <section class="services" id="services" aria-labelledby="services-heading">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Tjänster</span>
+                    <h2 id="services-heading">Helhetslösningar för din Shopifyresa</h2>
+                    <p>Vi tar ansvar för hela kundresan och bygger skalbara processer som ger avkastning på varje investerad marknadsföringskrona.</p>
+                </div>
+                <div class="service-grid">
+                    <article class="card">
+                        <h3>Shopify-bygge från idé till lansering</h3>
+                        <p>Strategi, UX, design, utveckling och onboarding för en komplett butik som speglar ditt varumärke.</p>
+                        <ul>
+                            <li>Workshops & blueprint</li>
+                            <li>UX-design & prototyping</li>
+                            <li>Temautveckling & appar</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>SEO & innehåll</h3>
+                        <p>Datadriven sökordsanalys och optimering som driver organisk trafik och stärker din varumärkesröst.</p>
+                        <ul>
+                            <li>Teknisk SEO & Core Web Vitals</li>
+                            <li>On-page optimering</li>
+                            <li>Contentplan & copywriting</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>Kampanj- & marknadsstrategi</h3>
+                        <p>Vi planerar, genomför och följer upp kampanjer som konverterar – från funnel till retention.</p>
+                        <ul>
+                            <li>Paid social & SEM</li>
+                            <li>Helhetsstrategi & mätplan</li>
+                            <li>Growth marketing & CRO</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>Influencer Marketing</h3>
+                        <p>Identifiera rätt profiler, skapa koncept och mät resultat för att bygga förtroende och driva försäljning.</p>
+                        <ul>
+                            <li>Matchning & förhandling</li>
+                            <li>Koncept & brief</li>
+                            <li>Resultatanalys</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>Marknadsföringsmaterial</h3>
+                        <p>Premium foto, video och copy för annonser, landningssidor och sociala medier.</p>
+                        <ul>
+                            <li>Studio- & lifestylefoto</li>
+                            <li>Konverterande landningssidor</li>
+                            <li>Videoannonser & UGC</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>Leadgenerering & automation</h3>
+                        <p>Nyhetsbrev, segmentering och automatiseringar som bygger relationer och ökar CLV.</p>
+                        <ul>
+                            <li>Leadmagneter & funnels</li>
+                            <li>Klaviyo & e-postflöden</li>
+                            <li>CRM-integrationer</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="process" aria-labelledby="process-heading">
+            <div class="container process__layout">
+                <div>
+                    <span class="eyebrow">Arbetssätt</span>
+                    <h2 id="process-heading">Partnerskap med fokus på mätbara resultat</h2>
+                    <p>Vårt team arbetar nära dig från första strategiworkshopen till kontinuerlig optimering. Vi är din långsiktiga partner för hållbar tillväxt och lönsam konvertering.</p>
+                </div>
+                <ol class="process__steps">
+                    <li>
+                        <h3>1. Discovery & målbild</h3>
+                        <p>Vi kartlägger affärsmål, kundresor och datainsikter för att definiera en roadmap som matchar din vision.</p>
+                    </li>
+                    <li>
+                        <h3>2. Design & utveckling</h3>
+                        <p>Premiumdesign, temautveckling och integrationer med fokus på prestanda, tillgänglighet och skalbarhet.</p>
+                    </li>
+                    <li>
+                        <h3>3. Lansering & growth</h3>
+                        <p>Vi optimerar, testar och itererar. Med löpande rapportering och support säkerställer vi fortsatt framgång.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="cases" id="cases" aria-labelledby="cases-heading">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Portfolio</span>
+                    <h2 id="cases-heading">Resultatdrivna case</h2>
+                    <p>Vi bygger inte bara snygga butiker – vi levererar mätbar tillväxt. Här är ett urval av projekt.</p>
+                </div>
+                <div class="case-grid">
+                    <article class="case-card">
+                        <div class="case-card__image" aria-hidden="true"></div>
+                        <div class="case-card__content">
+                            <h3>Nordic Nature Beauty</h3>
+                            <p>Kundens utmaning: låg konvertering och begränsad internationell räckvidd.</p>
+                            <ul>
+                                <li>Ny Shopify Plus-butik med lokala valutor</li>
+                                <li>CRO-program & A/B-testning</li>
+                                <li>Resultat: +78% försäljning, +120% i ROI</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="case-card">
+                        <div class="case-card__image case-card__image--alt" aria-hidden="true"></div>
+                        <div class="case-card__content">
+                            <h3>Urban Athletics</h3>
+                            <p>Kundens utmaning: otydlig varumärkesidentitet och dyr kundanskaffning.</p>
+                            <ul>
+                                <li>Ny varumärkesplattform & storytelling</li>
+                                <li>Paid social-kampanjer med UGC</li>
+                                <li>Resultat: -32% CPA, +55% kundlivstidsvärde</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="case-card">
+                        <div class="case-card__image case-card__image--dark" aria-hidden="true"></div>
+                        <div class="case-card__content">
+                            <h3>Scandi Home</h3>
+                            <p>Kundens utmaning: fragmenterad teknikstack och manuell orderhantering.</p>
+                            <ul>
+                                <li>Integrationer mot ERP & fulfillment</li>
+                                <li>Automatiserade kampanjflöden</li>
+                                <li>Resultat: 3x snabbare leverans, +40% återköpsfrekvens</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Vad kunderna säger</span>
+                    <h2 id="testimonials-heading">Förtroende byggt på resultat</h2>
+                </div>
+                <div class="testimonial-grid">
+                    <figure class="testimonial-card">
+                        <blockquote>
+                            “Lyxify är ett drömteam. De tog vår idé till lanserad butik på 10 veckor och fortsätter optimera varje kampanj med kirurgisk precision.”
+                        </blockquote>
+                        <figcaption>
+                            <strong>Anna Lindqvist</strong>
+                            <span>VD, Nordic Nature Beauty</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="testimonial-card">
+                        <blockquote>
+                            “Deras förståelse för data och varumärke gör att vi nu vågar investera aggressivt. Vi ser tydligt hur varje insats påverkar försäljningen.”
+                        </blockquote>
+                        <figcaption>
+                            <strong>Jonas Möller</strong>
+                            <span>CMO, Urban Athletics</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="testimonial-card">
+                        <blockquote>
+                            “Supporten är outstanding. Vi får snabb återkoppling, tydliga rekommendationer och en partner som verkligen bryr sig om våra mål.”
+                        </blockquote>
+                        <figcaption>
+                            <strong>Elin Berg</strong>
+                            <span>E-commerce Manager, Scandi Home</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about" aria-labelledby="about-heading">
+            <div class="container about__layout">
+                <div class="about__copy">
+                    <span class="eyebrow">Om Lyxify</span>
+                    <h2 id="about-heading">Ett dedikerat team av e-handelsspecialister</h2>
+                    <p>Vi är designers, utvecklare, strateger och kreatörer som älskar att bygga framgångsrika Shopify-butiker. Som officiell Shopify-partner i över fem år arbetar vi med svenska entreprenörer och internationella varumärken som vill skala hållbart.</p>
+                    <ul class="about__list">
+                        <li>Certifierade Shopify-experter & Google Partners</li>
+                        <li>Tvärfunktionellt team inom UX, CRO, SEO & paid media</li>
+                        <li>Transparenta sprintar, rapportering och tydliga KPI:er</li>
+                    </ul>
+                </div>
+                <div class="about__team" aria-label="Teammedlemmar">
+                    <div class="team-card">
+                        <span class="team-card__avatar" aria-hidden="true">MS</span>
+                        <div>
+                            <strong>Maria Svensson</strong>
+                            <span>Grundare & Lead Strategist</span>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <span class="team-card__avatar" aria-hidden="true">JL</span>
+                        <div>
+                            <strong>Johan Larsson</strong>
+                            <span>Tech Lead & Shopify Expert</span>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <span class="team-card__avatar" aria-hidden="true">KA</span>
+                        <div>
+                            <strong>Khadija Ali</strong>
+                            <span>Performance Marketing Lead</span>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <span class="team-card__avatar" aria-hidden="true">EP</span>
+                        <div>
+                            <strong>Elin Persson</strong>
+                            <span>Creative Director</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta" aria-labelledby="cta-heading">
+            <div class="container cta__content">
+                <div>
+                    <span class="eyebrow">Redo att växa?</span>
+                    <h2 id="cta-heading">Starta ditt Shopify-projekt idag</h2>
+                    <p>Vi tar fram en skräddarsydd handlingsplan och visar hur din butik kan nå nästa nivå – kostnadsfri rådgivning inom 48 timmar.</p>
+                </div>
+                <a class="cta cta--primary" href="#contact">Kontakta Lyxify nu</a>
+            </div>
+        </section>
+
+        <section class="resources" id="resources" aria-labelledby="resources-heading">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Blogg & guider</span>
+                    <h2 id="resources-heading">Resurser för ambitiösa e-handlare</h2>
+                    <p>Håll dig uppdaterad med våra senaste insikter inom Shopify, SEO, digital marknadsföring och konverteringsoptimering.</p>
+                </div>
+                <div class="resource-grid">
+                    <article class="resource-card">
+                        <h3>5 steg för att maximera konverteringen i din Shopify-butik</h3>
+                        <p>Lär dig hur små optimeringar i kassaflödet, produktpresentationen och trust-signals kan ge stora resultat.</p>
+                        <a href="#contact" class="text-link">Läs artikeln</a>
+                    </article>
+                    <article class="resource-card">
+                        <h3>Guide: SEO-strategi för svenska e-handelsvarumärken</h3>
+                        <p>En praktisk guide för att kombinera teknisk SEO, content och länkar för att dominera Googles resultat.</p>
+                        <a href="#contact" class="text-link">Ladda ner guiden</a>
+                    </article>
+                    <article class="resource-card">
+                        <h3>Så bygger du en effektiv influencer funnel</h3>
+                        <p>Upptäck hur du väljer rätt profiler, förhandlar smart och mäter ROI från första kampanjen.</p>
+                        <a href="#contact" class="text-link">Utforska fler tips</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq" aria-labelledby="faq-heading">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">FAQ</span>
+                    <h2 id="faq-heading">Vanliga frågor</h2>
+                    <p>Här hittar du svar på de vanligaste frågorna kring våra tjänster och hur ett samarbete går till.</p>
+                </div>
+                <div class="faq__items">
+                    <details class="faq__item">
+                        <summary>Hur lång tid tar det att bygga en Shopify-butik?</summary>
+                        <p>De flesta projekt lanseras inom 8–12 veckor beroende på omfattning. Vi arbetar i sprintar och delar löpande prototyper för feedback.</p>
+                    </details>
+                    <details class="faq__item">
+                        <summary>Kan ni migrera min befintliga e-handel till Shopify?</summary>
+                        <p>Ja, vi hanterar hela migreringen inklusive data, SEO, integrationer och utbildning så att du får en smidig övergång.</p>
+                    </details>
+                    <details class="faq__item">
+                        <summary>Hur arbetar ni med SEO och innehåll?</summary>
+                        <p>Vi gör en grundlig sökords- och konkurrentanalys, optimerar struktur och teknisk SEO, skapar contentplaner och producerar copy som matchar din tonalitet.</p>
+                    </details>
+                    <details class="faq__item">
+                        <summary>Vilken typ av support erbjuder ni efter lansering?</summary>
+                        <p>Vi erbjuder löpande support, rapportering och growth-sprintar där vi kontinuerligt förbättrar prestanda, kampanjer och kundresan.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact" aria-labelledby="contact-heading">
+            <div class="container contact__layout">
+                <div class="contact__intro">
+                    <span class="eyebrow">Kontakt</span>
+                    <h2 id="contact-heading">Redo att ta din e-handel till nästa nivå?</h2>
+                    <p>Berätta om din vision så återkommer vi med en personlig strategi-session inom 48 timmar.</p>
+                    <div class="contact__meta">
+                        <a href="mailto:hej@lyxify.se">hej@lyxify.se</a>
+                        <a href="tel:+46812345678">08-123 45 678</a>
+                        <p>Birger Jarlsgatan 18, 114 34 Stockholm</p>
+                    </div>
+                </div>
+                <form class="contact__form" aria-label="Kontaktformulär" novalidate>
+                    <div class="form-field">
+                        <label for="name">Namn</label>
+                        <input type="text" id="name" name="name" placeholder="Ditt namn" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email">E-post</label>
+                        <input type="email" id="email" name="email" placeholder="namn@företag.se" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="company">Företag</label>
+                        <input type="text" id="company" name="company" placeholder="Bolagsnamn">
+                    </div>
+                    <div class="form-field form-field--full">
+                        <label for="message">Projekt & mål</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Berätta om din e-handelsidé, målgrupp och tidslinje" required></textarea>
+                    </div>
+                    <div class="form-field form-field--full">
+                        <label class="checkbox">
+                            <input type="checkbox" name="newsletter">
+                            <span>Jag vill få insikter och guider från Lyxify</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="cta cta--primary">Skicka förfrågan</button>
+                    <p class="form__disclaimer">Vi behandlar din information konfidentiellt och återkopplar inom två arbetsdagar.</p>
+                </form>
+            </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__layout">
+            <div class="site-footer__brand">
+                <span class="logo__mark">Lyxify</span>
+                <p>Premium Shopify-partner för entreprenörer och varumärken som vill växa.</p>
+            </div>
+            <div class="site-footer__links">
+                <div>
+                    <h3>Tjänster</h3>
+                    <ul>
+                        <li><a href="#services">Shopify-bygge</a></li>
+                        <li><a href="#services">SEO & innehåll</a></li>
+                        <li><a href="#services">Kampanjer</a></li>
+                        <li><a href="#services">Influencer marketing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Resurser</h3>
+                    <ul>
+                        <li><a href="#resources">Guider</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                        <li><a href="#top">Till toppen</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="site-footer__badge">
+                <span class="badge">Shopify Partner • Certifierad sedan 2018</span>
+                <p>© <span id="year"></span> Lyxify.se. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js" defer></script>
 </body>
 </html>
