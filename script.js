@@ -124,17 +124,20 @@ function handleEscape(event) {
 function initMobileNav() {
     if (!navToggle || !siteNav) return;
 
+    const desktopMedia = window.matchMedia('(min-width: 961px)');
+
     navToggle.addEventListener('click', toggleNav);
 
     siteNav.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
-            closeNav();
+            if (!desktopMedia.matches) {
+                closeNav();
+            }
         });
     });
 
     document.addEventListener('keydown', handleEscape);
 
-    const desktopMedia = window.matchMedia('(min-width: 961px)');
     const handleMediaChange = (event) => {
         if (event.matches) {
             siteNav.setAttribute('data-state', 'open');
