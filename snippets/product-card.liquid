@@ -1,0 +1,57 @@
+{% comment %}
+  Product card snippet
+  Accepts:
+  - product: {Object} Product object
+{% endcomment %}
+
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card__link">
+    <div class="product-card__image-wrapper">
+      {%- if product.featured_image -%}
+        <img 
+          src="{{ product.featured_image | image_url: width: 400 }}"
+          alt="{{ product.featured_image.alt | escape }}"
+          class="product-card__image"
+          loading="lazy"
+          width="400"
+          height="{{ 400 | divided_by: product.featured_image.aspect_ratio | ceil }}"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'product-card__image product-card__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="product-card__info">
+      <h3 class="product-card__title">{{ product.title | escape }}</h3>
+      
+      <div class="product-card__price">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-card__price--sale">{{ product.price | money }}</span>
+          <span class="product-card__price--compare">{{ product.compare_at_price | money }}</span>
+        {%- else -%}
+          <span class="product-card__price--regular">{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.available -%}
+        <button 
+          type="button"
+          class="product-card__add-to-cart"
+          data-product-id="{{ product.id }}"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}"
+        >
+          {{ 'products.product.add_to_cart' | t }}
+        </button>
+      {%- else -%}
+        <button 
+          type="button"
+          class="product-card__add-to-cart product-card__add-to-cart--sold-out"
+          disabled
+        >
+          {{ 'products.product.sold_out' | t }}
+        </button>
+      {%- endif -%}
+    </div>
+  </a>
+</div>

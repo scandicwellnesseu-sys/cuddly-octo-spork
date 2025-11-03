@@ -1,0 +1,80 @@
+{% comment %}
+  Main Collection section - product grid
+{% endcomment %}
+
+<section class="collection-main">
+  <div class="collection-main__container">
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      <div class="collection-main__grid">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- else -%}
+          <div class="collection-main__empty">
+            <p>{{ 'collections.general.no_products' | t }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="collection-main__pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+          <ul class="pagination">
+            {%- if paginate.previous -%}
+              <li>
+                <a href="{{ paginate.previous.url }}" class="pagination__link">
+                  {{ 'general.pagination.previous' | t }}
+                </a>
+              </li>
+            {%- endif -%}
+
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <li>
+                  <a href="{{ part.url }}" class="pagination__link">
+                    {{ part.title }}
+                  </a>
+                </li>
+              {%- else -%}
+                {%- if part.title == paginate.current_page -%}
+                  <li>
+                    <span class="pagination__link pagination__link--active" aria-current="page">
+                      {{ part.title }}
+                    </span>
+                  </li>
+                {%- else -%}
+                  <li>
+                    <span class="pagination__link">{{ part.title }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if paginate.next -%}
+              <li>
+                <a href="{{ paginate.next.url }}" class="pagination__link">
+                  {{ 'general.pagination.next' | t }}
+                </a>
+              </li>
+            {%- endif -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Products",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "label": "Products per page",
+      "default": 12
+    }
+  ]
+}
+{% endschema %}
