@@ -12,16 +12,16 @@ En responsiv demo av appen och marknadswebben beskriven i startspecifikationen. 
 
 ## Struktur
 
-- `index.html` – landningssidan med hero, funktioner, prisöversikt, Profit Lab, Quantum Revenue Forge, Dominance Benchmark, Apex Intelligence Mesh och nya Design Studio blueprint-labbet.
-- `product.html` – produktfördjupning med flöden, arkitektur, Edge Radar, Helix Execution Forge, Apex Execution Mesh, Dominansmatrisen och Atlas Vision Grid för designops.
+- `index.html` – landningssidan med hero, funktioner, prisöversikt, Profit Lab, Quantum Revenue Forge, Dominance Benchmark, Apex Intelligence Mesh, Supremacy Control Nexus och nya Design Studio blueprint-labbet.
+- `product.html` – produktfördjupning med flöden, arkitektur, Edge Radar, Helix Execution Forge, Apex Execution Mesh, Supremacy Control Studio, Dominansmatrisen och Atlas Vision Grid för designops.
 - `pricing.html` – prisplaner med växling mellan månad och år samt ROI-kalkylator.
 - `blog/` – blogglista med sök- och taggfilter.
 - `legal/` – integritetspolicy och användarvillkor.
 - `app/` – interaktiv appvy med demo-auth, objektlistor och delningslänkar.
 - `design.html` – designsystem och interaktiv designpreview där teman, personas och layouter kan generera blueprint-text.
 - `styles.css` – gemensamt designsystem för hela upplevelsen inklusive appen.
-- `script.js` – nav-hantering, priskalkyl, bloggfilter samt logik för Profit/Neuro/Intel-labb, Design Studio, Design Preview, Atlas Vision Grid, Apex Suite och den nya Dominance/Benchmark-motorn.
-- `app/app.js` – logik för login, objekt, delningar, lösenordsskydd, Adaptive Momentum Studio, Quantum Impact Reactor, Vision Blueprint Lab, Dominansconsole och Apex Intelligence Console i dashboarden.
+- `script.js` – nav-hantering, priskalkyl, bloggfilter samt logik för Profit/Neuro/Intel-labb, Design Studio, Design Preview, Atlas Vision Grid, Apex Suite, Supremacy Control Nexus och den nya Dominance/Benchmark-motorn.
+- `app/app.js` – logik för login, objekt, delningar, lösenordsskydd, Adaptive Momentum Studio, Quantum Impact Reactor, Vision Blueprint Lab, Dominansconsole, Apex Intelligence Console och Supremacy Control Console i dashboarden.
 
 ## Demo-appens funktioner
 
@@ -35,6 +35,7 @@ En responsiv demo av appen och marknadswebben beskriven i startspecifikationen. 
 - Skapa presentationsredo innehåll via Vision Blueprint Lab som genererar designmanifest och laddar blueprint direkt i editorn.
 - Använd Dominansconsolen för att välja konkurrent, scenario och boosters, kopiera dominansbriefs eller ladda planen direkt i editorn.
 - Bygg hypermoderna planer via Apex Intelligence Console och skicka blueprinten rakt in i editorn på ett klick.
+- Kör Supremacy Control Console för att kombinera rival, arena och strike-mode, kopiera planen eller ladda blueprinten direkt i editorn.
 
 ## Anpassning
 

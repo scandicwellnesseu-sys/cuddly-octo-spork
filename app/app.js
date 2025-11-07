@@ -60,6 +60,17 @@
     const apexWindowNode = apexConsole?.querySelector('[data-apex-window]');
     const apexStatus = apexConsole?.querySelector('[data-apex-status]');
 
+    const supremacyConsole = root.querySelector('[data-supremacy-console]');
+    const supremacyApply = supremacyConsole?.querySelector('[data-supremacy-apply]');
+    const supremacyTitleNode = supremacyConsole?.querySelector('[data-supremacy-title]');
+    const supremacySummaryNode = supremacyConsole?.querySelector('[data-supremacy-summary]');
+    const supremacyScoreNode = supremacyConsole?.querySelector('[data-supremacy-score]');
+    const supremacyDeltaNode = supremacyConsole?.querySelector('[data-supremacy-delta]');
+    const supremacyFocusNode = supremacyConsole?.querySelector('[data-supremacy-focus]');
+    const supremacyWindowNode = supremacyConsole?.querySelector('[data-supremacy-window]');
+    const supremacyEffectNode = supremacyConsole?.querySelector('[data-supremacy-effect]');
+    const supremacyStatus = supremacyConsole?.querySelector('[data-supremacy-status]');
+
     const orchestrator = root.querySelector('[data-orchestrator]');
     const orchestratorScenario = orchestrator?.querySelector('[data-orchestrator-scenario]');
     const orchestratorRegion = orchestrator?.querySelector('[data-orchestrator-region]');
@@ -187,6 +198,7 @@
     };
     let consoleStatusTimeout = null;
     let apexStatusTimeout = null;
+    let supremacyStatusTimeout = null;
     let visionStatusTimeout = null;
     let dominanceStatusTimeout = null;
 
@@ -1531,6 +1543,7 @@
 
     initGrowthConsole();
     initApexConsole();
+    initSupremacyConsole();
 
     labCopyBtn?.addEventListener('click', async () => {
         const headline = labHeadline?.textContent?.trim();
@@ -2103,6 +2116,77 @@
                 password: ''
             });
             showApexStatus('Apex-plan laddad i editorn.');
+        });
+    }
+
+    function showSupremacyStatus(message) {
+        if (!supremacyStatus) return;
+        supremacyStatus.textContent = message;
+        if (supremacyStatusTimeout) {
+            clearTimeout(supremacyStatusTimeout);
+        }
+        supremacyStatusTimeout = setTimeout(() => {
+            supremacyStatus.textContent = '';
+        }, 3200);
+    }
+
+    function initSupremacyConsole() {
+        if (!supremacyConsole) return;
+
+        supremacyApply?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const raw = supremacyApply.getAttribute('data-supremacy-blueprint');
+            if (!raw) {
+                showSupremacyStatus('Aktivera boosters för att skapa blueprint.');
+                return;
+            }
+
+            const steps = raw
+                .split('\n')
+                .map((line) => line.trim())
+                .filter(Boolean);
+
+            if (!steps.length) {
+                showSupremacyStatus('Lägg till boosters och uppdatera planen.');
+                return;
+            }
+
+            const title = supremacyTitleNode?.textContent?.trim() || 'Supremacy blueprint';
+            const summary = supremacySummaryNode?.textContent?.trim() || '';
+            const score = supremacyScoreNode?.textContent?.trim() || '';
+            const delta = supremacyDeltaNode?.textContent?.trim() || '';
+            const focus = supremacyFocusNode?.textContent?.trim() || '';
+            const windowValue = supremacyWindowNode?.textContent?.trim() || '';
+            const effect = supremacyEffectNode?.textContent?.trim() || '';
+
+            const lines = [
+                `Supremacy-index: ${score}`,
+                `Δ vs rival: ${delta}`,
+                `Edge: ${focus}`,
+                `Fönster: ${windowValue}`
+            ];
+
+            if (summary) {
+                lines.push('', summary);
+            }
+
+            lines.push('', 'Signaturdrag:');
+            steps.forEach((step, index) => {
+                lines.push(`${index + 1}. ${step}`);
+            });
+
+            if (effect) {
+                lines.push('', `Effekt: ${effect}`);
+            }
+
+            openEditor({
+                id: null,
+                title,
+                content: lines.join('\n'),
+                visibility: 'private',
+                password: ''
+            });
+            showSupremacyStatus('Supremacy-plan laddad i editorn.');
         });
     }
 

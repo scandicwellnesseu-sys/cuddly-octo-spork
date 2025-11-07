@@ -558,6 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupBenchmarkLab();
     setupAtlasLab();
     setupApexLabs();
+    setupSupremacyLab();
 });
 
 function setupPricingToggle() {
@@ -3220,6 +3221,318 @@ function setupApexLabs() {
         });
 
         render();
+    });
+}
+
+const SUPREMACY_CONFIG = {
+    arenas: {
+        acquisition: {
+            label: 'Förvärv',
+            gapKey: 'acquisition',
+            focus: 'Pipeline ignition',
+            summary: 'Bygg automatiserade attackvågor som fångar varje lead inom minuter.',
+            base: 360,
+            window: 4,
+            actions: [
+                'Synka Profit Command Center med live lead flow.',
+                'Auto-personalisera CTA:er med Narrative Lab payloads.',
+                'Aktivera blitz-onboarding via Quantum Reactor.'
+            ],
+            effect: 'Ger en dominansloop i toppen av tratten.'
+        },
+        expansion: {
+            label: 'Expansion',
+            gapKey: 'expansion',
+            focus: 'Expansion lock',
+            summary: 'Skapa uppgraderingsbanor som driver ARR i varje segment.',
+            base: 345,
+            window: 5,
+            actions: [
+                'Kartlägg expansion triggers i Apex Mesh.',
+                'Lås upp partnerboosters för tvärfunktionella upsells.',
+                'Signalera ROI i varje delning genom Dominanslabbet.'
+            ],
+            effect: 'Håller konkurrenter ute från expansionsfönster.'
+        },
+        retention: {
+            label: 'Retention',
+            gapKey: 'retention',
+            focus: 'Lojalitets-sköld',
+            summary: 'Automatisera success loops och prediktiva varningar.',
+            base: 330,
+            window: 6,
+            actions: [
+                'Aktivera success autopilot i Growth Ops Console.',
+                'Bygg hälsoinsikter i Vision Lab dashboards.',
+                'Planera community rituals med Profit Lab.'
+            ],
+            effect: 'Stänger churn och förlänger kundlivscykeln.'
+        }
+    },
+    strikes: {
+        override: {
+            label: 'Override Blitz',
+            base: 130,
+            focus: 'Shock acceleration',
+            window: 0,
+            summary: 'Chockstarta kampanjer med 48h intensitet och AI-copy.',
+            actions: [
+                'Trigga 48h override-sprint mot heta konton.',
+                'Lägg AI-copy payloads i varje CTA och outreach-sekvens.'
+            ],
+            effect: 'Skapar momentumspik inom timmar.',
+            title: ({ competitorLabel, arenaLabel }) => `Överkör ${competitorLabel} i ${arenaLabel.toLowerCase()}`
+        },
+        fortress: {
+            label: 'Fortress Orbit',
+            base: 140,
+            focus: 'Defence orbit',
+            window: 2,
+            summary: 'Bygg resilienta playbooks som låser in kunder över längre fönster.',
+            actions: [
+                'Synka retentionsritualer i hela teamet.',
+                'Rulla ut skyddsvallar i Vision Studio och Success Console.'
+            ],
+            effect: 'Ger långsiktigt fäste och högre nettoretention.',
+            title: ({ competitorLabel, arenaLabel }) => `Lås ${arenaLabel.toLowerCase()} innan ${competitorLabel} reagerar`
+        },
+        singularity: {
+            label: 'Singularity Flow',
+            base: 155,
+            focus: 'Self-optimising stream',
+            window: 3,
+            summary: 'Autonomi som självjusterar beslut i realtid.',
+            actions: [
+                'Aktivera AI-signaler som omkalibrerar varje timme.',
+                'Länka PostHog och Reactor för självoptimering.'
+            ],
+            effect: 'Accelererar marginalerna automatiskt.',
+            title: ({ competitorLabel, arenaLabel }) => `Skapa en singularitetsloop i ${arenaLabel.toLowerCase()} vs ${competitorLabel}`
+        }
+    },
+    boosters: {
+        signals: {
+            label: 'Signal Storm',
+            lift: 24,
+            focus: 'Signalsynk',
+            action: 'Mata Edge Radar-data direkt in i Supremacy-planen.',
+            effect: 'Ger live-insikter att slå konkurrenter med.'
+        },
+        alliances: {
+            label: 'Alliance Overdrive',
+            lift: 22,
+            focus: 'Partnerkraft',
+            action: 'Mobilisera partner mesh för koordinerade kampanjer.',
+            effect: 'Öppnar nya kanaler med samlad distribution.'
+        },
+        automation: {
+            label: 'Revenue Automation Grid',
+            lift: 20,
+            focus: 'Automation',
+            action: 'Bygg revenue-automation som låser konvertering i varje fas.',
+            effect: 'Tar bort manuella flaskhalsar och ökar marginalerna.'
+        },
+        success: {
+            label: 'Success Pulse',
+            lift: 18,
+            focus: 'Success loops',
+            action: 'Rulla ut proaktiva successritualer för VIP-konton.',
+            effect: 'Driver lojalitet och expansion parallellt.'
+        }
+    }
+};
+
+function setupSupremacyLab() {
+    const labs = document.querySelectorAll('[data-supremacy-lab]');
+    if (!labs.length) return;
+
+    labs.forEach((lab) => {
+        const competitorSelect = lab.querySelector('[data-supremacy-competitor]');
+        const arenaSelect = lab.querySelector('[data-supremacy-arena]');
+        const strikeButtons = lab.querySelectorAll('[data-supremacy-strike]');
+        const boosterInputs = lab.querySelectorAll('[data-supremacy-booster]');
+        const ambitionRange = lab.querySelector('[data-supremacy-ambition]');
+        const levelNode = lab.querySelector('[data-supremacy-level]');
+        const tagNode = lab.querySelector('[data-supremacy-tag]');
+        const titleNode = lab.querySelector('[data-supremacy-title]');
+        const summaryNode = lab.querySelector('[data-supremacy-summary]');
+        const scoreNode = lab.querySelector('[data-supremacy-score]');
+        const deltaNode = lab.querySelector('[data-supremacy-delta]');
+        const windowNode = lab.querySelector('[data-supremacy-window]');
+        const focusNode = lab.querySelector('[data-supremacy-focus]');
+        const actionsList = lab.querySelector('[data-supremacy-actions]');
+        const effectNode = lab.querySelector('[data-supremacy-effect]');
+        const copyButton = lab.querySelector('[data-supremacy-copy]');
+        const statusNode = lab.querySelector('[data-supremacy-status]');
+        const applyButton = lab.querySelector('[data-supremacy-apply]');
+
+        let statusTimeout = null;
+        let activeStrike =
+            lab.querySelector('[data-supremacy-strike].is-active')?.getAttribute('data-supremacy-strike') || 'override';
+
+        const showStatus = (message) => {
+            if (!statusNode) return;
+            statusNode.textContent = message;
+            if (statusTimeout) {
+                clearTimeout(statusTimeout);
+            }
+            statusTimeout = window.setTimeout(() => {
+                statusNode.textContent = '';
+            }, 2800);
+        };
+
+        const computeCompetitorScore = (competitorKey, arenaKey) => {
+            const competitor = DOMINANCE_DATA?.competitors?.[competitorKey];
+            const stage = competitor?.benchmarks?.[arenaKey];
+            const scores = stage?.score ? Object.values(stage.score) : [];
+            if (!scores.length) return 260;
+            const average =
+                scores.reduce((total, value) => total + (typeof value === 'number' ? value : Number(value) || 0), 0) /
+                scores.length;
+            return Math.round(average * 4);
+        };
+
+        const update = () => {
+            const competitorKey = competitorSelect?.value || 'atlas';
+            const arenaKey = arenaSelect?.value || 'acquisition';
+            const ambition = Number(ambitionRange?.value || 3);
+            if (levelNode) levelNode.textContent = String(ambition);
+
+            const arena = SUPREMACY_CONFIG.arenas[arenaKey] || SUPREMACY_CONFIG.arenas.acquisition;
+            const strike = SUPREMACY_CONFIG.strikes[activeStrike] || SUPREMACY_CONFIG.strikes.override;
+
+            const activeBoosters = Array.from(boosterInputs)
+                .filter((input) => input instanceof HTMLInputElement && input.checked)
+                .map((input) => input.getAttribute('data-supremacy-booster'))
+                .filter(Boolean);
+
+            const boosterLift = activeBoosters.reduce(
+                (total, key) => total + (SUPREMACY_CONFIG.boosters[key]?.lift || 0),
+                0
+            );
+
+            const competitorLabel =
+                DOMINANCE_DATA?.competitors?.[competitorKey]?.label || 'konkurrenten';
+            const gap = DOMINANCE_DATA?.competitors?.[competitorKey]?.gaps?.[arena.gapKey] || 'deras svaga punkt';
+            const boosterLabels = activeBoosters
+                .map((key) => SUPREMACY_CONFIG.boosters[key]?.label)
+                .filter(Boolean);
+
+            const score = Math.max(240, Math.round(arena.base + strike.base + ambition * 18 + boosterLift));
+            const rivalScore = computeCompetitorScore(competitorKey, arena.gapKey);
+            const deltaValue = score - rivalScore;
+            const deltaText = deltaValue >= 0 ? `+${deltaValue}` : String(deltaValue);
+            const windowValue = Math.max(2, arena.window + strike.window + ambition);
+            const windowText = `${windowValue} veckor`;
+
+            const focusParts = [arena.focus, strike.focus]
+                .concat(activeBoosters.map((key) => SUPREMACY_CONFIG.boosters[key]?.focus))
+                .filter(Boolean);
+            const focusText = focusParts.join(' · ') || arena.focus;
+
+            const summaryParts = [
+                arena.summary,
+                strike.summary,
+                boosterLabels.length
+                    ? `Boosters aktiverade: ${boosterLabels.join(', ')}.`
+                    : 'Lägg till boosters för maximal dominans.',
+                `${competitorLabel} fastnar i ${gap}.`
+            ];
+            const summaryText = summaryParts.filter(Boolean).join(' ');
+
+            const actions = [
+                ...arena.actions,
+                ...strike.actions,
+                ...activeBoosters
+                    .map((key) => SUPREMACY_CONFIG.boosters[key]?.action)
+                    .filter(Boolean),
+                `Neutralisera ${competitorLabel}s ${gap} med Supremacy-planen.`
+            ];
+
+            const uniqueActions = [...new Set(actions.filter(Boolean))];
+
+            if (actionsList) {
+                actionsList.innerHTML = '';
+                (uniqueActions.length ? uniqueActions : ['Aktivera boosters för att generera drag.']).forEach((action) => {
+                    const li = document.createElement('li');
+                    li.textContent = action;
+                    actionsList.appendChild(li);
+                });
+            }
+
+            const boosterEffects = activeBoosters
+                .map((key) => SUPREMACY_CONFIG.boosters[key]?.effect)
+                .filter(Boolean);
+            const effectParts = [strike.effect, arena.effect, ...boosterEffects, `Prognosfönster: ${windowText}.`].filter(Boolean);
+            const effectText = effectParts.join(' ');
+
+            const tagText = `${arena.label} · ${strike.label}`;
+            const titleText =
+                typeof strike.title === 'function'
+                    ? strike.title({ competitorLabel, arenaLabel: arena.label })
+                    : strike.label;
+
+            if (tagNode) tagNode.textContent = tagText;
+            if (titleNode) titleNode.textContent = titleText;
+            if (summaryNode) summaryNode.textContent = summaryText;
+            if (scoreNode) scoreNode.textContent = String(score);
+            if (deltaNode) deltaNode.textContent = deltaText;
+            if (windowNode) windowNode.textContent = windowText;
+            if (focusNode) focusNode.textContent = focusText;
+            if (effectNode) effectNode.textContent = effectText;
+
+            const payloadLines = [
+                `${tagText}`,
+                `Supremacy-index: ${score}`,
+                `Δ mot ${competitorLabel}: ${deltaText}`,
+                `Fönster: ${windowText}`,
+                `Edge: ${focusText}`,
+                '',
+                'Signaturdrag:',
+                ...uniqueActions.map((action) => `- ${action}`),
+                '',
+                `Effekt: ${effectText}`
+            ];
+
+            const payload = payloadLines.join('\n');
+            if (copyButton) {
+                copyButton.setAttribute('data-supremacy-payload', payload);
+            }
+            if (applyButton) {
+                applyButton.setAttribute('data-supremacy-blueprint', uniqueActions.join('\n'));
+            }
+        };
+
+        competitorSelect?.addEventListener('change', update);
+        arenaSelect?.addEventListener('change', update);
+        ambitionRange?.addEventListener('input', update);
+
+        strikeButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const key = button.getAttribute('data-supremacy-strike');
+                if (!key) return;
+                activeStrike = key;
+                strikeButtons.forEach((btn) => btn.classList.toggle('is-active', btn === button));
+                update();
+            });
+        });
+
+        boosterInputs.forEach((input) => {
+            input.addEventListener('change', update);
+        });
+
+        copyButton?.addEventListener('click', async () => {
+            const payload = copyButton.getAttribute('data-supremacy-payload');
+            if (!payload) return;
+            try {
+                await navigator.clipboard.writeText(payload);
+                showStatus('Supremacy-plan kopierad ✅');
+            } catch (error) {
+                showStatus('Kunde inte kopiera automatiskt');
+            }
+        });
+
+        update();
     });
 }
 

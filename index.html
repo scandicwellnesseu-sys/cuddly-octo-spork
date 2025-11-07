@@ -30,6 +30,7 @@
                     <li><a href="#lab">Profit Lab</a></li>
                     <li><a href="#dominance">Dominans</a></li>
                     <li><a href="#apex">Apex</a></li>
+                    <li><a href="#supremacy">Supremacy</a></li>
                     <li><a href="#design-studio">Design Studio</a></li>
                     <li><a class="button button--small" href="/app/">Logga in</a></li>
                 </ul>
@@ -376,6 +377,104 @@
                         <button class="button button--ghost" type="button" data-apex-copy>Kopiera apex-plan</button>
                         <span class="apex-output__status" data-apex-status role="status" aria-live="polite"></span>
                     </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--supremacy" id="supremacy" aria-labelledby="supremacy-title" data-supremacy-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Supremacy Stack</p>
+                <h2 class="section__title" id="supremacy-title">Supremacy Control Nexus – dominera varje marknadsarena</h2>
+                <p class="section__lede">Välj rival, arena och strike-mode för att orkestrera en hypermodern motattack som låser upp ett
+                    Supremacy-index konkurrenterna inte kan nå.</p>
+            </header>
+            <div class="supremacy-grid">
+                <form class="supremacy-controls" aria-label="Supremacy kontroller">
+                    <div class="supremacy-group">
+                        <label for="supremacy-competitor">Rival</label>
+                        <select id="supremacy-competitor" data-supremacy-competitor>
+                            <option value="atlas">Atlas Cloud</option>
+                            <option value="nova">Nova Stack</option>
+                            <option value="zenith">Zenith Labs</option>
+                        </select>
+                    </div>
+                    <div class="supremacy-group">
+                        <label for="supremacy-arena">Spelplan</label>
+                        <select id="supremacy-arena" data-supremacy-arena>
+                            <option value="acquisition">Förvärv</option>
+                            <option value="expansion">Expansion</option>
+                            <option value="retention">Retention</option>
+                        </select>
+                    </div>
+                    <fieldset class="supremacy-group">
+                        <legend>Strike-mode</legend>
+                        <div class="pill-group" role="group" aria-label="Strike-mode">
+                            <button class="pill is-active" type="button" data-supremacy-strike="override">Override Blitz</button>
+                            <button class="pill" type="button" data-supremacy-strike="fortress">Fortress Orbit</button>
+                            <button class="pill" type="button" data-supremacy-strike="singularity">Singularity Flow</button>
+                        </div>
+                    </fieldset>
+                    <div class="supremacy-group">
+                        <label for="supremacy-ambition">Ambitionsnivå</label>
+                        <input id="supremacy-ambition" type="range" min="1" max="5" step="1" value="3" data-supremacy-ambition>
+                        <p class="form-hint">Nuvarande nivå: <span data-supremacy-level>3</span></p>
+                    </div>
+                    <fieldset class="supremacy-group">
+                        <legend>Boosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="signals" checked>
+                            <span>Signal Storm</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="alliances" checked>
+                            <span>Alliance Overdrive</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="automation">
+                            <span>Revenue Automation Grid</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="success">
+                            <span>Success Pulse</span>
+                        </label>
+                    </fieldset>
+                    <div class="supremacy-group">
+                        <button class="button button--ghost" type="button" data-supremacy-copy>Kopiera supremacy-plan</button>
+                        <p class="form-hint" data-supremacy-status role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+                <article class="supremacy-output" aria-live="polite">
+                    <header class="supremacy-output__header">
+                        <p class="supremacy-output__tag" data-supremacy-tag>Förvärv · Override Blitz</p>
+                        <h3 class="supremacy-output__title" data-supremacy-title>Lås upp ett nytt övertag i förvärv</h3>
+                    </header>
+                    <p class="supremacy-output__summary" data-supremacy-summary>Välj boosters för att skapa en supremacy-plan som
+                        vinner varje race.</p>
+                    <div class="supremacy-score">
+                        <div>
+                            <p class="supremacy-score__label">Supremacy-index</p>
+                            <p class="supremacy-score__value" data-supremacy-score>0</p>
+                        </div>
+                        <div>
+                            <p class="supremacy-score__label">Δ mot rival</p>
+                            <p class="supremacy-score__value" data-supremacy-delta>+0</p>
+                        </div>
+                        <div>
+                            <p class="supremacy-score__label">Fönster</p>
+                            <p class="supremacy-score__value" data-supremacy-window>—</p>
+                        </div>
+                    </div>
+                    <div class="supremacy-focus">
+                        <h4>Edge</h4>
+                        <p data-supremacy-focus>Välj boosters för att avslöja ditt edge.</p>
+                    </div>
+                    <div class="supremacy-actions">
+                        <h4>Signaturdrag</h4>
+                        <ul data-supremacy-actions>
+                            <li>Aktivera boosters för att generera drag.</li>
+                        </ul>
+                    </div>
+                    <p class="supremacy-effect" data-supremacy-effect>Effekten visas när du väljer arena och boosters.</p>
                 </article>
             </div>
         </section>
