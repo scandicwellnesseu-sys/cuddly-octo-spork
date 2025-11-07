@@ -621,6 +621,116 @@
             </div>
         </section>
 
+        <section class="section section--capital section--capital-product" aria-labelledby="capital-pro-title" data-capital-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Capital Ops</p>
+                <h2 class="section__title" id="capital-pro-title">Capital Readiness Studio – bygg en finansieringsstory som stänger rundan</h2>
+                <p class="section__lede">Finjustera runda, runway, signaler och due diligence-paket. Studion genererar värderingsintervall,
+                    investerarfokus och en färdig dealplan som kan exporteras till deck eller delas med teamet.</p>
+            </header>
+            <div class="capital-grid capital-grid--product">
+                <form class="capital-controls" aria-label="Capital Readiness kontroller">
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-pro-stage">Runda</label>
+                        <select id="capital-pro-stage" data-capital-stage>
+                            <option value="preseed">Pre-Seed</option>
+                            <option value="seed">Seed</option>
+                            <option value="seriesa" selected>Serie A</option>
+                            <option value="growth">Tillväxt</option>
+                        </select>
+                    </div>
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-pro-runway">Runway (månader)</label>
+                        <input id="capital-pro-runway" type="range" min="3" max="24" step="1" value="15" data-capital-runway>
+                        <p class="form-hint">Nuvarande runway: <span data-capital-runway-value>15</span> mån</p>
+                    </div>
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-pro-growth">Tillväxttakt (månlig %)</label>
+                        <input id="capital-pro-growth" type="range" min="0" max="30" step="2" value="18" data-capital-growth>
+                        <p class="form-hint">Månatlig ARR-tillväxt: <span data-capital-growth-value>18</span>%</p>
+                    </div>
+                    <fieldset class="capital-group">
+                        <legend class="capital-label">Due diligence boosters</legend>
+                        <label class="capital-option">
+                            <input type="checkbox" value="dataroom" data-capital-metric checked>
+                            <span>Investor datarum (Notion + live dashboards)</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="financials" data-capital-metric checked>
+                            <span>GAAP-redovisning med revisionsbrev</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="security" data-capital-metric checked>
+                            <span>Security &amp; compliance pack (SOC2-in-progress)</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="advisory" data-capital-metric>
+                            <span>Advisor bench med operator-referenser</span>
+                        </label>
+                    </fieldset>
+                    <fieldset class="capital-group">
+                        <legend class="capital-label">Signalboosters</legend>
+                        <label class="capital-option">
+                            <input type="checkbox" value="netdollar" data-capital-signal checked>
+                            <span>Net Dollar Retention &gt; 125%</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="enterprise" data-capital-signal checked>
+                            <span>Enterprise pipeline &gt; 15 Mkr</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="productlove" data-capital-signal checked>
+                            <span>Produktengagemang (WAU/MAU &gt; 60%)</span>
+                        </label>
+                    </fieldset>
+                </form>
+                <article class="capital-output" aria-live="polite">
+                    <header class="capital-output__header">
+                        <p class="capital-output__badge" data-capital-tag>Serie A · Readiness Studio</p>
+                        <h3 class="capital-output__title" data-capital-title>Visa vägen till 3x ARR och internationell expansion</h3>
+                    </header>
+                    <p class="capital-output__summary" data-capital-summary>
+                        Studion räknar fram ett investerarnarrativ baserat på dina finansieringsmål och låser upp checklistor
+                        för finans-teamet.
+                    </p>
+                    <dl class="capital-scorecard">
+                        <div>
+                            <dt>Readiness-score</dt>
+                            <dd data-capital-score>0</dd>
+                        </div>
+                        <div>
+                            <dt>Uplift vs bas</dt>
+                            <dd data-capital-delta>+0</dd>
+                        </div>
+                        <div>
+                            <dt>Värderingsfönster</dt>
+                            <dd data-capital-valuation>—</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Investerarfokus</h4>
+                        <ul class="capital-output__list" data-capital-focus>
+                            <li>Ställ in dina boosters för att generera fokus.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Dealplan</h4>
+                        <ul class="capital-output__list" data-capital-actions>
+                            <li>Komplettera kontrollerna för att se checklistan.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Pitchpayload</h4>
+                        <p class="capital-output__payload" data-capital-plan>Finjustera parametrarna för att låsa upp pitchpayload.</p>
+                    </section>
+                    <div class="capital-output__actions">
+                        <button class="button button--ghost" type="button" data-capital-copy>Kopiera capital-brief</button>
+                        <p class="form-hint" data-capital-status role="status" aria-live="polite"></p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
         <section class="section section--supremacy section--supremacy-product" aria-labelledby="supremacy-pro-title" data-supremacy-lab>
             <header class="section__header">
                 <p class="section__eyebrow">Supremacy Ops</p>

@@ -419,6 +419,245 @@ const DOMINANCE_DATA = window.DOMINANCE_DATA || {
     }
 };
 
+const CAPITAL_STAGE_DATA = window.CAPITAL_STAGE_DATA || {
+    preseed: {
+        label: 'Pre-Seed',
+        baseScore: 48,
+        valuation: '8–18 Mkr',
+        runwayFloor: 6,
+        runwayWeight: 1.5,
+        growthWeight: 1.1,
+        tag: 'Pre-Seed · Momentum Proof',
+        titleTemplate: 'Bevisa pre-seed momentum runt {focus}',
+        summaryTemplate:
+            'Med {runway} mån runway och {growth}% månadslyft visar vi vägen till {valuation} och tydliga milstolpar för nästa runda.',
+        focus: [
+            'Signalera produkt/marknad genom aktiva betakohorter',
+            'Visa hur kapitalet finansierar go-to-market sprintar'
+        ],
+        actions: [
+            'Publicera traction-board med veckovisa experiment och resultat.',
+            'Visa roadmap som kopplar burn till nästa milstolpar.'
+        ]
+    },
+    seed: {
+        label: 'Seed',
+        baseScore: 60,
+        valuation: '25–45 Mkr',
+        runwayFloor: 9,
+        runwayWeight: 1.25,
+        growthWeight: 1,
+        tag: 'Seed · Readiness Vault',
+        titleTemplate: 'Visa hur seed-rundan låser {focus}',
+        summaryTemplate:
+            'Med {runway} mån runway och {growth}% ARR-lyft visar vi hur seed-kapitalet skalar till {valuation} i värdering och Serie A readiness.',
+        focus: [
+            'Bevisa hållbar tillväxt och retention i kärnsegment',
+            'Visa att teamet kan tredubbla ARR med kapitalet'
+        ],
+        actions: [
+            'Publicera kohortanalys och payback-tid i datarummet.',
+            'Visa go-to-market playbooks med ansvariga ägare.'
+        ]
+    },
+    seriesa: {
+        label: 'Serie A',
+        baseScore: 68,
+        valuation: '90–160 Mkr',
+        runwayFloor: 12,
+        runwayWeight: 1.1,
+        growthWeight: 0.9,
+        tag: 'Serie A · Expansion Ready',
+        titleTemplate: 'Skala Serie A-case med {focus}',
+        summaryTemplate:
+            '{stage}-caset visar {runway} mån runway, {growth}% ARR-takt och ett tydligt fönster mot {valuation} i värdering.',
+        focus: [
+            'Accelerera enterprise pipeline med bevisad payback',
+            'Visa unit economics och expansionstakt i datarummet'
+        ],
+        actions: [
+            'Exportera enterprise pipeline med win-rate och deal velocity.',
+            'Visa unit economics dashboard och retentionkurvor.'
+        ]
+    },
+    growth: {
+        label: 'Tillväxt',
+        baseScore: 74,
+        valuation: '250–400 Mkr',
+        runwayFloor: 14,
+        runwayWeight: 1,
+        growthWeight: 0.85,
+        tag: 'Growth · Scale Command',
+        titleTemplate: 'Demonstrera growth readiness genom {focus}',
+        summaryTemplate:
+            '{stage}-caset kombinerar {runway} mån runway, {growth}% månadslyft och bevisad väg till {valuation} i värdering.',
+        focus: [
+            'Skala internationellt med effektiva payback-loopar',
+            'Visa bestående Net Dollar Retention och expansionsapparat'
+        ],
+        actions: [
+            'Synk internationell expansionsplan med forecast per marknad.',
+            'Visa NDR och expansion per kohort i dashboards.'
+        ]
+    }
+};
+
+const CAPITAL_DILIGENCE_POINTS = {
+    dataroom: {
+        label: 'Investor datarum med live KPI:er',
+        score: 6,
+        focus: 'Transparens med realtidsdashboards i datarummet',
+        action: 'Publicera datarumslänk med KPI, milestones och säkerhetsdokument.'
+    },
+    financials: {
+        label: 'Reviderade månadsrapporter',
+        score: 5,
+        focus: 'Finansiell disciplin och tydlig unit economics',
+        action: 'Ladda upp reviderade rapporter och skapa sammanfattning av unit economics.'
+    },
+    security: {
+        label: 'Security & compliance pack',
+        score: 4,
+        focus: 'Enterprise readiness och riskhantering',
+        action: 'Lägg SOC2-progress, pen-test och säkerhetssammanfattning i datarummet.'
+    },
+    advisory: {
+        label: 'Advisor bench med referenser',
+        score: 3,
+        focus: 'Operator-nätverk som backar expansionen',
+        action: 'Visa advisor roster och koppla referenser till pipeline och kunder.'
+    }
+};
+
+const CAPITAL_SIGNAL_DATA = {
+    netdollar: {
+        label: 'Net Dollar Retention-signal',
+        score: 5,
+        focus: 'Stark expansion och retention i kärnsegment',
+        action: 'Visualisera kohortdata och expansionstillväxt i dashboards.'
+    },
+    enterprise: {
+        label: 'Enterprise pipeline-signal',
+        score: 4,
+        focus: 'Bevisad enterprise-efterfrågan och deal velocity',
+        action: 'Visa toppdealar, win-rate och beslutsstatus i pipeline-export.'
+    },
+    productlove: {
+        label: 'Produktengagemang-signal',
+        score: 4,
+        focus: 'Produktstickiness och engagemang',
+        action: 'Exportera användningsheatmaps och testimonials som visar engagemang.'
+    }
+};
+
+function generateCapitalPlan(state = {}) {
+    const stageKey = state.stage && CAPITAL_STAGE_DATA[state.stage] ? state.stage : 'seed';
+    const stageInfo = CAPITAL_STAGE_DATA[stageKey];
+    const runway = Math.min(24, Math.max(3, Number(state.runway) || stageInfo.runwayFloor));
+    const growth = Math.max(0, Number(state.growth) || 0);
+    const metricKeys = Array.isArray(state.metrics) ? state.metrics : [];
+    const signalKeys = Array.isArray(state.signals) ? state.signals : [];
+
+    const diligence = metricKeys
+        .map((key) => CAPITAL_DILIGENCE_POINTS[key])
+        .filter(Boolean);
+    const signals = signalKeys
+        .map((key) => CAPITAL_SIGNAL_DATA[key])
+        .filter(Boolean);
+
+    const runwayBonus = Math.max(0, runway - stageInfo.runwayFloor) * stageInfo.runwayWeight;
+    const growthBonus = Math.max(0, growth) * stageInfo.growthWeight;
+    const diligenceBonus = diligence.reduce((total, item) => total + (item.score || 0), 0);
+    const signalBonus = signals.reduce((total, item) => total + (item.score || 0), 0);
+
+    const rawScore = stageInfo.baseScore + runwayBonus + growthBonus + diligenceBonus + signalBonus;
+    const score = Math.min(100, Math.round(rawScore));
+    const delta = Math.max(0, Math.round(score - stageInfo.baseScore));
+
+    const focusPoints = [
+        ...stageInfo.focus,
+        ...diligence.map((item) => item.focus),
+        ...signals.map((item) => item.focus)
+    ]
+        .filter(Boolean)
+        .reduce((acc, value) => {
+            if (!acc.includes(value)) acc.push(value);
+            return acc;
+        }, []);
+
+    const actions = [
+        ...stageInfo.actions,
+        ...diligence.map((item) => item.action),
+        ...signals.map((item) => item.action)
+    ]
+        .filter(Boolean)
+        .reduce((acc, value) => {
+            if (!acc.includes(value)) acc.push(value);
+            return acc;
+        }, []);
+
+    const applyTemplate = (template, replacements) =>
+        typeof template === 'string'
+            ? template.replace(/\{(\w+)\}/g, (match, key) => (key in replacements ? replacements[key] : match))
+            : '';
+
+    const replacements = {
+        stage: stageInfo.label,
+        runway,
+        growth,
+        valuation: stageInfo.valuation,
+        focus: focusPoints[0] || stageInfo.focus[0] || ''
+    };
+
+    const title = applyTemplate(stageInfo.titleTemplate, replacements) || `${stageInfo.label} readiness blueprint`;
+    const summary = applyTemplate(stageInfo.summaryTemplate, replacements);
+    const tag = stageInfo.tag || `${stageInfo.label} · Capital Readiness`;
+
+    const focusList = focusPoints.length ? focusPoints : stageInfo.focus;
+    const actionList = actions.length ? actions : stageInfo.actions;
+
+    const diligenceLabel = diligence.length
+        ? diligence.map((item) => item.label).join(', ')
+        : 'Komplettera due diligence-paketet';
+    const signalLabel = signals.length
+        ? signals.map((item) => item.label).join(', ')
+        : 'Lägg till signalboosters';
+
+    const payloadSections = [
+        `${stageInfo.label} readiness: ${score}/100 (mål: ${stageInfo.valuation})`,
+        `Runway: ${runway} mån · ARR-tillväxt: ${growth}% per månad`,
+        `Due diligence: ${diligenceLabel}`,
+        `Signaler: ${signalLabel}`,
+        '',
+        'Investerarfokus:',
+        ...focusList.map((item, index) => `${index + 1}. ${item}`),
+        '',
+        'Dealplan:',
+        ...actionList.map((item, index) => `${index + 1}. ${item}`)
+    ];
+
+    const payload = payloadSections.join('\n');
+    const blueprint = actionList.join('\n');
+    const planText = `${stageInfo.label} readiness ${score}/100 · ${stageInfo.valuation}. Runway ${runway} mån, ARR +${growth}%/m.`;
+
+    return {
+        stage: stageInfo.label,
+        tag,
+        title,
+        summary,
+        valuation: stageInfo.valuation,
+        score: `${score}`,
+        delta: delta > 0 ? `+${delta}` : `${delta}`,
+        focus: focusList,
+        actions: actionList,
+        payload,
+        blueprint,
+        plan: planText
+    };
+}
+
+window.generateCapitalPlan = window.generateCapitalPlan || generateCapitalPlan;
+
 window.DOMINANCE_DATA = DOMINANCE_DATA;
 
 function formatDominanceValue(value, context) {
@@ -558,6 +797,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupBenchmarkLab();
     setupAtlasLab();
     setupApexLabs();
+    setupCapitalReadiness();
     setupSupremacyLab();
 });
 
@@ -3221,6 +3461,122 @@ function setupApexLabs() {
         });
 
         render();
+    });
+}
+
+function setupCapitalReadiness() {
+    const labs = document.querySelectorAll('[data-capital-lab]');
+    if (!labs.length) return;
+
+    labs.forEach((lab) => {
+        const stageSelect = lab.querySelector('[data-capital-stage]');
+        const runwayInput = lab.querySelector('[data-capital-runway]');
+        const growthInput = lab.querySelector('[data-capital-growth]');
+        const metricInputs = lab.querySelectorAll('[data-capital-metric]');
+        const signalInputs = lab.querySelectorAll('[data-capital-signal]');
+        const runwayValue = lab.querySelector('[data-capital-runway-value]');
+        const growthValue = lab.querySelector('[data-capital-growth-value]');
+        const tagNode = lab.querySelector('[data-capital-tag]');
+        const titleNode = lab.querySelector('[data-capital-title]');
+        const summaryNode = lab.querySelector('[data-capital-summary]');
+        const scoreNode = lab.querySelector('[data-capital-score]');
+        const deltaNode = lab.querySelector('[data-capital-delta]');
+        const valuationNode = lab.querySelector('[data-capital-valuation]');
+        const focusList = lab.querySelector('[data-capital-focus]');
+        const actionsList = lab.querySelector('[data-capital-actions]');
+        const planNode = lab.querySelector('[data-capital-plan]');
+        const copyButton = lab.querySelector('[data-capital-copy]');
+        const statusNode = lab.querySelector('[data-capital-status]');
+        const applyButton = lab.querySelector('[data-capital-apply]');
+
+        let statusTimeout = null;
+
+        const renderList = (listNode, items, placeholder) => {
+            if (!listNode) return;
+            listNode.innerHTML = '';
+            const values = Array.isArray(items) && items.length ? items : [placeholder];
+            values.forEach((value) => {
+                const li = document.createElement('li');
+                li.textContent = value;
+                listNode.appendChild(li);
+            });
+        };
+
+        const getState = () => ({
+            stage: stageSelect?.value || 'seed',
+            runway: Number(runwayInput?.value || 0),
+            growth: Number(growthInput?.value || 0),
+            metrics: Array.from(metricInputs)
+                .filter((input) => input.checked)
+                .map((input) => input.value || input.getAttribute('data-capital-metric'))
+                .filter(Boolean),
+            signals: Array.from(signalInputs)
+                .filter((input) => input.checked)
+                .map((input) => input.value || input.getAttribute('data-capital-signal'))
+                .filter(Boolean)
+        });
+
+        const showStatus = (message) => {
+            if (!statusNode) return;
+            statusNode.textContent = message;
+            if (statusTimeout) window.clearTimeout(statusTimeout);
+            statusTimeout = window.setTimeout(() => {
+                statusNode.textContent = '';
+            }, 2600);
+        };
+
+        const update = () => {
+            const state = getState();
+            if (runwayValue) runwayValue.textContent = String(state.runway);
+            if (growthValue) growthValue.textContent = String(state.growth);
+            if (typeof window.generateCapitalPlan !== 'function') return;
+            const plan = window.generateCapitalPlan(state);
+            if (!plan) return;
+
+            tagNode?.textContent = plan.tag;
+            titleNode?.textContent = plan.title;
+            summaryNode?.textContent = plan.summary;
+            scoreNode?.textContent = plan.score;
+            deltaNode?.textContent = plan.delta;
+            valuationNode?.textContent = plan.valuation;
+            renderList(focusList, plan.focus, 'Aktivera boosters för att se investerarfokus.');
+            renderList(actionsList, plan.actions, 'Komplettera boosters för att låsa upp dealplan.');
+            if (planNode) planNode.textContent = plan.plan;
+            copyButton?.setAttribute('data-capital-payload', plan.payload || '');
+            applyButton?.setAttribute('data-capital-blueprint', plan.blueprint || '');
+        };
+
+        stageSelect?.addEventListener('change', update);
+        runwayInput?.addEventListener('input', () => {
+            if (runwayValue) runwayValue.textContent = String(runwayInput.value);
+            update();
+        });
+        growthInput?.addEventListener('input', () => {
+            if (growthValue) growthValue.textContent = String(growthInput.value);
+            update();
+        });
+        metricInputs.forEach((input) => {
+            input.addEventListener('change', update);
+        });
+        signalInputs.forEach((input) => {
+            input.addEventListener('change', update);
+        });
+
+        copyButton?.addEventListener('click', async () => {
+            const payload = copyButton.getAttribute('data-capital-payload');
+            if (!payload) {
+                showStatus('Aktivera boosters för att skapa payload.');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(payload);
+                showStatus('Investorstory kopierad ✅');
+            } catch (error) {
+                showStatus('Kunde inte kopiera automatiskt');
+            }
+        });
+
+        update();
     });
 }
 

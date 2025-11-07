@@ -60,6 +60,10 @@
     const apexWindowNode = apexConsole?.querySelector('[data-apex-window]');
     const apexStatus = apexConsole?.querySelector('[data-apex-status]');
 
+    const capitalConsole = root.querySelector('[data-capital-console]');
+    const capitalApply = capitalConsole?.querySelector('[data-capital-apply]');
+    const capitalStatus = capitalConsole?.querySelector('[data-capital-status]');
+
     const supremacyConsole = root.querySelector('[data-supremacy-console]');
     const supremacyApply = supremacyConsole?.querySelector('[data-supremacy-apply]');
     const supremacyTitleNode = supremacyConsole?.querySelector('[data-supremacy-title]');
@@ -198,6 +202,7 @@
     };
     let consoleStatusTimeout = null;
     let apexStatusTimeout = null;
+    let capitalStatusTimeout = null;
     let supremacyStatusTimeout = null;
     let visionStatusTimeout = null;
     let dominanceStatusTimeout = null;
@@ -1543,6 +1548,7 @@
 
     initGrowthConsole();
     initApexConsole();
+    initCapitalConsole();
     initSupremacyConsole();
 
     labCopyBtn?.addEventListener('click', async () => {
@@ -2116,6 +2122,106 @@
                 password: ''
             });
             showApexStatus('Apex-plan laddad i editorn.');
+        });
+    }
+
+    function showCapitalStatus(message) {
+        if (!capitalStatus) return;
+        capitalStatus.textContent = message;
+        if (capitalStatusTimeout) {
+            clearTimeout(capitalStatusTimeout);
+        }
+        capitalStatusTimeout = setTimeout(() => {
+            capitalStatus.textContent = '';
+        }, 3200);
+    }
+
+    function initCapitalConsole() {
+        if (!capitalConsole) return;
+
+        capitalApply?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const generator = window.generateCapitalPlan;
+            if (typeof generator !== 'function') {
+                showCapitalStatus('Aktivera kontroller för att skapa blueprint.');
+                return;
+            }
+
+            const stageSelect = capitalConsole.querySelector('[data-capital-stage]');
+            const runwayInput = capitalConsole.querySelector('[data-capital-runway]');
+            const growthInput = capitalConsole.querySelector('[data-capital-growth]');
+            const metricInputs = capitalConsole.querySelectorAll('[data-capital-metric]');
+            const signalInputs = capitalConsole.querySelectorAll('[data-capital-signal]');
+
+            const state = {
+                stage: stageSelect?.value || 'seed',
+                runway: Number(runwayInput?.value || 0),
+                growth: Number(growthInput?.value || 0),
+                metrics: Array.from(metricInputs)
+                    .filter((input) => input.checked)
+                    .map((input) => input.value || input.getAttribute('data-capital-metric'))
+                    .filter(Boolean),
+                signals: Array.from(signalInputs)
+                    .filter((input) => input.checked)
+                    .map((input) => input.value || input.getAttribute('data-capital-signal'))
+                    .filter(Boolean)
+            };
+
+            const plan = generator(state) || null;
+            const blueprint = (capitalApply.getAttribute('data-capital-blueprint') || plan?.blueprint || '').trim();
+
+            if (!blueprint) {
+                showCapitalStatus('Justera boosters för att skapa blueprint.');
+                return;
+            }
+
+            const steps = blueprint
+                .split('\n')
+                .map((line) => line.trim())
+                .filter(Boolean);
+
+            if (!steps.length) {
+                showCapitalStatus('Lägg till boosters för att fylla blueprinten.');
+                return;
+            }
+
+            const title = capitalConsole.querySelector('[data-capital-title]')?.textContent?.trim() ||
+                'Capital readiness blueprint';
+            const summary = plan?.summary || capitalConsole.querySelector('[data-capital-summary]')?.textContent?.trim() || '';
+            const score = plan?.score || capitalConsole.querySelector('[data-capital-score]')?.textContent?.trim() || '';
+            const delta = plan?.delta || capitalConsole.querySelector('[data-capital-delta]')?.textContent?.trim() || '';
+            const valuation = plan?.valuation || capitalConsole.querySelector('[data-capital-valuation]')?.textContent?.trim() || '';
+            const focusValues = (plan?.focus || []).filter(Boolean);
+
+            const lines = [];
+            if (score) lines.push(`Readiness-score: ${score}`);
+            if (delta) lines.push(`Δ vs bas: ${delta}`);
+            if (valuation) lines.push(`Värderingsfönster: ${valuation}`);
+
+            if (focusValues.length) {
+                lines.push('', 'Investerarfokus:');
+                focusValues.forEach((value, index) => {
+                    lines.push(`${index + 1}. ${value}`);
+                });
+            }
+
+            if (summary) {
+                lines.push('', summary);
+            }
+
+            lines.push('', 'Dealplan:');
+            steps.forEach((step, index) => {
+                lines.push(`${index + 1}. ${step}`);
+            });
+
+            openEditor({
+                id: null,
+                title,
+                content: lines.join('\n'),
+                visibility: 'private',
+                password: ''
+            });
+            showCapitalStatus('Capital-plan laddad i editorn.');
         });
     }
 

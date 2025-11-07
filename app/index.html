@@ -500,6 +500,116 @@
                 </div>
             </section>
 
+            <section class="app-capital" aria-labelledby="capital-console-title" data-capital-console data-capital-lab>
+                <header>
+                    <p class="app-dashboard__eyebrow">Capital Command</p>
+                    <h2 id="capital-console-title">Capital Readiness Console – lås upp din nästa finansieringsrunda</h2>
+                    <p>Välj runda, runway, tillväxt och due diligence-boosters. Konsolen räknar ut readiness-score, värderingsfönster och
+                        bygger en dealplan som kan kopieras eller skickas direkt till editorn.</p>
+                </header>
+                <div class="app-capital__grid">
+                    <form class="app-capital__controls" aria-label="Capital Console kontroller">
+                        <div class="app-capital__group">
+                            <label class="app-capital__label" for="capital-app-stage">Runda</label>
+                            <select id="capital-app-stage" data-capital-stage>
+                                <option value="preseed">Pre-Seed</option>
+                                <option value="seed">Seed</option>
+                                <option value="seriesa">Serie A</option>
+                                <option value="growth" selected>Tillväxt</option>
+                            </select>
+                        </div>
+                        <div class="app-capital__group">
+                            <label class="app-capital__label" for="capital-app-runway">Runway (månader)</label>
+                            <input id="capital-app-runway" type="range" min="3" max="24" step="1" value="14" data-capital-runway>
+                            <p class="form-hint">Nuvarande runway: <span data-capital-runway-value>14</span> mån</p>
+                        </div>
+                        <div class="app-capital__group">
+                            <label class="app-capital__label" for="capital-app-growth">Tillväxttakt (månlig %)</label>
+                            <input id="capital-app-growth" type="range" min="0" max="30" step="2" value="20" data-capital-growth>
+                            <p class="form-hint">Månatlig ARR-tillväxt: <span data-capital-growth-value>20</span>%</p>
+                        </div>
+                        <fieldset class="app-capital__group">
+                            <legend class="app-capital__label">Due diligence boosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" value="dataroom" data-capital-metric checked>
+                                <span>Investor datarum + rev dashboards</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" value="financials" data-capital-metric checked>
+                                <span>Reviderade månadsbokslut</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" value="security" data-capital-metric checked>
+                                <span>Security &amp; compliance kit</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" value="advisory" data-capital-metric>
+                                <span>Advisory board med referenser</span>
+                            </label>
+                        </fieldset>
+                        <fieldset class="app-capital__group">
+                            <legend class="app-capital__label">Signalboosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" value="netdollar" data-capital-signal checked>
+                                <span>Net Dollar Retention &gt; 130%</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" value="enterprise" data-capital-signal checked>
+                                <span>Enterprise pipeline &gt; 20 Mkr</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" value="productlove" data-capital-signal checked>
+                                <span>Produktengagemang (WAU/MAU &gt; 65%)</span>
+                            </label>
+                        </fieldset>
+                        <div class="app-capital__actions">
+                            <button class="button button--ghost" type="button" data-capital-copy>Kopiera finansieringsbrief</button>
+                            <button class="button" type="button" data-capital-apply>Skicka till editor</button>
+                            <p class="form-hint" data-capital-status role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                    <article class="app-capital__output" aria-live="polite">
+                        <header>
+                            <p class="app-console__badge" data-capital-tag>Tillväxt · Readiness Console</p>
+                            <h3 class="app-capital__title" data-capital-title>Skala mot 100 Mkr ARR med finansieringsklar story</h3>
+                        </header>
+                        <p class="app-capital__summary" data-capital-summary>
+                            Konsolen sammanfattar din finansieringsposition och visar exakt vilka datapunkter som låser nästa runda.
+                        </p>
+                        <dl class="app-capital__metrics">
+                            <div>
+                                <dt>Readiness-score</dt>
+                                <dd data-capital-score>0</dd>
+                            </div>
+                            <div>
+                                <dt>Uplift vs bas</dt>
+                                <dd data-capital-delta>+0</dd>
+                            </div>
+                            <div>
+                                <dt>Värderingsfönster</dt>
+                                <dd data-capital-valuation>—</dd>
+                            </div>
+                        </dl>
+                        <section>
+                            <h4>Investerarfokus</h4>
+                            <ul class="app-capital__list" data-capital-focus>
+                                <li>Justera kontrollerna för att se fokus.</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Dealplan</h4>
+                            <ul class="app-capital__list" data-capital-actions>
+                                <li>Komplettera boosters för att visa dealplan.</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Pitchpayload</h4>
+                            <p class="app-capital__payload" data-capital-plan>Uppdatera parametrarna för att låsa upp payload.</p>
+                        </section>
+                    </article>
+                </div>
+            </section>
+
             <section class="app-supremacy" aria-labelledby="supremacy-console-title" data-supremacy-console data-supremacy-lab>
                 <header>
                     <p class="app-dashboard__eyebrow">Supremacy Nexus</p>

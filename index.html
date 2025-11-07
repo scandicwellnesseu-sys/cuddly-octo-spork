@@ -30,6 +30,7 @@
                     <li><a href="#lab">Profit Lab</a></li>
                     <li><a href="#dominance">Dominans</a></li>
                     <li><a href="#apex">Apex</a></li>
+                    <li><a href="#capital">Kapital</a></li>
                     <li><a href="#supremacy">Supremacy</a></li>
                     <li><a href="#design-studio">Design Studio</a></li>
                     <li><a class="button button--small" href="/app/">Logga in</a></li>
@@ -376,6 +377,116 @@
                     <div class="apex-output__actions">
                         <button class="button button--ghost" type="button" data-apex-copy>Kopiera apex-plan</button>
                         <span class="apex-output__status" data-apex-status role="status" aria-live="polite"></span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--capital" id="capital" aria-labelledby="capital-title" data-capital-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Kapitalförberedelse</p>
+                <h2 class="section__title" id="capital-title">Capital Readiness Vault – bygg caset investerare vill leda</h2>
+                <p class="section__lede">Simulera din nästa runda med runway, tillväxttakt och due diligence-booster. Verktyget skapar en
+                    färdig investerarstory och checklistor som kan kopieras till deck eller skickas vidare till teamet.</p>
+            </header>
+            <div class="capital-grid">
+                <form class="capital-controls" aria-label="Capital readiness kontroller">
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-stage">Runda</label>
+                        <select id="capital-stage" data-capital-stage>
+                            <option value="preseed">Pre-Seed</option>
+                            <option value="seed" selected>Seed</option>
+                            <option value="seriesa">Serie A</option>
+                            <option value="growth">Tillväxt</option>
+                        </select>
+                    </div>
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-runway">Runway (månader)</label>
+                        <input id="capital-runway" type="range" min="3" max="24" step="1" value="12" data-capital-runway>
+                        <p class="form-hint">Nuvarande runway: <span data-capital-runway-value>12</span> mån</p>
+                    </div>
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-growth">Tillväxttakt (månlig %)</label>
+                        <input id="capital-growth" type="range" min="0" max="30" step="2" value="12" data-capital-growth>
+                        <p class="form-hint">Månatlig ARR-tillväxt: <span data-capital-growth-value>12</span>%</p>
+                    </div>
+                    <fieldset class="capital-group">
+                        <legend class="capital-label">Due diligence boosters</legend>
+                        <label class="capital-option">
+                            <input type="checkbox" value="dataroom" data-capital-metric checked>
+                            <span>Investor datarum med live KPI:er</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="financials" data-capital-metric checked>
+                            <span>Reviderade månadsrapporter</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="security" data-capital-metric>
+                            <span>Security &amp; compliance pack</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="advisory" data-capital-metric>
+                            <span>Advisor bench med referenser</span>
+                        </label>
+                    </fieldset>
+                    <fieldset class="capital-group">
+                        <legend class="capital-label">Signalboosters</legend>
+                        <label class="capital-option">
+                            <input type="checkbox" value="netdollar" data-capital-signal checked>
+                            <span>Net Dollar Retention &gt; 120%</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="enterprise" data-capital-signal>
+                            <span>Enterprise pipeline &gt; 10 Mkr</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="productlove" data-capital-signal checked>
+                            <span>Produktengagemang (WAU/MAU &gt; 55%)</span>
+                        </label>
+                    </fieldset>
+                </form>
+                <article class="capital-output" aria-live="polite">
+                    <header class="capital-output__header">
+                        <p class="capital-output__badge" data-capital-tag>Seed · Readiness Vault</p>
+                        <h3 class="capital-output__title" data-capital-title>Visa hur du dubblar ARR med runway till exit</h3>
+                    </header>
+                    <p class="capital-output__summary" data-capital-summary>
+                        Justera runda, runway och boosters för att se exakt vilka siffror investerarna vill se – och hur du
+                        preppar materialet på rekordtid.
+                    </p>
+                    <dl class="capital-scorecard">
+                        <div>
+                            <dt>Readiness-score</dt>
+                            <dd data-capital-score>0</dd>
+                        </div>
+                        <div>
+                            <dt>Uplift vs bas</dt>
+                            <dd data-capital-delta>+0</dd>
+                        </div>
+                        <div>
+                            <dt>Värderingsfönster</dt>
+                            <dd data-capital-valuation>—</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Investerarfokus</h4>
+                        <ul class="capital-output__list" data-capital-focus>
+                            <li>Välj runda och boosters för att generera fokus.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Dealplan</h4>
+                        <ul class="capital-output__list" data-capital-actions>
+                            <li>Aktivera boosters för att låsa upp checklistan.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Pitchpayload</h4>
+                        <p class="capital-output__payload" data-capital-plan>Uppdatera kontrollerna för att generera payload.</p>
+                    </section>
+                    <div class="capital-output__actions">
+                        <button class="button button--ghost" type="button" data-capital-copy>Kopiera investerarstory</button>
+                        <p class="form-hint" data-capital-status role="status" aria-live="polite"></p>
                     </div>
                 </article>
             </div>
