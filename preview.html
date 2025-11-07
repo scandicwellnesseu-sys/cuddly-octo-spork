@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Upplevelseöversikt – Webb & App</title>
+    <style>
+      :root {
+        color-scheme: dark light;
+        --bg: #0b0b0f;
+        --panel: rgba(19, 20, 31, 0.85);
+        --accent: #7f5af0;
+        --text: #f5f7ff;
+        --muted: rgba(245, 247, 255, 0.65);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: radial-gradient(circle at top, rgba(127, 90, 240, 0.25), transparent 55%),
+          linear-gradient(180deg, rgba(11, 11, 15, 0.95), rgba(11, 11, 15, 0.98));
+        min-height: 100vh;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        padding: 2.5rem 5vw 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.85rem, 3vw, 2.6rem);
+        letter-spacing: -0.02em;
+      }
+
+      p.lead {
+        margin: 0;
+        max-width: 60ch;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .deck {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 0 5vw 1.5rem;
+      }
+
+      .card {
+        flex: 1 1 18rem;
+        padding: 1rem 1.25rem;
+        border-radius: 1rem;
+        background: var(--panel);
+        border: 1px solid rgba(127, 90, 240, 0.25);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        backdrop-filter: blur(18px);
+      }
+
+      .card strong {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(245, 247, 255, 0.65);
+      }
+
+      .card span {
+        font-size: 0.95rem;
+        line-height: 1.55;
+        color: rgba(245, 247, 255, 0.85);
+      }
+
+      .controls {
+        padding: 0 5vw;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .controls button {
+        appearance: none;
+        border: none;
+        padding: 0.85rem 1.6rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.02em;
+        color: var(--text);
+        background: rgba(127, 90, 240, 0.28);
+        border: 1px solid rgba(127, 90, 240, 0.45);
+        cursor: pointer;
+        transition: transform 160ms ease, background 180ms ease;
+      }
+
+      .controls button:is(:hover, :focus-visible) {
+        transform: translateY(-1px);
+        background: rgba(127, 90, 240, 0.45);
+        outline: none;
+      }
+
+      .controls button[aria-pressed="true"] {
+        background: var(--accent);
+        box-shadow: 0 16px 30px rgba(127, 90, 240, 0.35);
+      }
+
+      .frames {
+        flex: 1 1 auto;
+        padding: 1.5rem 5vw 3rem;
+        display: grid;
+      }
+
+      .frame-wrapper {
+        position: relative;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid rgba(127, 90, 240, 0.22);
+        box-shadow: 0 40px 80px rgba(8, 9, 15, 0.55);
+        background: rgba(11, 11, 15, 0.95);
+        min-height: clamp(24rem, 70vh, 48rem);
+      }
+
+      iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      iframe[hidden] {
+        display: none;
+      }
+
+      footer {
+        padding: 1.5rem 5vw 2.25rem;
+        font-size: 0.85rem;
+        color: rgba(245, 247, 255, 0.55);
+      }
+
+      footer a {
+        color: rgba(245, 247, 255, 0.8);
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 2rem 6vw 1.5rem;
+        }
+
+        .deck {
+          padding-left: 6vw;
+          padding-right: 6vw;
+        }
+
+        .controls {
+          padding-left: 6vw;
+          padding-right: 6vw;
+        }
+
+        .frames {
+          padding-left: 6vw;
+          padding-right: 6vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Upplevelseöversikt</h1>
+      <p class="lead">
+        Förhandsgranska marknadswebben och appens dashboard utan att lämna en sida.
+        Använd växlarna nedan för att jämföra upplevelserna och verifiera hur allt
+        renderas i din webbläsare.
+      </p>
+    </header>
+
+    <section class="deck" aria-label="Snabbfakta">
+      <article class="card">
+        <strong>Webbupplevelse</strong>
+        <span>Visar hela marknadsresan inklusive landningssida, produkt, prissättning,
+          blogg och Supremacy/Apex-labben.</span>
+      </article>
+      <article class="card">
+        <strong>Appvy</strong>
+        <span>Riktiga dashboarden med konsoler, blueprint-flöden och senaste
+          hyperverktyg. Innehållet laddas från lokala JSON-strukturer.</span>
+      </article>
+      <article class="card">
+        <strong>Tips</strong>
+        <span>Ändra höjd på fönstret för att testa responsen. Använd helskärmsläge
+          (F) i iframes för att se hela upplevelsen.</span>
+      </article>
+    </section>
+
+    <nav class="controls" aria-label="Växla vy">
+      <button type="button" data-target="marketing" aria-pressed="true">Visa marknadswebb</button>
+      <button type="button" data-target="app">Visa appen</button>
+    </nav>
+
+    <section class="frames" aria-live="polite">
+      <div class="frame-wrapper">
+        <iframe
+          id="marketing"
+          title="Marknadswebb"
+          src="index.html"
+          loading="lazy"
+        ></iframe>
+        <iframe
+          id="app"
+          title="Appupplevelse"
+          src="app/index.html"
+          loading="lazy"
+          hidden
+        ></iframe>
+      </div>
+    </section>
+
+    <footer>
+      Behöver du öppna upplevelserna separat? Besök <a href="./index.html">/</a>
+      eller <a href="./app/index.html">/app</a> direkt.
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll('.controls button[data-target]');
+      const frames = {
+        marketing: document.getElementById('marketing'),
+        app: document.getElementById('app'),
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = button.dataset.target;
+
+          Object.entries(frames).forEach(([key, frame]) => {
+            const active = key === target;
+            frame.toggleAttribute('hidden', !active);
+          });
+
+          buttons.forEach((btn) => {
+            btn.setAttribute('aria-pressed', btn === button ? 'true' : 'false');
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

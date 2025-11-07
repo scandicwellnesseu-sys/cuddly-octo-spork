@@ -8,7 +8,8 @@ En responsiv demo av appen och marknadswebben beskriven i startspecifikationen. 
    ```bash
    python -m http.server 8000
    ```
-2. Besök [http://localhost:8000](http://localhost:8000) och navigera mellan sidorna via toppmenyn.
+2. Besök [http://localhost:8000](http://localhost:8000) och öppna `preview.html` för att växla mellan webb och app i samma vy
+   eller navigera mellan sidorna via toppmenyn.
 
 ## Struktur
 
@@ -18,6 +19,7 @@ En responsiv demo av appen och marknadswebben beskriven i startspecifikationen. 
 - `blog/` – blogglista med sök- och taggfilter.
 - `legal/` – integritetspolicy och användarvillkor.
 - `app/` – interaktiv appvy med demo-auth, objektlistor och delningslänkar.
+- `preview.html` – snabböversikt som bäddar in marknadswebben och appen i växlingsbara ramar.
 - `design.html` – designsystem och interaktiv designpreview där teman, personas och layouter kan generera blueprint-text.
 - `styles.css` – gemensamt designsystem för hela upplevelsen inklusive appen.
 - `script.js` – nav-hantering, priskalkyl, bloggfilter samt logik för Profit/Neuro/Intel-labb, Design Studio, Design Preview, Atlas Vision Grid, Apex Suite, Supremacy Control Nexus och den nya Dominance/Benchmark-motorn.
