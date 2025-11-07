@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Designsystem – App &amp; Hemsida</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header class="shell-header" data-site-header>
+        <div class="shell-header__inner">
+            <a class="brand" href="/" aria-label="App &amp; Hemsida startsida">
+                <span class="brand__mark" aria-hidden="true">▲</span>
+                <span class="brand__text">App &amp; Hemsida</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Meny</span>
+            </button>
+            <nav class="shell-nav" id="primary-navigation" data-nav>
+                <ul class="shell-nav__list">
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a class="is-active" aria-current="page" href="/design.html">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a class="button button--small" href="/app/">Logga in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page design-page">
+        <section class="page-hero design-hero" aria-labelledby="design-hero-title">
+            <div>
+                <p class="hero__eyebrow">Designsystem</p>
+                <h1 id="design-hero-title">Från koncept till pixelperfekt upplevelse</h1>
+                <p>Utforska vårt visuella DNA, se hur sidorna byggs upp och exportera färdiga blueprint-filer för nästa presentation.
+                    Designguiden är synkad med Profit-labben så att varje komponent kan kopplas till mätbar effekt.</p>
+                <div class="hero__cta">
+                    <a class="button button--accent" href="#design-preview">Förhandsgranska</a>
+                    <a class="button button--ghost" href="/app/">Öppna appen</a>
+                </div>
+            </div>
+            <div class="design-hero__preview" aria-hidden="true">
+                <div class="design-hero__browser">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="design-hero__card">
+                    <p>Neon Plasma Theme</p>
+                    <h2>Designsystemet justerar sig efter din persona</h2>
+                    <p class="design-hero__note">Genererat av Design Studio &amp; Quantum Forge.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section design-preview" id="design-preview" aria-labelledby="design-preview-title" data-design-preview>
+            <header class="section__header">
+                <p class="section__eyebrow">Interaktiv demo</p>
+                <h2 class="section__title" id="design-preview-title">Bygg en designkomposition på sekunder</h2>
+                <p class="section__lede">Justera tema, persona och layout för att se hur komponenter och tonalitet förändras.
+                    Vi exporterar även en blueprint-text som kan användas i pitchar och onboarding.</p>
+            </header>
+            <div class="design-preview__grid">
+                <form class="design-preview__controls" aria-label="Designförhandsvisning">
+                    <div class="design-preview__group">
+                        <span class="design-preview__label">Tema</span>
+                        <div class="pill-group" role="group" aria-label="Tema">
+                            <button class="pill is-active" type="button" data-design-theme="plasma">Neon Plasma</button>
+                            <button class="pill" type="button" data-design-theme="aurora">Aurora Mist</button>
+                            <button class="pill" type="button" data-design-theme="void">Onyx Void</button>
+                        </div>
+                    </div>
+                    <div class="design-preview__group">
+                        <label class="design-preview__label" for="design-persona">Persona</label>
+                        <select id="design-persona" data-design-persona>
+                            <option value="founder">Grundare</option>
+                            <option value="revops">Revenue Ops</option>
+                            <option value="designer">Produktdesigner</option>
+                        </select>
+                    </div>
+                    <div class="design-preview__group">
+                        <label class="design-preview__label" for="design-layout">Layout</label>
+                        <select id="design-layout" data-design-layout>
+                            <option value="landing">Landningssida</option>
+                            <option value="product">Produktsida</option>
+                            <option value="app">In-app dashboard</option>
+                        </select>
+                    </div>
+                    <fieldset class="design-preview__group">
+                        <legend class="design-preview__label">Moduler</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-design-module="metrics" checked>
+                            <span>Live KPI-panel</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-design-module="lab" checked>
+                            <span>Profit Lab cards</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-design-module="cta">
+                            <span>Dual CTA band</span>
+                        </label>
+                    </fieldset>
+                    <button class="button button--accent" type="button" data-design-copy>Kopiera blueprint</button>
+                    <p class="form-hint" data-design-status role="status" aria-live="polite"></p>
+                </form>
+                <article class="design-preview__canvas" aria-live="polite">
+                    <header class="design-preview__header">
+                        <p class="design-preview__badge" data-design-tag>Neon Plasma · Grundare</p>
+                        <h3 class="design-preview__title" data-design-title>Hero + proofwall för hypersnabb validering</h3>
+                    </header>
+                    <p class="design-preview__summary" data-design-summary>
+                        Landningslayouten prioriterar momentum: hero med tydlig CTA, proofwall med KPI-taggar och en modul som visar hur Quantum Forge genererar aktiva scenarion.
+                    </p>
+                    <dl class="design-preview__metrics">
+                        <div>
+                            <dt>Accentfärg</dt>
+                            <dd data-design-accent>Neon Plasma</dd>
+                        </div>
+                        <div>
+                            <dt>Primära KPI:er</dt>
+                            <dd data-design-focus>Aktivering · DAU/WAU</dd>
+                        </div>
+                        <div>
+                            <dt>Blueprint-ID</dt>
+                            <dd data-design-blueprint>LP-PLASMA-01</dd>
+                        </div>
+                    </dl>
+                    <section class="design-preview__modules" data-design-kpis>
+                        <article>
+                            <h4>Hero</h4>
+                            <p>Fullbredd med gradient-bakgrund och accentknapp.</p>
+                        </article>
+                        <article>
+                            <h4>Proofwall</h4>
+                            <p>Tre kundcitat med KPI-taggar och ikonografi.</p>
+                        </article>
+                        <article>
+                            <h4>CTA-band</h4>
+                            <p>Dual CTA med tydlig konverteringshook och sekundärt alternativ.</p>
+                        </article>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <section class="section design-system" aria-labelledby="design-system-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Komponentbibliotek</p>
+                <h2 class="section__title" id="design-system-title">Färger, typografi och komponenter</h2>
+            </header>
+            <div class="design-system__grid">
+                <article>
+                    <h3>Färgpalett</h3>
+                    <div class="design-swatches">
+                        <span data-tone="base">#0B1220</span>
+                        <span data-tone="surface">#111C30</span>
+                        <span data-tone="muted">#4A5A7A</span>
+                        <span data-tone="accent">#7C4DFF</span>
+                        <span data-tone="glow">#24D2FF</span>
+                    </div>
+                    <p>Accentfärgerna varierar dynamiskt beroende på persona. Plasma ger mest kontrast, Aurora mjukar upp och Void lägger fokus på data.</p>
+                </article>
+                <article>
+                    <h3>Typografi</h3>
+                    <ul class="design-typography">
+                        <li><span>Display</span> Space Grotesk · 56/64</li>
+                        <li><span>Rubriker</span> Satoshi · 32/40</li>
+                        <li><span>Brödtext</span> Inter · 18/28</li>
+                        <li><span>Knappar</span> Satoshi Medium · 16/20</li>
+                    </ul>
+                    <p>Textskalningen är optimerad för både mobil och desktop och använder fluid clamp-värden via CSS-variabler.</p>
+                </article>
+                <article>
+                    <h3>Komponenter</h3>
+                    <ul class="design-components">
+                        <li>Hero-block med split layout</li>
+                        <li>Card-grid med 3–4 kolumner</li>
+                        <li>Command Center paneler</li>
+                        <li>Pricing-tabeller med accentkort</li>
+                        <li>Testimonials i masonry-layout</li>
+                    </ul>
+                    <p>Alla komponenter finns i Figma-fil (länk i README) och i vår React-kit där tokens speglar samma variabler.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section design-layouts" aria-labelledby="design-layouts-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Layout preview</p>
+                <h2 class="section__title" id="design-layouts-title">Tre layoutfamiljer för webb + app</h2>
+            </header>
+            <div class="design-layouts__grid">
+                <article>
+                    <h3>Launch Landing</h3>
+                    <p>Hero + proofwall + CTA-band. Fokus på hyper-konvertering och social proof. Rekommenderas för kampanjer.</p>
+                </article>
+                <article>
+                    <h3>Product Narrative</h3>
+                    <p>Modulär struktur med funktioner, arkitekturdiagram och avancerade verktygssektioner såsom Quantum Forge.</p>
+                </article>
+                <article>
+                    <h3>In-App Dashboard</h3>
+                    <p>Tvåkolumns vy med tillståndshantering, Growth Console och nya Vision Blueprint Lab som matar editorn.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <nav aria-label="Sidfot">
+                <ul>
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html" aria-current="page">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a href="/legal/privacy.html">Integritet</a></li>
+                    <li><a href="/legal/terms.html">Villkor</a></li>
+                </ul>
+            </nav>
+            <p>© <span data-current-year></span> App &amp; Hemsida. Designsystemet uppdateras kontinuerligt med nya moduler.</p>
+        </div>
+    </footer>
+</body>
+</html>

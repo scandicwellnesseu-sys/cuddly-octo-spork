@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Appen – App &amp; Hemsida</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script defer src="/script.js"></script>
+    <script defer src="/app/app.js"></script>
+</head>
+<body class="app-body">
+    <header class="shell-header" data-site-header>
+        <div class="shell-header__inner">
+            <a class="brand" href="/" aria-label="App &amp; Hemsida startsida">
+                <span class="brand__mark" aria-hidden="true">▲</span>
+                <span class="brand__text">App &amp; Hemsida</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Meny</span>
+            </button>
+            <nav class="shell-nav" id="primary-navigation" data-nav>
+                <ul class="shell-nav__list">
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a class="is-active" aria-current="page" href="/app/">App</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-shell" data-app-root>
+        <section class="app-share" data-share-view hidden>
+            <header>
+                <p class="app-share__eyebrow">Delat objekt</p>
+                <h1 data-share-title>Objekt</h1>
+                <p class="app-share__meta">Delat av <span data-share-owner></span></p>
+            </header>
+            <div class="app-share__content" data-share-content></div>
+            <form class="app-share__password" data-share-password hidden>
+                <label for="share-password">Ange lösenord för att låsa upp</label>
+                <input id="share-password" type="password" required>
+                <button class="button button--accent" type="submit">Lås upp</button>
+                <p class="form-hint" data-share-feedback></p>
+            </form>
+            <footer>
+                <a class="button button--ghost" href="/app/">Öppna appen</a>
+            </footer>
+        </section>
+
+        <section class="app-auth" data-auth-panel>
+            <h1>Logga in</h1>
+            <p>Skapa konto med din e-post för att prova huvudflödet.</p>
+            <form data-auth-form>
+                <label for="auth-name">Namn</label>
+                <input id="auth-name" name="name" type="text" required placeholder="Ditt namn">
+                <label for="auth-email">E-post</label>
+                <input id="auth-email" name="email" type="email" required placeholder="du@example.com">
+                <button class="button button--accent" type="submit">Fortsätt</button>
+            </form>
+            <p class="form-hint">Vi använder en demo-auth. Ingen riktig data sparas.</p>
+        </section>
+
+        <section class="app-dashboard" data-dashboard hidden>
+            <header class="app-dashboard__header">
+                <div>
+                    <p class="app-dashboard__eyebrow">Välkommen tillbaka</p>
+                    <h1 data-greeting></h1>
+                </div>
+                <div class="app-dashboard__actions">
+                    <button class="button button--ghost" type="button" data-create-template>Ny från mall</button>
+                    <button class="button" type="button" data-logout>Logga ut</button>
+                </div>
+            </header>
+
+            <section class="app-metrics" aria-labelledby="metrics-title">
+                <header>
+                    <p class="app-dashboard__eyebrow">Tillväxtläge</p>
+                    <h2 id="metrics-title">Profitpanelen</h2>
+                    <p>Simulera visningar, följ registreringar och se hur mycket ARR din pipeline kan leverera.</p>
+                </header>
+                <div class="metric-grid">
+                    <article class="metric-card">
+                        <p class="metric-card__label">Aktiva objekt</p>
+                        <p class="metric-card__value" data-metric-items>0</p>
+                        <p class="metric-card__trend" data-metric-last-share>Inga delningar ännu</p>
+                    </article>
+                    <article class="metric-card">
+                        <p class="metric-card__label">Delningar live</p>
+                        <p class="metric-card__value" data-metric-shares>0</p>
+                        <p class="metric-card__trend">Boostade: <span data-metric-boosts>0</span></p>
+                    </article>
+                    <article class="metric-card">
+                        <p class="metric-card__label">Konvertering</p>
+                        <p class="metric-card__value" data-metric-conversion>0%</p>
+                        <p class="metric-card__trend">Registreringar per 100 visningar</p>
+                    </article>
+                </div>
+                <div class="metric-forecast">
+                    <div>
+                        <h3>Årlig intäktspotential</h3>
+                        <p class="metric-forecast__value" data-metric-forecast>0 kr</p>
+                        <p class="metric-forecast__hint">Snittvärde per delning: <span data-metric-avg-value>0 kr</span></p>
+                    </div>
+                    <p class="metric-forecast__note">Tips: Boost knapparna på delningar för att simulera kampanjer och se hur prognosen stiger.</p>
+                </div>
+            </section>
+
+            <section class="app-console" aria-labelledby="console-title" data-growth-console>
+                <header>
+                    <p class="app-dashboard__eyebrow">Command Console</p>
+                    <h2 id="console-title">Growth Ops Console</h2>
+                    <p>Förvandla dashboard-data till taktiska spel. Välj fokus, boosters och tempo för att få en unik
+                        playbook för ditt team.</p>
+                </header>
+                <div class="app-console__grid">
+                    <form class="app-console__controls" data-console-form>
+                        <div class="app-console__group">
+                            <span class="app-console__label">Program</span>
+                            <div class="pill-group" role="group" aria-label="Program">
+                                <button class="pill is-active" type="button" data-console-program="velocity">Velocity Sprint</button>
+                                <button class="pill" type="button" data-console-program="expansion">Expansion Orbit</button>
+                                <button class="pill" type="button" data-console-program="defense">Defence Grid</button>
+                            </div>
+                        </div>
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="console-segment">Segment</label>
+                            <select id="console-segment" data-console-segment>
+                                <option value="product">Produktteam</option>
+                                <option value="sales">Sälj &amp; revenue</option>
+                                <option value="leadership">Ledning</option>
+                            </select>
+                        </div>
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="console-intensity">Tempo</label>
+                            <input id="console-intensity" type="range" min="1" max="5" value="3" step="1" data-console-range>
+                            <p class="form-hint">Nuvarande nivå: <span data-console-level>3</span>. Högre värde = aggressivare takt.</p>
+                        </div>
+                        <fieldset class="app-console__group">
+                            <legend class="app-console__label">Boosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" data-console-switch="signals" checked>
+                                <span>Signals autoprioritering</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-console-switch="automation" checked>
+                                <span>Automatiserade nudges</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-console-switch="expansion">
+                                <span>Expansion triggers</span>
+                            </label>
+                        </fieldset>
+                        <button class="button button--ghost" type="button" data-console-apply>Lägg till blueprint i editorn</button>
+                    </form>
+                    <article class="app-console__output" aria-live="polite">
+                        <header>
+                            <p class="app-console__badge" data-console-tag>Velocity Sprint</p>
+                            <h3 class="app-console__title" data-console-title>Skapa momentum från 0 till 50 delningar</h3>
+                        </header>
+                        <p class="app-console__summary" data-console-summary>
+                            Koppla ihop Profitpanelen med Signals för att identifiera de mest aktiva objekten och trigga automatiska
+                            uppföljningar.
+                        </p>
+                        <dl class="app-console__metrics">
+                            <div>
+                                <dt>Beräknad lyft</dt>
+                                <dd data-console-boost>+35 %</dd>
+                            </div>
+                            <div>
+                                <dt>Pipelineeffekt</dt>
+                                <dd data-console-impact>+280 nya registreringar</dd>
+                            </div>
+                            <div>
+                                <dt>Kadens</dt>
+                                <dd data-console-cadence>14-dagars loop</dd>
+                            </div>
+                        </dl>
+                        <div class="app-console__actions">
+                            <h4>Nästa steg</h4>
+                            <ul data-console-next>
+                                <li>Identifiera objekt med högst visningar men låg konvertering.</li>
+                                <li>Aktivera automatiserade nudges mot heta konton.</li>
+                                <li>Planera expansionstrigger när boost-nivån passerar 40 %.</li>
+                            </ul>
+                        </div>
+                        <p class="app-console__status" data-console-status role="status" aria-live="polite"></p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-apex" aria-labelledby="apex-console-title" data-apex-console data-apex-lab>
+                <header>
+                    <p class="app-dashboard__eyebrow">Apex Mesh</p>
+                    <h2 id="apex-console-title">Apex Intelligence Console</h2>
+                    <p>Bygg hypermoderna blåkopior genom att kombinera strategivektorer, tempo och boosters. Resultatet kan
+                        kopieras eller skickas direkt till editorn.</p>
+                </header>
+                <div class="apex-grid">
+                    <form class="apex-controls" aria-label="Apex Console kontroller">
+                        <div class="apex-group">
+                            <label for="apex-app-vector">Strategivektor</label>
+                            <select id="apex-app-vector" data-apex-vector>
+                                <option value="velocity" selected>Velocity Surge</option>
+                                <option value="loyalty">Loyalty Orbit</option>
+                                <option value="takeover">Dominance Mesh</option>
+                            </select>
+                        </div>
+                        <fieldset class="apex-group">
+                            <legend>Tempo</legend>
+                            <div class="pill-group" role="group" aria-label="Tempo">
+                                <button class="pill is-active" type="button" data-apex-tempo="pulse">Pulse 24h</button>
+                                <button class="pill" type="button" data-apex-tempo="sprint">Sprint 7d</button>
+                                <button class="pill" type="button" data-apex-tempo="orbit">Orbit 30d</button>
+                            </div>
+                        </fieldset>
+                        <fieldset class="apex-group">
+                            <legend>Boosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" data-apex-booster="ai" checked>
+                                <span>Neural Co-Pilot</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-apex-booster="signal" checked>
+                                <span>Signal Radar</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-apex-booster="alliance">
+                                <span>Alliance Mesh</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-apex-booster="success">
+                                <span>Success Autopilot</span>
+                            </label>
+                        </fieldset>
+                        <div class="apex-group">
+                            <label for="apex-app-horizon">Horisont</label>
+                            <select id="apex-app-horizon" data-apex-horizon>
+                                <option value="launch">Launch runway</option>
+                                <option value="scale">Scale engine</option>
+                                <option value="enterprise">Enterprise grid</option>
+                            </select>
+                        </div>
+                    </form>
+                    <article class="apex-output" aria-live="polite">
+                        <header class="apex-output__header">
+                            <p class="apex-output__tag" data-apex-tag>Launch runway · Velocity</p>
+                            <h3 class="apex-output__title" data-apex-title>Överkör konkurrenterna med hyperlansering</h3>
+                        </header>
+                        <p class="apex-output__summary" data-apex-summary>Pulse 24h kombinerar Neural Co-Pilot och Signal Radar för att
+                            låsa upp automatiserade loopar över produkt, marketing och revenue.</p>
+                        <div class="apex-score">
+                            <div>
+                                <p class="apex-score__label">Score</p>
+                                <p class="apex-score__value" data-apex-score>0</p>
+                            </div>
+                            <div>
+                                <p class="apex-score__label">Δ vs rival</p>
+                                <p class="apex-score__value" data-apex-delta>+0</p>
+                            </div>
+                        </div>
+                        <dl class="apex-metrics">
+                            <div>
+                                <dt>Kadens</dt>
+                                <dd data-apex-metric="cadence">—</dd>
+                            </div>
+                            <div>
+                                <dt>Automation</dt>
+                                <dd data-apex-metric="automation">—</dd>
+                            </div>
+                            <div>
+                                <dt>Signal</dt>
+                                <dd data-apex-metric="signal">—</dd>
+                            </div>
+                            <div>
+                                <dt>Revenue</dt>
+                                <dd data-apex-metric="revenue">—</dd>
+                            </div>
+                        </dl>
+                        <div class="apex-focus">
+                            <h4>Fokus</h4>
+                            <p data-apex-focus>Hyperlansering</p>
+                            <p class="apex-focus__window">Fönster: <span data-apex-window>—</span></p>
+                        </div>
+                        <div class="apex-list">
+                            <h4>Åtgärder</h4>
+                            <ul data-apex-plays>
+                                <li>Aktivera boosters för att generera blueprinten.</li>
+                            </ul>
+                        </div>
+                        <div class="apex-list">
+                            <h4>Boosters</h4>
+                            <ul data-apex-boosters>
+                                <li>Neural Co-Pilot – Låt AI autopiloten prioritera leads och copy var 6:e timme.</li>
+                                <li>Signal Radar – Mata Command Center med signalpaket i realtid.</li>
+                            </ul>
+                        </div>
+                        <div class="apex-output__actions">
+                            <button class="button button--ghost" type="button" data-apex-copy>Kopiera apex-plan</button>
+                            <button class="button button--accent" type="button" data-apex-apply>Skicka till editor</button>
+                            <span class="apex-output__status" data-apex-status role="status" aria-live="polite"></span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-orchestrator" aria-labelledby="orchestrator-title" data-orchestrator>
+                <header>
+                    <p class="app-dashboard__eyebrow">Neuro Orchestrator</p>
+                    <h2 id="orchestrator-title">Adaptive Momentum Studio</h2>
+                    <p>Skulptera ett hyperfokuserat drag genom att kombinera scenario, region och signalintensitet. Resultatet kan skickas direkt till editorn.</p>
+                </header>
+                <div class="app-orchestrator__grid">
+                    <form class="app-orchestrator__controls" aria-label="Momentum inställningar">
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="orchestrator-scenario">Scenario</label>
+                            <select id="orchestrator-scenario" data-orchestrator-scenario>
+                                <option value="launch">Launch Surge</option>
+                                <option value="scale">Scale Armor</option>
+                                <option value="defend">Defence Halo</option>
+                            </select>
+                        </div>
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="orchestrator-region">Region</label>
+                            <select id="orchestrator-region" data-orchestrator-region>
+                                <option value="emea">EMEA</option>
+                                <option value="namer">Nordamerika</option>
+                                <option value="apac">APAC</option>
+                            </select>
+                        </div>
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="orchestrator-rhythm">Cadence</label>
+                            <select id="orchestrator-rhythm" data-orchestrator-rhythm>
+                                <option value="pulse">Pulse Weekly</option>
+                                <option value="blitz">Blitz 48h</option>
+                                <option value="summit">Executive Summit</option>
+                            </select>
+                        </div>
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="orchestrator-intensity">Signalintensitet</label>
+                            <input id="orchestrator-intensity" type="range" min="1" max="5" value="3" step="1" data-orchestrator-intensity>
+                            <p class="form-hint">Aktuell nivå: <span data-orchestrator-level>3</span></p>
+                        </div>
+                        <fieldset class="app-console__group">
+                            <legend class="app-console__label">Aktivera augmenteringar</legend>
+                            <label class="command-option">
+                                <input type="checkbox" data-orchestrator-signal="intel" checked>
+                                <span>Signal mirrors</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-orchestrator-signal="ops" checked>
+                                <span>Ops automation</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-orchestrator-signal="alliances">
+                                <span>Partner raids</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-orchestrator-signal="narrative">
+                                <span>Narrative uplink</span>
+                            </label>
+                        </fieldset>
+                        <div class="app-console__group app-orchestrator__actions">
+                            <button class="button button--ghost" type="button" data-orchestrator-copy>Kopiera blueprint</button>
+                            <button class="button" type="button" data-orchestrator-apply>Skicka till editorn</button>
+                            <p class="form-hint" data-orchestrator-status role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                    <article class="app-orchestrator__output" aria-live="polite">
+                        <header>
+                            <p class="app-console__badge" data-orchestrator-tag>Launch Surge · EMEA</p>
+                            <h3 class="app-orchestrator__title" data-orchestrator-title>Skapa momentum före konkurrenterna hinner reagera</h3>
+                        </header>
+                        <p class="app-orchestrator__summary" data-orchestrator-summary>
+                            Kombinera signalspeglar med automation för att upptäcka köpintention, paketera erbjudanden och trycka ut snabbare än någon annan i segmentet.
+                        </p>
+                        <dl class="app-orchestrator__metrics">
+                            <div>
+                                <dt>Dominansscore</dt>
+                                <dd data-orchestrator-score>286</dd>
+                            </div>
+                            <div>
+                                <dt>Fönster</dt>
+                                <dd data-orchestrator-window>4 veckor</dd>
+                            </div>
+                            <div>
+                                <dt>Primär effekt</dt>
+                                <dd data-orchestrator-focus>Activation burst</dd>
+                            </div>
+                        </dl>
+                        <div class="app-console__actions">
+                            <h4>Nyckeldrag</h4>
+                            <ul data-orchestrator-actions>
+                                <li>Skapa triggers i Signals för konton som ökar aktivitet.</li>
+                                <li>Bygg automationer som skickar pitch från Narrative Lab.</li>
+                                <li>Planera partner raid för de tre största kontona.</li>
+                            </ul>
+                        </div>
+                        <section>
+                            <h4>Förväntad effekt</h4>
+                            <p data-orchestrator-effect>Öka pipeline-täckningen med 38% och stänga första vågen på 21 dagar.</p>
+                        </section>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-reactor" aria-labelledby="reactor-title" data-reactor>
+                <header>
+                    <p class="app-dashboard__eyebrow">Dominansmotor</p>
+                    <h2 id="reactor-title">Quantum Impact Reactor</h2>
+                    <p>Driv adaptiva beslut genom att mixa utfallsmål, pipelines och autonoma boosters. Reactor bygger en färdig impact-brief som kan sparas i dina objekt.</p>
+                </header>
+                <div class="app-reactor__grid">
+                    <form class="app-reactor__controls" aria-label="Reactor inställningar">
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="reactor-outcome">Utfallsmål</label>
+                            <select id="reactor-outcome" data-reactor-outcome>
+                                <option value="activation">Aktivering</option>
+                                <option value="expansion">Expansion</option>
+                                <option value="retention">Retention</option>
+                            </select>
+                        </div>
+                        <div class="app-console__group">
+                            <span class="app-console__label">Pipeline-läge</span>
+                            <div class="pill-group" role="group" aria-label="Pipeline-läge">
+                                <button class="pill is-active" type="button" data-reactor-mode="ignite">Ignite</button>
+                                <button class="pill" type="button" data-reactor-mode="fortify">Fortify</button>
+                                <button class="pill" type="button" data-reactor-mode="harvest">Harvest</button>
+                            </div>
+                        </div>
+                        <div class="app-console__group">
+                            <label class="app-console__label" for="reactor-span">Horisont</label>
+                            <input id="reactor-span" type="range" min="2" max="10" value="5" step="1" data-reactor-span>
+                            <p class="form-hint">Veckor till impact: <span data-reactor-level>5</span></p>
+                        </div>
+                        <fieldset class="app-console__group">
+                            <legend class="app-console__label">Autonoma boosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" data-reactor-boost="signals" checked>
+                                <span>Signals autoprioritering</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-reactor-boost="product" checked>
+                                <span>Produkt ritualer</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-reactor-boost="sales">
+                                <span>Sälj sync</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-reactor-boost="success">
+                                <span>Success storm</span>
+                            </label>
+                        </fieldset>
+                        <div class="app-reactor__actions">
+                            <button class="button button--ghost" type="button" data-reactor-copy>Kopiera impact-brief</button>
+                            <button class="button" type="button" data-reactor-apply>Spara som blueprint</button>
+                            <p class="form-hint" data-reactor-status role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                    <article class="app-reactor__output" aria-live="polite">
+                        <header>
+                            <p class="app-console__badge" data-reactor-tag>Ignite · Aktivering</p>
+                            <h3 class="app-reactor__title" data-reactor-title>Skapa ett kontinuerligt inflöde av aktiverade konton</h3>
+                        </header>
+                        <p class="app-reactor__summary" data-reactor-summary>
+                            Quantum Impact Reactor väver ihop signals och produkt ritualer för att trigga rätt beteenden varje vecka. Pipeline-läget Ignite optimerar för explosiv top-of-funnel.
+                        </p>
+                        <dl class="app-reactor__metrics">
+                            <div>
+                                <dt>Impact score</dt>
+                                <dd data-reactor-score>312</dd>
+                            </div>
+                            <div>
+                                <dt>Fönster</dt>
+                                <dd data-reactor-window>5 veckor</dd>
+                            </div>
+                            <div>
+                                <dt>Primär puls</dt>
+                                <dd data-reactor-focus>Activation storm</dd>
+                            </div>
+                        </dl>
+                        <div class="app-console__actions">
+                            <h4>Åtgärder</h4>
+                            <ul data-reactor-actions>
+                                <li>Synka signals autoprioritering mot de senaste objekten.</li>
+                                <li>Inför dagliga produkt ritualer med micro-wins.</li>
+                                <li>Planera success storm för att säkra nästa expansion.</li>
+                            </ul>
+                        </div>
+                        <section>
+                            <h4>Förväntad effekt</h4>
+                            <p data-reactor-effect>Öka aktiveringsgraden till 47% och dubbla expansionspipen inom 30 dagar.</p>
+                        </section>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-vision" aria-labelledby="vision-title" data-design-lab>
+                <header>
+                    <p class="app-dashboard__eyebrow">Vision Blueprint Lab</p>
+                    <h2 id="vision-title">Designa upplevelsen som matchar din revenue-strategi</h2>
+                    <p>Välj persona, kanal och rytm. Labbet genererar ett design blueprint med moduler, KPI:er och ett färdigt innehållsmanifest som kan skickas till editorn.</p>
+                </header>
+                <div class="app-vision__grid">
+                    <form class="app-vision__controls" aria-label="Vision Blueprint kontroller">
+                        <div class="app-vision__group">
+                            <span class="app-vision__label">Persona</span>
+                            <div class="pill-group" role="group" aria-label="Persona">
+                                <button class="pill is-active" type="button" data-vision-persona="founder">Grundare</button>
+                                <button class="pill" type="button" data-vision-persona="revops">Revenue Ops</button>
+                                <button class="pill" type="button" data-vision-persona="customer">Customer Success</button>
+                            </div>
+                        </div>
+                        <div class="app-vision__group">
+                            <label class="app-vision__label" for="vision-channel">Kanal</label>
+                            <select id="vision-channel" data-vision-channel>
+                                <option value="landing">Landningssida</option>
+                                <option value="product">Produktdemo</option>
+                                <option value="success">Onboardingflöde</option>
+                            </select>
+                        </div>
+                        <div class="app-vision__group">
+                            <label class="app-vision__label" for="vision-cadence">Rytm</label>
+                            <input id="vision-cadence" type="range" min="1" max="6" value="3" step="1" data-vision-cadence>
+                            <p class="form-hint">Intensitet: <span data-vision-level>3</span></p>
+                        </div>
+                        <fieldset class="app-vision__group">
+                            <legend class="app-vision__label">Modulboosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" data-vision-module="metrics" checked>
+                                <span>Live KPI-band</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-vision-module="lab" checked>
+                                <span>Profit Lab cards</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-vision-module="cta">
+                                <span>Dual CTA-skena</span>
+                            </label>
+                        </fieldset>
+                        <div class="app-vision__actions">
+                            <button class="button button--ghost" type="button" data-vision-copy>Kopiera manifest</button>
+                            <button class="button" type="button" data-vision-apply>Ladda in i editorn</button>
+                            <p class="form-hint" data-vision-status role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                    <article class="app-vision__output" aria-live="polite">
+                        <header>
+                            <p class="app-console__badge" data-vision-tag>Grundare · Landningssida</p>
+                            <h3 class="app-vision__title" data-vision-title>Momentum blueprint med plasma-hero</h3>
+                        </header>
+                        <p class="app-vision__summary" data-vision-summary>
+                            Grundare vill se momentumbilder. Vi kombinerar hero med aktiveringsgraf, proofwall som visar kundresultat och Profit Lab-cards som demonstrerar automationen.
+                        </p>
+                        <dl class="app-vision__metrics">
+                            <div>
+                                <dt>Designfokus</dt>
+                                <dd data-vision-focus>Aktivering · Storyselling</dd>
+                            </div>
+                            <div>
+                                <dt>Sprintfönster</dt>
+                                <dd data-vision-window>3 veckor</dd>
+                            </div>
+                            <div>
+                                <dt>Blueprint-ID</dt>
+                                <dd data-vision-score>DS-LP-GR-03</dd>
+                            </div>
+                        </dl>
+                        <section>
+                            <h4>Nyckelmoduler</h4>
+                            <ul class="app-vision__list" data-vision-actions>
+                                <li>Plasma-hero med tydlig North Star-kopia.</li>
+                                <li>Proofwall med tre kundcases.</li>
+                                <li>Profit Lab-cards som visar automationen.</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Effekt</h4>
+                            <p data-vision-effect>Förvänta 28% högre demo-bokningar och 2x fler kvalificerade leads.</p>
+                        </section>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-dominance" aria-labelledby="dominance-console-title" data-dominance-console>
+                <header>
+                    <p class="app-dashboard__eyebrow">Competitive Dominance</p>
+                    <h2 id="dominance-console-title">Dominansconsole – orkestrera övertag mot varje konkurrent</h2>
+                    <p>Välj konkurrent, scenario och boosters för att generera ett offensivt blueprint som kan laddas direkt i
+                        editorn.</p>
+                </header>
+                <div class="app-dominance__grid">
+                    <form class="app-dominance__controls" aria-label="Dominansconsole kontroller">
+                        <div class="app-dominance__group">
+                            <span class="app-dominance__label">Konkurrent</span>
+                            <div class="pill-group" role="group" aria-label="Konkurrent">
+                                <button class="pill is-active" type="button" data-dominance-competitor="atlas">Atlas Cloud</button>
+                                <button class="pill" type="button" data-dominance-competitor="nova">Nova Stack</button>
+                                <button class="pill" type="button" data-dominance-competitor="zenith">Zenith Labs</button>
+                            </div>
+                        </div>
+                        <div class="app-dominance__group">
+                            <label class="app-dominance__label" for="dominance-scenario">Scenario</label>
+                            <select id="dominance-scenario" data-dominance-scenario>
+                                <option value="launch">Launch Velocity</option>
+                                <option value="scale">Scale Reactor</option>
+                                <option value="enterprise">Enterprise Vanguard</option>
+                            </select>
+                        </div>
+                        <div class="app-dominance__group">
+                            <label class="app-dominance__label" for="dominance-stage">Fas</label>
+                            <select id="dominance-stage" data-dominance-stage>
+                                <option value="acquisition">Förvärv</option>
+                                <option value="expansion">Expansion</option>
+                                <option value="retention">Retention</option>
+                            </select>
+                        </div>
+                        <div class="app-dominance__group">
+                            <label class="app-dominance__label" for="dominance-tempo">Tempo</label>
+                            <input id="dominance-tempo" type="range" min="2" max="6" value="4" step="1" data-dominance-tempo>
+                            <p class="form-hint">Nivå: <span data-dominance-level>Hyperdrive</span></p>
+                        </div>
+                        <fieldset class="app-dominance__group">
+                            <legend class="app-dominance__label">Boosters</legend>
+                            <label class="command-option">
+                                <input type="checkbox" data-dominance-signal="autopilot" checked>
+                                <span>AI Autopilot</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-dominance-signal="intel" checked>
+                                <span>Edge Radar</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-dominance-signal="alliances">
+                                <span>Alliance Mesh</span>
+                            </label>
+                            <label class="command-option">
+                                <input type="checkbox" data-dominance-signal="success">
+                                <span>Success Surge</span>
+                            </label>
+                        </fieldset>
+                        <div class="app-dominance__actions">
+                            <button class="button button--ghost" type="button" data-dominance-copy>Kopiera dominansbrief</button>
+                            <button class="button button--accent" type="button" data-dominance-apply>Skicka till editorn</button>
+                            <p class="form-hint" data-dominance-status role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                    <article class="app-dominance__output" aria-live="polite">
+                        <header>
+                            <p class="app-console__badge" data-dominance-tag>Startups · Atlas Cloud</p>
+                            <h3 class="app-dominance__title" data-dominance-title>Neutralisera Atlas Cloud med 36% högre score</h3>
+                        </header>
+                        <p class="app-dominance__summary" data-dominance-summary>
+                            Hyperdrive kombinerar AI Autopilot och Edge Radar så teamet agerar innan Atlas Cloud hinner svara.
+                        </p>
+                        <dl class="app-dominance__metrics">
+                            <div>
+                                <dt>Dominerande score</dt>
+                                <dd data-dominance-score>112</dd>
+                            </div>
+                            <div>
+                                <dt>Δ mot konkurrent</dt>
+                                <dd data-dominance-delta>+36</dd>
+                            </div>
+                            <div>
+                                <dt>Fokus</dt>
+                                <dd data-dominance-focus>Top-of-funnel ignition</dd>
+                            </div>
+                        </dl>
+                        <section>
+                            <h4>Övertag</h4>
+                            <ul class="app-dominance__edges" data-dominance-edges>
+                                <li>AI Autopilot guidar leads till aha utan handoff.</li>
+                                <li>Edge Radar avslöjar Atlas Clouds manuella luckor.</li>
+                                <li>Hyperdrive-tempo synkar revenue-, produkt- och success-team.</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Plan</h4>
+                            <ul class="app-dominance__actions-list" data-dominance-actions>
+                                <li>Synka Profit Command Center mot Atlas Cloud-konton.</li>
+                                <li>Kicka igång AI Autopilot för onboarding nudges.</li>
+                                <li>Publicera dominansproof i Vision Studio.</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Förväntad effekt</h4>
+                            <p data-dominance-effect>Förväntad effekt: 92% win rate och +40% pipeline.</p>
+                        </section>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-lists">
+                <article>
+                    <header>
+                        <h2>Senaste objekt</h2>
+                        <button type="button" class="link" data-create-empty>+ Nytt objekt</button>
+                    </header>
+                    <ul class="item-list" data-item-list></ul>
+                </article>
+                <article>
+                    <header>
+                        <h2>Delningar</h2>
+                        <p class="section-hint">Hantera publika, länkskyddade och lösenordsskyddade delningar.</p>
+                    </header>
+                    <ul class="share-list" data-share-list></ul>
+                </article>
+            </section>
+
+            <section class="app-lab" aria-labelledby="narrative-title" data-narrative-lab>
+                <header>
+                    <p class="app-dashboard__eyebrow">Labbläge</p>
+                    <h2 id="narrative-title">Pitch-generatorn</h2>
+                    <p>Transformera scenarierna från Profit DNA Lab till en konkret pitch för ditt team eller investerare.</p>
+                </header>
+                <form class="lab-builder" data-lab-form>
+                    <div class="lab-builder__group">
+                        <label for="lab-tone-select">Ton</label>
+                        <select id="lab-tone-select" data-lab-field="tone">
+                            <option value="bold">Djärv</option>
+                            <option value="calm">Trygg</option>
+                            <option value="analytical">Analytisk</option>
+                        </select>
+                    </div>
+                    <div class="lab-builder__group">
+                        <label for="lab-segment-select">Segment</label>
+                        <select id="lab-segment-select" data-lab-field="segment">
+                            <option value="product">Produktteam</option>
+                            <option value="sales">Säljledning</option>
+                            <option value="investor">Investorer</option>
+                        </select>
+                    </div>
+                    <div class="lab-builder__group">
+                        <label for="lab-focus-input">Fokus</label>
+                        <input id="lab-focus-input" type="text" data-lab-field="focus" placeholder="Ex. onboarding, retention">
+                    </div>
+                    <div class="lab-builder__actions">
+                        <button class="button button--ghost" type="button" data-lab-refresh>Överraska mig</button>
+                        <button class="button button--accent" type="submit">Generera pitch</button>
+                    </div>
+                </form>
+                <article class="lab-builder__output">
+                    <header>
+                        <p class="lab-builder__tag" data-lab-segment>Produktteam</p>
+                        <h3 data-lab-headline>Vi förvandlar onboarding till lönsamhet på två sprintar</h3>
+                    </header>
+                    <p data-lab-message>Profitpanelen kombinerar experimenttakt, konverteringsmål och storytelling så att hela teamet ser exakt hur <span data-lab-focus>onboarding</span> kopplar till intäkt.</p>
+                    <footer>
+                        <button class="button button--ghost" type="button" data-lab-copy>Kopiera pitch</button>
+                        <span class="lab-builder__status" data-lab-status role="status" aria-live="polite"></span>
+                    </footer>
+                </article>
+            </section>
+
+            <section class="app-editor" data-editor hidden>
+                <form data-item-form>
+                    <input type="hidden" name="id">
+                    <label for="item-title">Titel</label>
+                    <input id="item-title" name="title" required placeholder="Min nya idé">
+                    <label for="item-content">Innehåll</label>
+                    <textarea id="item-content" name="content" rows="6" required placeholder="Beskriv din idé, lägg till checklistor eller länkar..."></textarea>
+                    <div class="form-row">
+                        <label for="item-visibility">Synlighet</label>
+                        <select id="item-visibility" name="visibility">
+                            <option value="private">Privat</option>
+                            <option value="link">Länk</option>
+                            <option value="password">Lösenord</option>
+                            <option value="public">Publik</option>
+                        </select>
+                        <label for="item-password" data-password-label hidden>Lösenord</label>
+                        <input id="item-password" name="password" type="text" placeholder="Ange lösenord" hidden>
+                    </div>
+                    <div class="editor-actions">
+                        <button class="button button--ghost" type="button" data-cancel-edit>Avbryt</button>
+                        <button class="button button--accent" type="submit">Spara</button>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <nav aria-label="Sidfot">
+                <ul>
+                    <li><a href="/">Hem</a></li>
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/legal/privacy.html">Integritet</a></li>
+                </ul>
+            </nav>
+            <p>© <span data-current-year></span> App &amp; Hemsida.</p>
+        </div>
+    </footer>
+</body>
+</html>
