@@ -1,0 +1,33 @@
+{
+  "name": "ai-product-description-pro",
+  "version": "1.0.0",
+  "description": "AI Product Description Generator PRO - SaaS för e-handlare att generera SEO-optimerade produkttexter",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspaces --if-present",
+    "build:backend": "npm run build --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "prisma:generate": "npm run prisma:generate --workspace=backend",
+    "prisma:migrate": "npm run prisma:migrate --workspace=backend",
+    "prisma:push": "npm run prisma:push --workspace=backend"
+  },
+  "keywords": [
+    "ai",
+    "saas",
+    "e-commerce",
+    "seo",
+    "product-description",
+    "nordic"
+  ],
+  "author": "ScandicWellness",
+  "license": "MIT"
+}

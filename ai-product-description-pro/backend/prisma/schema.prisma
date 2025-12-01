@@ -1,0 +1,349 @@
+// AI Product Description Generator PRO - Prisma Schema
+// PostgreSQL Database Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// Användare och Organisationer
+// ==========================================
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String?
+  name            String?
+  avatar          String?
+  emailVerified   DateTime?
+  twoFactorEnabled Boolean  @default(false)
+  
+  // Stripe
+  stripeCustomerId String?   @unique
+  
+  // Relationer
+  memberships     OrgMember[]
+  sessions        Session[]
+  apiKeys         ApiKey[]
+  generations     Generation[]
+  brandVoices     BrandVoice[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token        String   @unique
+  expiresAt    DateTime
+  userAgent    String?
+  ipAddress    String?
+  
+  createdAt    DateTime @default(now())
+  
+  @@map("sessions")
+}
+
+model Organization {
+  id              String    @id @default(cuid())
+  name            String
+  slug            String    @unique
+  logo            String?
+  
+  // Stripe & Billing
+  stripeCustomerId   String?   @unique
+  stripeSubscriptionId String?
+  plan               Plan      @default(STARTER)
+  creditsBalance     Int       @default(10)
+  creditsResetAt     DateTime?
+  
+  // Relationer
+  members         OrgMember[]
+  generations     Generation[]
+  brandVoices     BrandVoice[]
+  shopifyStores   ShopifyStore[]
+  wooStores       WooCommerceStore[]
+  invoices        Invoice[]
+  creditLogs      CreditLog[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("organizations")
+}
+
+model OrgMember {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role            OrgRole   @default(VIEWER)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@unique([userId, organizationId])
+  @@map("org_members")
+}
+
+enum Plan {
+  STARTER
+  PRO
+  AGENCY
+}
+
+enum OrgRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+// ==========================================
+// API & Autentisering
+// ==========================================
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  keyHash     String    @unique
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  
+  createdAt   DateTime  @default(now())
+  
+  @@map("api_keys")
+}
+
+// ==========================================
+// AI Generering
+// ==========================================
+
+model Generation {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  // Input
+  title           String?
+  keywords        String[]
+  imageUrls       String[]
+  language        Language  @default(SV)
+  brandVoiceId    String?
+  brandVoice      BrandVoice? @relation(fields: [brandVoiceId], references: [id])
+  
+  // Output
+  description     String?   @db.Text
+  shortDescription String?  @db.Text
+  metaTitle       String?
+  metaDescription String?   @db.Text
+  slug            String?
+  altTexts        String[]
+  attributes      Json?
+  
+  // Scores
+  confidenceScore Float?
+  seoScore        Int?
+  readabilityGrade String?
+  
+  // Metadata
+  status          GenerationStatus @default(PENDING)
+  errorMessage    String?
+  creditsUsed     Int       @default(1)
+  processingTimeMs Int?
+  aiModel         String?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("generations")
+}
+
+enum GenerationStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum Language {
+  SV  // Svenska
+  EN  // English
+  NO  // Norska
+  DA  // Danska
+  FI  // Finska
+  DE  // Tyska
+}
+
+// ==========================================
+// Brand Voice
+// ==========================================
+
+model BrandVoice {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  name            String
+  description     String?
+  
+  // AI-analyserad profil
+  toneProfile     Json?     // { formal: 0.7, friendly: 0.8, technical: 0.3 }
+  vocabularyStyle Json?     // { preferredWords: [], avoidWords: [] }
+  sentenceStructure Json?   // { avgLength: 15, complexity: "medium" }
+  exampleTexts    String[]  @db.Text
+  
+  // Relationer
+  generations     Generation[]
+  
+  isDefault       Boolean   @default(false)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("brand_voices")
+}
+
+// ==========================================
+// E-handelsintegrationer
+// ==========================================
+
+model ShopifyStore {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  shopDomain      String    @unique
+  accessToken     String
+  scope           String[]
+  
+  isActive        Boolean   @default(true)
+  lastSyncAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("shopify_stores")
+}
+
+model WooCommerceStore {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  storeUrl        String
+  consumerKey     String
+  consumerSecret  String
+  
+  isActive        Boolean   @default(true)
+  lastSyncAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("woocommerce_stores")
+}
+
+// ==========================================
+// Billing & Credits
+// ==========================================
+
+model Invoice {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  stripeInvoiceId String?   @unique
+  amount          Int       // Öre/cents
+  currency        String    @default("SEK")
+  status          InvoiceStatus @default(PENDING)
+  paidAt          DateTime?
+  
+  // Detaljer
+  description     String?
+  creditsAdded    Int?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("invoices")
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model CreditLog {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  amount          Int       // + eller -
+  balanceAfter    Int
+  reason          String
+  referenceId     String?   // generationId, invoiceId etc
+  referenceType   String?
+  
+  createdAt       DateTime  @default(now())
+  
+  @@map("credit_logs")
+}
+
+// ==========================================
+// Trender & Nyckelord
+// ==========================================
+
+model TrendingKeyword {
+  id              String    @id @default(cuid())
+  keyword         String
+  language        Language  @default(SV)
+  category        String?
+  
+  // Trenddata
+  searchVolume    Int?
+  trendScore      Float?
+  source          String?   // google, tiktok, instagram
+  
+  // Metadata
+  fetchedAt       DateTime  @default(now())
+  expiresAt       DateTime
+  
+  @@unique([keyword, language])
+  @@map("trending_keywords")
+}
+
+// ==========================================
+// Analytics
+// ==========================================
+
+model AnalyticsEvent {
+  id              String    @id @default(cuid())
+  organizationId  String?
+  userId          String?
+  
+  eventType       String
+  eventData       Json?
+  
+  createdAt       DateTime  @default(now())
+  
+  @@index([organizationId, eventType, createdAt])
+  @@map("analytics_events")
+}
