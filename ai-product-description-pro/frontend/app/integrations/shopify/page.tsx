@@ -44,14 +44,29 @@ export default function ShopifyIntegrationPage() {
 
     setIsConnecting(true);
 
+    // Validera Shopify-domän med stricter pattern
+    const sanitizedDomain = shopDomain.trim().toLowerCase();
+    // Only allow valid Shopify store names (alphanumeric and hyphens)
+    const shopifyDomainPattern = /^[a-z0-9][a-z0-9-]*[a-z0-9]\.myshopify\.com$/;
+    const storeNamePattern = /^[a-z0-9][a-z0-9-]*[a-z0-9]$/;
+    
+    let finalDomain: string;
+    if (shopifyDomainPattern.test(sanitizedDomain)) {
+      finalDomain = sanitizedDomain;
+    } else if (storeNamePattern.test(sanitizedDomain)) {
+      finalDomain = `${sanitizedDomain}.myshopify.com`;
+    } else {
+      toast.error('Ogiltig Shopify-domän. Ange butiksnamnet eller fullständig .myshopify.com-adress.');
+      setIsConnecting(false);
+      return;
+    }
+
     // Simulera OAuth-flöde
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const newStore: ShopifyStore = {
       id: Date.now().toString(),
-      shopDomain: shopDomain.includes('.myshopify.com')
-        ? shopDomain
-        : `${shopDomain}.myshopify.com`,
+      shopDomain: finalDomain,
       isActive: true,
       lastSyncAt: new Date().toISOString(),
       productCount: Math.floor(Math.random() * 200) + 50,

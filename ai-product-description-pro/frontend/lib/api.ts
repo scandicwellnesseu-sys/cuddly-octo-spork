@@ -18,6 +18,9 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Custom event for auth errors - components can listen to this
+const AUTH_ERROR_EVENT = 'auth:error';
+
 // Handle auth errors
 api.interceptors.response.use(
   (response) => response,
@@ -25,12 +28,15 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('token');
-        window.location.href = '/';
+        // Emit event instead of direct navigation - components can handle appropriately
+        window.dispatchEvent(new CustomEvent(AUTH_ERROR_EVENT, { detail: { url: '/' } }));
       }
     }
     return Promise.reject(error);
   }
 );
+
+export { AUTH_ERROR_EVENT };
 
 // Auth API
 export const authApi = {

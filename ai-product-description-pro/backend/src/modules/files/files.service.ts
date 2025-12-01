@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
@@ -15,6 +15,7 @@ export class FilesService {
   private readonly logger = new Logger(FilesService.name);
   private s3Client: S3Client | null = null;
   private bucketName: string;
+  private isConfigured: boolean;
 
   constructor(private configService: ConfigService) {
     const endpoint = this.configService.get<string>('S3_ENDPOINT');
@@ -23,12 +24,16 @@ export class FilesService {
     const region = this.configService.get<string>('S3_REGION') || 'auto';
     this.bucketName = this.configService.get<string>('S3_BUCKET_NAME') || 'ai-product-pro-files';
 
-    if (endpoint && accessKeyId && secretAccessKey) {
+    this.isConfigured = !!(endpoint && accessKeyId && secretAccessKey);
+
+    if (this.isConfigured) {
       this.s3Client = new S3Client({
         endpoint,
         region,
         credentials: { accessKeyId, secretAccessKey },
       });
+    } else {
+      this.logger.warn('S3/R2 ej konfigurerat. Filuppladdning kommer inte att fungera.');
     }
   }
 
@@ -41,34 +46,28 @@ export class FilesService {
     mimeType: string,
     organizationId: string,
   ): Promise<UploadResult> {
+    if (!this.s3Client) {
+      throw new BadRequestException('Fillagring ej konfigurerat. Kontakta administratör.');
+    }
+
     const extension = originalName.split('.').pop() || 'bin';
     const key = `${organizationId}/${uuidv4()}.${extension}`;
 
-    if (this.s3Client) {
-      await this.s3Client.send(
-        new PutObjectCommand({
-          Bucket: this.bucketName,
-          Key: key,
-          Body: file,
-          ContentType: mimeType,
-        }),
-      );
+    await this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: this.bucketName,
+        Key: key,
+        Body: file,
+        ContentType: mimeType,
+      }),
+    );
 
-      const signedUrl = await this.getSignedUrl(key);
+    const signedUrl = await this.getSignedUrl(key);
 
-      return {
-        key,
-        url: `${this.configService.get<string>('S3_ENDPOINT')}/${this.bucketName}/${key}`,
-        signedUrl,
-      };
-    }
-
-    // Fallback för utveckling utan S3
-    this.logger.warn('S3 ej konfigurerat, returnerar dummy-URL');
     return {
       key,
-      url: `https://placeholder.example.com/${key}`,
-      signedUrl: `https://placeholder.example.com/${key}?signed=true`,
+      url: `${this.configService.get<string>('S3_ENDPOINT')}/${this.bucketName}/${key}`,
+      signedUrl,
     };
   }
 
@@ -80,55 +79,62 @@ export class FilesService {
     mimeType: string,
     organizationId: string,
   ): Promise<{ key: string; uploadUrl: string }> {
+    if (!this.s3Client) {
+      throw new BadRequestException('Fillagring ej konfigurerat. Kontakta administratör.');
+    }
+
     const extension = filename.split('.').pop() || 'bin';
     const key = `${organizationId}/${uuidv4()}.${extension}`;
 
-    if (this.s3Client) {
-      const command = new PutObjectCommand({
-        Bucket: this.bucketName,
-        Key: key,
-        ContentType: mimeType,
-      });
+    const command = new PutObjectCommand({
+      Bucket: this.bucketName,
+      Key: key,
+      ContentType: mimeType,
+    });
 
-      const uploadUrl = await getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
+    const uploadUrl = await getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
 
-      return { key, uploadUrl };
-    }
-
-    return { key, uploadUrl: `https://placeholder.example.com/upload/${key}` };
+    return { key, uploadUrl };
   }
 
   /**
    * Hämta signerad URL för nedladdning
    */
   async getSignedUrl(key: string, expiresIn = 3600): Promise<string> {
-    if (this.s3Client) {
-      const command = new GetObjectCommand({
-        Bucket: this.bucketName,
-        Key: key,
-      });
-
-      return getSignedUrl(this.s3Client, command, { expiresIn });
+    if (!this.s3Client) {
+      throw new BadRequestException('Fillagring ej konfigurerat. Kontakta administratör.');
     }
 
-    return `https://placeholder.example.com/${key}?expires=${expiresIn}`;
+    const command = new GetObjectCommand({
+      Bucket: this.bucketName,
+      Key: key,
+    });
+
+    return getSignedUrl(this.s3Client, command, { expiresIn });
   }
 
   /**
    * Ta bort fil
    */
   async deleteFile(key: string): Promise<boolean> {
-    if (this.s3Client) {
-      await this.s3Client.send(
-        new DeleteObjectCommand({
-          Bucket: this.bucketName,
-          Key: key,
-        }),
-      );
-      return true;
+    if (!this.s3Client) {
+      throw new BadRequestException('Fillagring ej konfigurerat. Kontakta administratör.');
     }
 
-    return false;
+    await this.s3Client.send(
+      new DeleteObjectCommand({
+        Bucket: this.bucketName,
+        Key: key,
+      }),
+    );
+    return true;
+  }
+
+  /**
+   * Kontrollera om fillagring är konfigurerad
+   */
+  isStorageConfigured(): boolean {
+    return this.isConfigured;
   }
 
   /**

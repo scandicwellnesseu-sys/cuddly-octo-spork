@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { BrandVoiceService } from './brand-voice.service';
 import { BrandVoiceController } from './brand-voice.controller';
 

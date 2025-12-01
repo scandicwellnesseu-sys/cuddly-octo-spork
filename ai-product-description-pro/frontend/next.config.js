@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'placeholder.example.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,6 +11,13 @@ const nextConfig = {
         protocol: 'https',
         hostname: '*.s3.amazonaws.com',
       },
+      // Development only - should be removed in production
+      ...(process.env.NODE_ENV === 'development' ? [
+        {
+          protocol: 'http',
+          hostname: 'localhost',
+        },
+      ] : []),
     ],
   },
   env: {
