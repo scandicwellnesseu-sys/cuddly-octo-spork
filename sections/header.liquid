@@ -1,0 +1,57 @@
+{% comment %}
+  Header section for Shopify Online Store 2.0
+{% endcomment %}
+
+<header class="site-header" role="banner">
+  <div class="site-header__container">
+    <div class="site-header__logo">
+      {%- if settings.logo != blank -%}
+        <a href="{{ routes.root_url }}" class="site-header__logo-link">
+          <img src="{{ settings.logo | image_url: width: 200 }}" 
+               alt="{{ shop.name | escape }}"
+               width="{{ settings.logo.width }}"
+               height="{{ settings.logo.height }}"
+               loading="eager">
+        </a>
+      {%- else -%}
+        <a href="{{ routes.root_url }}" class="site-header__logo-link">
+          <h1 class="site-header__logo-text">{{ shop.name | escape }}</h1>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <button type="button" 
+            class="site-header__toggle" 
+            aria-controls="primary-nav" 
+            aria-expanded="false"
+            aria-label="{{ 'accessibility.toggle_menu' | t }}">
+      <span class="site-header__toggle-icon"></span>
+    </button>
+
+    <nav id="primary-nav" class="site-nav" role="navigation" aria-label="{{ 'accessibility.primary_navigation' | t }}">
+      <ul class="site-nav__list">
+        <li class="site-nav__item">
+          <a href="{{ routes.root_url }}" class="site-nav__link">{{ 'navigation.home' | t }}</a>
+        </li>
+        <li class="site-nav__item">
+          <a href="{{ routes.all_products_collection_url }}" class="site-nav__link">{{ 'navigation.products' | t }}</a>
+        </li>
+        <li class="site-nav__item">
+          <a href="/pages/contact" class="site-nav__link">{{ 'navigation.contact' | t }}</a>
+        </li>
+        <li class="site-nav__item">
+          <a href="{{ routes.cart_url }}" class="site-nav__link">
+            {{ 'navigation.cart' | t }} (<span id="cart-count">{{ cart.item_count }}</span>)
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

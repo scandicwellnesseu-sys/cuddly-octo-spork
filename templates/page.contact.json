@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "contact_form": {
+      "type": "contact-form",
+      "settings": {
+        "title": "Kontakta oss",
+        "description": "Vi svarar inom 24 timmar"
+      }
+    }
+  },
+  "order": [
+    "contact_form"
+  ]
+}

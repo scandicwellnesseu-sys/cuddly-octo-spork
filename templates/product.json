@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "related_products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "Relaterade produkter",
+        "description": "",
+        "products_to_show": 4,
+        "show_view_all": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related_products"
+  ]
+}

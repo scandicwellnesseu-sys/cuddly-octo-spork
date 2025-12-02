@@ -1,0 +1,21 @@
+# Shopify Theme Ignore File
+# Files and directories to ignore when pushing theme to Shopify
+
+# Documentation
+docs/
+
+# Git
+.git/
+.gitignore
+
+# Development
+.DS_Store
+*.log
+node_modules/
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+*~

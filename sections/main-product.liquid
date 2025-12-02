@@ -1,0 +1,64 @@
+{% comment %}
+  Main Product section
+{% endcomment %}
+
+<section class="product-main" itemscope itemtype="http://schema.org/Product">
+  <div class="product-main__container">
+    <div class="product-main__media">
+      {%- if product.featured_media -%}
+        <div class="product-main__media-wrapper">
+          <img
+            src="{{ product.featured_media | image_url: width: 800 }}"
+            alt="{{ product.featured_media.alt | escape }}"
+            class="product-main__image"
+            loading="eager"
+            width="800"
+            height="{{ 800 | divided_by: product.featured_media.aspect_ratio | ceil }}"
+            itemprop="image"
+          >
+        </div>
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'product-main__image product-main__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="product-main__info">
+      <h1 class="product-main__title" itemprop="name">{{ product.title | escape }}</h1>
+
+      <div class="product-main__price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
+        <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+        
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-main__price--sale" itemprop="price" content="{{ product.price | divided_by: 100.0 }}">
+            {{ product.price | money }}
+          </span>
+          <span class="product-main__price--compare">
+            {{ product.compare_at_price | money }}
+          </span>
+        {%- else -%}
+          <span class="product-main__price--regular" itemprop="price" content="{{ product.price | divided_by: 100.0 }}">
+            {{ product.price | money }}
+          </span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="product-main__description" itemprop="description">
+          {{ product.description }}
+        </div>
+      {%- endif -%}
+
+      <div class="product-main__form">
+        {% render 'product-form', product: product, section_id: section.id %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+{% comment %}
+  Footer section for Shopify Online Store 2.0
+{% endcomment %}
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__container">
+    <div class="site-footer__content">
+      <div class="site-footer__column">
+        <h3 class="site-footer__title">{{ shop.name | escape }}</h3>
+        <p class="site-footer__text">{{ section.settings.footer_text | escape }}</p>
+      </div>
+
+      <div class="site-footer__column">
+        <h3 class="site-footer__title">{{ 'footer.quick_links' | t }}</h3>
+        <ul class="site-footer__links">
+          <li><a href="{{ routes.root_url }}">{{ 'navigation.home' | t }}</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">{{ 'navigation.products' | t }}</a></li>
+          <li><a href="/pages/contact">{{ 'navigation.contact' | t }}</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__column">
+        <h3 class="site-footer__title">{{ 'footer.contact' | t }}</h3>
+        <ul class="site-footer__links">
+          <li>{{ 'footer.email' | t }}: {{ section.settings.contact_email | escape }}</li>
+          <li>{{ 'footer.phone' | t }}: {{ section.settings.contact_phone | escape }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">
+        &copy; <span id="current-year">{{ 'now' | date: '%Y' }}</span> {{ shop.name | escape }}. {{ 'footer.all_rights_reserved' | t }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "Din digitala coach för vitaminer och kosttillskott"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "support@scandicwellness.se"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact phone",
+      "default": "010-123 45 67"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Taggad \"{{ tags }}\"",
+      "page": "Sida {{ page }}"
+    },
+    "pagination": {
+      "label": "Paginering",
+      "previous": "Föregående",
+      "next": "Nästa"
+    },
+    "placeholder": {
+      "product_title": "Produktexempel"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Hoppa till innehåll",
+    "refresh_page": "Genom att välja ett resultat uppdateras hela sidan",
+    "toggle_menu": "Växla meny",
+    "primary_navigation": "Primär navigering"
+  },
+  "navigation": {
+    "home": "Hem",
+    "products": "Produkter",
+    "contact": "Kontakt",
+    "cart": "Varukorg"
+  },
+  "sections": {
+    "hero": {
+      "label": "Hero-sektion"
+    },
+    "featured_products": {
+      "label": "Utvalda produkter",
+      "view_all": "Visa alla produkter"
+    },
+    "contact_form": {
+      "label": "Kontaktformulär"
+    },
+    "cart": {
+      "cart_error": "Ett fel uppstod vid uppdatering av varukorgen",
+      "cart_quantity_error_html": "Du kan bara lägga till [quantity] av denna artikel i varukorgen"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Lägg i varukorgen",
+      "sold_out": "Slutsåld",
+      "unavailable": "Ej tillgänglig",
+      "quantity": "Antal"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Namn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "message": "Meddelande",
+      "website": "Webbplats",
+      "send": "Skicka meddelande",
+      "post_success": "Tack för ditt meddelande! Vi återkommer inom kort.",
+      "error_heading": "Vänligen justera följande:",
+      "field": "{{ field }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "no_products": "Inga produkter hittades i denna kollektion"
+    }
+  },
+  "footer": {
+    "quick_links": "Snabblänkar",
+    "contact": "Kontakt",
+    "email": "E-post",
+    "phone": "Telefon",
+    "all_rights_reserved": "Alla rättigheter förbehållna"
+  }
+}

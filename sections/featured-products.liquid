@@ -1,0 +1,89 @@
+{% comment %}
+  Featured Products section
+{% endcomment %}
+
+<section class="featured-products" role="region" aria-label="{{ 'sections.featured_products.label' | t }}">
+  <div class="featured-products__container">
+    <div class="featured-products__header">
+      <h2 class="featured-products__title">{{ section.settings.title | escape }}</h2>
+      {%- if section.settings.description != blank -%}
+        <p class="featured-products__description">{{ section.settings.description | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="featured-products__grid">
+      {%- if section.settings.collection != blank -%}
+        {%- assign collection = collections[section.settings.collection] -%}
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Show placeholder products if no collection is selected {%- endcomment -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          <div class="product-card product-card--placeholder">
+            <div class="product-card__image-wrapper">
+              {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'product-card__image' }}
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__title">{{ 'general.placeholder.product_title' | t }}</h3>
+              <p class="product-card__price">{{ 1999 | money }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_view_all -%}
+      <div class="featured-products__footer">
+        <a href="{{ routes.all_products_collection_url }}" class="featured-products__link">
+          {{ 'sections.featured_products.view_all' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Våra produkter"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "Upptäck vårt sortiment av vitaminer och kosttillskott"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}
