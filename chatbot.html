@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScandicWellness Chatbot</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50; /* Example primary color */
+            --secondary-color: #FFFFFF;
+            --font-color: #333333;
+            --bg-color: #f4f4f4;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-width: 90%;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: var(--secondary-color);
+            z-index: 1000;
+        }
+
+        #chat-header {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            position: relative;
+        }
+
+        #chat-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        #chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            height: 400px;
+            background-color: var(--bg-color);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            line-height: 1.4;
+            max-width: 85%;
+        }
+
+        .message.user {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot {
+            background-color: #e9e9eb;
+            color: var(--font-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        #chat-input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: var(--secondary-color);
+        }
+
+        #chat-input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 1em;
+        }
+
+        #chat-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        .option-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+
+        .option-button:hover {
+            background-color: #45a049;
+        }
+
+         #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="chat-toggle">💬</button>
+
+    <div id="chat-container" style="display: none;">
+        <div id="chat-header">
+            ScandicWellness
+            <span id="chat-close">✕</span>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Skriv ditt meddelande...">
+            <button id="chat-submit">→</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatContainer = document.getElementById('chat-container');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const chatSubmit = document.getElementById('chat-submit');
+            const chatClose = document.getElementById('chat-close');
+
+            chatToggle.addEventListener('click', openChat);
+            chatClose.addEventListener('click', closeChat);
+
+            function openChat() {
+                chatContainer.style.display = 'flex';
+                chatToggle.style.display = 'none';
+                displayWelcomeMessage();
+            }
+
+            function closeChat() {
+                chatContainer.style.display = 'none';
+                chatToggle.style.display = 'block';
+            }
+
+            function displayWelcomeMessage() {
+                // Prevent duplicate welcome messages
+                if (chatMessages.children.length > 0) return;
+
+                addMessage('bot', 'Hej! Välkommen till ScandicWellness. Hur kan jag hjälpa dig idag?');
+                setTimeout(() => {
+                    showMainMenu();
+                }, 1000);
+            }
+
+            function showMainMenu() {
+                const options = [
+                    { text: 'Vilka vitaminer är bäst för mig?', action: 'start_quiz' },
+                    { text: 'Spåra min order', action: 'track_order' },
+                    { text: 'Vanliga frågor', action: 'faq' }
+                ];
+                addOptions(options);
+            }
+
+            function addMessage(sender, text) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', sender);
+                messageElement.textContent = text;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addOptions(options) {
+                const optionsContainer = document.createElement('div');
+                optionsContainer.classList.add('options-container');
+
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option.text;
+                    button.classList.add('option-button');
+                    button.addEventListener('click', () => handleOptionClick(option.action, option.text, option.value));
+                    optionsContainer.appendChild(button);
+                });
+
+                chatMessages.appendChild(optionsContainer);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function handleOptionClick(action, text, value) {
+                addMessage('user', text);
+
+                // Remove options after selection
+                const optionsContainer = document.querySelector('.options-container');
+                if (optionsContainer) {
+                    optionsContainer.remove();
+                }
+
+                switch (action) {
+                    case 'start_quiz':
+                        startQuiz();
+                        break;
+                    case 'track_order':
+                        trackOrder();
+                        break;
+                    case 'faq':
+                        showFaq();
+                        break;
+                    case 'answer_quiz':
+                        userAnswers.push(value);
+                        currentQuestionIndex++;
+                        askQuestion();
+                        break;
+                    default:
+                        // Handle other actions or do nothing
+                        break;
+                }
+            }
+
+            chatSubmit.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                const messageText = chatInput.value.trim();
+                if (messageText) {
+                    addMessage('user', messageText);
+                    chatInput.value = '';
+
+                    // Simple order tracking simulation
+                    if (messageText.toLowerCase().startsWith('sw')) {
+                        addMessage('bot', 'Tack! Jag kollar upp din order...');
+                        setTimeout(() => {
+                            addMessage('bot', `Din order ${messageText} är på väg och förväntas anlända inom 2 arbetsdagar.`);
+                        }, 2000);
+                    } else {
+                        addMessage('bot', 'Jag förstår inte. Försök igen.');
+                    }
+                }
+            }
+
+            function recommendProducts() {
+                addMessage('bot', 'Tack för dina svar! Baserat på dina behov rekommenderar jag följande produkter:');
+
+                const categoryCounts = userAnswers.reduce((acc, answer) => {
+                    acc[answer] = (acc[answer] || 0) + 1;
+                    return acc;
+                }, {});
+
+                const sortedCategories = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a]);
+
+                const recommendedProducts = [];
+                for (const category of sortedCategories) {
+                    const product = productDatabase.find(p => p.category === category && p.inStock && !recommendedProducts.some(rp => rp.id === p.id));
+                    if (product) {
+                        recommendedProducts.push(product);
+                    }
+                    if (recommendedProducts.length === 3) break;
+                }
+
+                // If not enough products found, add some general ones
+                if (recommendedProducts.length < 3) {
+                    const generalProducts = productDatabase.filter(p => !recommendedProducts.some(rp => rp.id === p.id) && p.inStock);
+                    recommendedProducts.push(...generalProducts.slice(0, 3 - recommendedProducts.length));
+                }
+
+                setTimeout(() => {
+                    recommendedProducts.forEach(product => {
+                        addMessage('bot', `${product.name} - Läs mer och köp här: ${product.url}`);
+                    });
+                }, 1500);
+            }
+
+            // --- Product Database ---
+            const productDatabase = [
+                { id: 1, name: 'Multivitamin Gummies', category: 'energy', inStock: true, url: 'https://scandicwellness.se/products/multivitamin-gummies' },
+                { id: 2, name: 'Kollagen Vital PLUS+', category: 'beauty', inStock: true, url: 'https://scandicwellness.se/products/collagen-vital-plus-shots-wild-berry-500ml' },
+                { id: 3, name: 'Ashwagandha Gummies', category: 'stress', inStock: true, url: 'https://scandicwellness.se/products/ashwagandha-vitamin-b6-gummies' },
+                { id: 4, name: 'D-vitamin Gummies', category: 'immunity', inStock: true, url: 'https://scandicwellness.se/products/d-vitamin-gummies' },
+                { id: 5, name: 'Omega-3 Gummies', category: 'brain', inStock: true, url: 'https://scandicwellness.se/products/omega-3-gummies' },
+                { id: 6, name: 'Glow & Skönhetspaket', category: 'beauty', inStock: false, url: 'https://scandicwellness.se/products/glow-skonhetspaket' },
+            ];
+
+            // --- Quiz Logic ---
+            const quizQuestions = [
+                { question: 'Vilket område vill du främst fokusera på?', answers: [{text:'Energi & Fokus', value: 'energy'}, {text:'Skönhet & Hud', value: 'beauty'}, {text:'Stress & Sömn', value: 'stress'}, {text:'Immunförsvar', value: 'immunity'}] },
+                { question: 'Hur är din nuvarande energinivå?', answers: [{text:'Låg', value: 'energy'}, {text:'Medel', value: 'general'}, {text:'Hög', value: 'general'}] },
+                { question: 'Upplever du ofta stress?', answers: [{text:'Ja', value: 'stress'}, {text:'Nej', value: 'general'}, {text:'Ibland', value: 'stress'}] },
+                { question: 'Hur är din sömnkvalitet?', answers: [{text:'Dålig', value: 'stress'}, {text:'God', value: 'general'}, {text:'Ojämn', value: 'stress'}] },
+                { question: 'Är du ofta förkyld?', answers: [{text:'Ja', value: 'immunity'}, {text:'Nej', value: 'general'}, {text:'Ibland', value: 'immunity'}] },
+                { question: 'Vill du förbättra din hud, hår och naglar?', answers: [{text:'Ja', value: 'beauty'}, {text:'Nej', value: 'general'}] },
+                { question: 'Tränar du regelbundet?', answers: [{text:'Ja', value: 'energy'}, {text:'Nej', value: 'general'}] },
+                { question: 'Har du svårt att fokusera?', answers: [{text:'Ja', value: 'brain'}, {text:'Nej', value: 'general'}] },
+                { question: 'Vilken typ av tillskott föredrar du?', answers: [{text:'Gummies', value: 'gummies'}, {text:'Shots', value: 'shots'}, {text:'Spelar ingen roll', value: 'any'}] },
+                { question: 'Har du några kostrestriktioner?', answers: [{text:'Vegansk', value: 'vegan'}, {text:'Sockerfri', value: 'sugar-free'}, {text:'Inga', value: 'none'}] },
+            ];
+
+            let currentQuestionIndex = 0;
+            let userAnswers = [];
+
+            function startQuiz() {
+                currentQuestionIndex = 0;
+                userAnswers = [];
+                addMessage('bot', 'Absolut! Svara på några frågor så hjälper jag dig att hitta rätt produkter.');
+                setTimeout(() => askQuestion(), 1000);
+            }
+
+            function askQuestion() {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const question = quizQuestions[currentQuestionIndex];
+                    addMessage('bot', question.question);
+                    const options = question.answers.map(answer => ({ text: answer.text, action: 'answer_quiz', value: answer.value }));
+                    addOptions(options);
+                } else {
+                    recommendProducts();
+                }
+            }
+
+            // --- Track Order Logic ---
+            function trackOrder() {
+                addMessage('bot', 'Vänligen ange ditt ordernummer:');
+                // The sendMessage function will handle the user's input
+            }
+
+            // --- FAQ Logic ---
+            function showFaq() {
+                addMessage('bot', 'Här är några vanliga frågor:');
+                const faqOptions = [
+                    { text: 'Hur lång är leveranstiden?', action: 'faq_answer', answer: 'Vår leveranstid är vanligtvis 2-4 arbetsdagar.' },
+                    { text: 'Vilka betalningsmetoder accepterar ni?', action: 'faq_answer', answer: 'Vi accepterar de flesta vanliga kreditkort, Klarna och Swish.' },
+                    { text: 'Kan jag returnera en produkt?', action: 'faq_answer', answer: 'Ja, du har 14 dagars ångerrätt. Vänligen kontakta vår kundtjänst för att påbörja en retur.' }
+                ];
+
+                const optionsContainer = document.createElement('div');
+                optionsContainer.classList.add('options-container');
+
+                faqOptions.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option.text;
+                    button.classList.add('option-button');
+                    button.addEventListener('click', () => {
+                        addMessage('user', option.text);
+                        addMessage('bot', option.answer);
+                    });
+                    optionsContainer.appendChild(button);
+                });
+
+                chatMessages.appendChild(optionsContainer);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+        });
+    </script>
+
+</body>
+</html>
