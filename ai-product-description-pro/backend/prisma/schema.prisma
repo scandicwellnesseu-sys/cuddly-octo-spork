@@ -719,7 +719,7 @@ model BankIdSession {
   
   // Status
   status          BankIdStatus @default(PENDING)
-  personalNumber  String?   // Encrypted
+  personalNumber  String?   // AES-256-GCM encrypted for GDPR compliance
   name            String?
   
   // Timestamps

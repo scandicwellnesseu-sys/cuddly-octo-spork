@@ -22,11 +22,56 @@ export interface AuthStatusResult {
 @Injectable()
 export class BankIdService {
   private readonly logger = new Logger(BankIdService.name);
+  private readonly encryptionKey: string;
+  private readonly encryptionAlgorithm = 'aes-256-gcm';
 
   constructor(
     private configService: ConfigService,
     private prisma: PrismaService,
-  ) {}
+  ) {
+    // Use a dedicated encryption key or fallback to NEXTAUTH_SECRET
+    this.encryptionKey = this.configService.get<string>('ENCRYPTION_KEY') 
+      || this.configService.get<string>('NEXTAUTH_SECRET') 
+      || 'default-key-change-in-production-32';
+  }
+
+  /**
+   * Encrypt sensitive data (personal numbers)
+   */
+  private encrypt(text: string): string {
+    const iv = crypto.randomBytes(16);
+    const key = crypto.scryptSync(this.encryptionKey, 'salt', 32);
+    const cipher = crypto.createCipheriv(this.encryptionAlgorithm, key, iv);
+    
+    let encrypted = cipher.update(text, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    const authTag = cipher.getAuthTag().toString('hex');
+    
+    return `${iv.toString('hex')}:${authTag}:${encrypted}`;
+  }
+
+  /**
+   * Decrypt sensitive data
+   */
+  private decrypt(encryptedData: string): string {
+    const parts = encryptedData.split(':');
+    if (parts.length !== 3) {
+      throw new Error('Invalid encrypted data format');
+    }
+    
+    const [ivHex, authTagHex, encrypted] = parts;
+    const iv = Buffer.from(ivHex, 'hex');
+    const authTag = Buffer.from(authTagHex, 'hex');
+    const key = crypto.scryptSync(this.encryptionKey, 'salt', 32);
+    
+    const decipher = crypto.createDecipheriv(this.encryptionAlgorithm, key, iv);
+    decipher.setAuthTag(authTag);
+    
+    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    
+    return decrypted;
+  }
 
   /**
    * Starta BankID-autentisering
@@ -325,11 +370,14 @@ export class BankIdService {
     personalNumber: string,
     name: string,
   ): Promise<AuthStatusResult> {
+    // Encrypt personal number before storing
+    const encryptedPersonalNumber = this.encrypt(personalNumber);
+    
     await this.prisma.bankIdSession.update({
       where: { orderRef },
       data: {
         status: BankIdStatus.COMPLETED,
-        personalNumber, // I produktion: kryptera detta värde
+        personalNumber: encryptedPersonalNumber, // Encrypted for GDPR compliance
         name,
         completedAt: new Date(),
       },
