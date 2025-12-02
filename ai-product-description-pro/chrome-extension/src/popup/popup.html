@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Product Description Generator PRO</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 400px;
+      min-height: 500px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .login-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .login-btn {
+      background: #1E3A8A;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #475569;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #1E3A8A;
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .generate-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    }
+
+    .generate-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .result-section {
+      margin-top: 20px;
+      padding: 16px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .result-header h3 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .seo-score {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: #22c55e;
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .seo-score.medium {
+      background: #f59e0b;
+    }
+
+    .seo-score.low {
+      background: #ef4444;
+    }
+
+    .result-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #475569;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .credits-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px;
+      background: #fef3c7;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #92400e;
+      margin-bottom: 16px;
+    }
+
+    .loader {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .loader.active {
+      display: block;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #1E3A8A;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .footer {
+      padding: 16px 20px;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .footer a {
+      color: #1E3A8A;
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🚀 AI Product Description PRO</h1>
+    <p>SEO-optimerade produkttexter på sekunder</p>
+  </div>
+
+  <div id="login-view" class="login-section">
+    <p style="margin-bottom: 20px; color: #64748b;">Logga in för att börja generera</p>
+    <button class="login-btn" id="login-btn">Logga in</button>
+  </div>
+
+  <div id="main-view" class="content hidden">
+    <div class="credits-badge">
+      <span>💰</span>
+      <span id="credits-count">0 krediter kvar</span>
+    </div>
+
+    <form id="generate-form">
+      <div class="form-group">
+        <label for="title">Produktnamn</label>
+        <input type="text" id="title" placeholder="T.ex. Ekologisk bomullströja" required>
+      </div>
+
+      <div class="form-group">
+        <label for="keywords">Nyckelord (separerade med komma)</label>
+        <input type="text" id="keywords" placeholder="ekologisk, hållbar, bomull">
+      </div>
+
+      <div class="form-group">
+        <label for="language">Språk</label>
+        <select id="language">
+          <option value="SV">Svenska</option>
+          <option value="EN">English</option>
+          <option value="NO">Norsk</option>
+          <option value="DA">Dansk</option>
+          <option value="FI">Suomi</option>
+          <option value="DE">Deutsch</option>
+        </select>
+      </div>
+
+      <button type="submit" class="generate-btn" id="generate-btn">
+        ✨ Generera produkttext
+      </button>
+    </form>
+
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+      <p>Genererar produkttext...</p>
+    </div>
+
+    <div class="result-section hidden" id="result-section">
+      <div class="result-header">
+        <h3>Genererad text</h3>
+        <span class="seo-score" id="seo-score">SEO: 95</span>
+      </div>
+      <p class="result-text" id="result-text"></p>
+      <button class="copy-btn" id="copy-btn">
+        📋 Kopiera till urklipp
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2024 AI Product Description Generator PRO</p>
+    <p><a href="https://ai-product-description.pro" target="_blank">Öppna dashboard →</a></p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

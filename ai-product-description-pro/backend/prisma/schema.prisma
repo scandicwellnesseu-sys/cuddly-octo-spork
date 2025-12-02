@@ -1,0 +1,747 @@
+// AI Product Description Generator PRO - Prisma Schema
+// PostgreSQL Database Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// Användare och Organisationer
+// ==========================================
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String?
+  name            String?
+  avatar          String?
+  emailVerified   DateTime?
+  twoFactorEnabled Boolean  @default(false)
+  
+  // Stripe
+  stripeCustomerId String?   @unique
+  
+  // Relationer
+  memberships     OrgMember[]
+  sessions        Session[]
+  apiKeys         ApiKey[]
+  generations     Generation[]
+  brandVoices     BrandVoice[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token        String   @unique
+  expiresAt    DateTime
+  userAgent    String?
+  ipAddress    String?
+  
+  createdAt    DateTime @default(now())
+  
+  @@map("sessions")
+}
+
+model Organization {
+  id              String    @id @default(cuid())
+  name            String
+  slug            String    @unique
+  logo            String?
+  
+  // Stripe & Billing
+  stripeCustomerId   String?   @unique
+  stripeSubscriptionId String?
+  plan               Plan      @default(STARTER)
+  creditsBalance     Int       @default(10)
+  creditsResetAt     DateTime?
+  
+  // Relationer
+  members         OrgMember[]
+  generations     Generation[]
+  brandVoices     BrandVoice[]
+  shopifyStores   ShopifyStore[]
+  wooStores       WooCommerceStore[]
+  invoices        Invoice[]
+  creditLogs      CreditLog[]
+  
+  // Advanced features relations
+  abTests             AbTest[]
+  generatedImages     GeneratedImage[]
+  plagiarismChecks    PlagiarismCheck[]
+  competitorAnalyses  CompetitorAnalysis[]
+  scheduledPublishes  ScheduledPublish[]
+  webhooks            Webhook[]
+  whiteLabelConfig    WhiteLabelConfig?
+  amazonStores        AmazonStore[]
+  zalandoStores       ZalandoStore[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("organizations")
+}
+
+model OrgMember {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role            OrgRole   @default(VIEWER)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@unique([userId, organizationId])
+  @@map("org_members")
+}
+
+enum Plan {
+  STARTER
+  PRO
+  AGENCY
+}
+
+enum OrgRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+// ==========================================
+// API & Autentisering
+// ==========================================
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  keyHash     String    @unique
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  
+  createdAt   DateTime  @default(now())
+  
+  @@map("api_keys")
+}
+
+// ==========================================
+// AI Generering
+// ==========================================
+
+model Generation {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  // Input
+  title           String?
+  keywords        String[]
+  imageUrls       String[]
+  language        Language  @default(SV)
+  brandVoiceId    String?
+  brandVoice      BrandVoice? @relation(fields: [brandVoiceId], references: [id])
+  
+  // Output
+  description     String?   @db.Text
+  shortDescription String?  @db.Text
+  metaTitle       String?
+  metaDescription String?   @db.Text
+  slug            String?
+  altTexts        String[]
+  attributes      Json?
+  
+  // Scores
+  confidenceScore Float?
+  seoScore        Int?
+  readabilityGrade String?
+  
+  // Metadata
+  status          GenerationStatus @default(PENDING)
+  errorMessage    String?
+  creditsUsed     Int       @default(1)
+  processingTimeMs Int?
+  aiModel         String?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("generations")
+}
+
+enum GenerationStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum Language {
+  SV  // Svenska
+  EN  // English
+  NO  // Norska
+  DA  // Danska
+  FI  // Finska
+  DE  // Tyska
+}
+
+// ==========================================
+// Brand Voice
+// ==========================================
+
+model BrandVoice {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  name            String
+  description     String?
+  
+  // AI-analyserad profil
+  toneProfile     Json?     // { formal: 0.7, friendly: 0.8, technical: 0.3 }
+  vocabularyStyle Json?     // { preferredWords: [], avoidWords: [] }
+  sentenceStructure Json?   // { avgLength: 15, complexity: "medium" }
+  exampleTexts    String[]  @db.Text
+  
+  // Relationer
+  generations     Generation[]
+  
+  isDefault       Boolean   @default(false)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("brand_voices")
+}
+
+// ==========================================
+// E-handelsintegrationer
+// ==========================================
+
+model ShopifyStore {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  shopDomain      String    @unique
+  accessToken     String
+  scope           String[]
+  
+  isActive        Boolean   @default(true)
+  lastSyncAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("shopify_stores")
+}
+
+model WooCommerceStore {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  storeUrl        String
+  consumerKey     String
+  consumerSecret  String
+  
+  isActive        Boolean   @default(true)
+  lastSyncAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("woocommerce_stores")
+}
+
+// ==========================================
+// Billing & Credits
+// ==========================================
+
+model Invoice {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  stripeInvoiceId String?   @unique
+  amount          Int       // Öre/cents
+  currency        String    @default("SEK")
+  status          InvoiceStatus @default(PENDING)
+  paidAt          DateTime?
+  
+  // Detaljer
+  description     String?
+  creditsAdded    Int?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("invoices")
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model CreditLog {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  amount          Int       // + eller -
+  balanceAfter    Int
+  reason          String
+  referenceId     String?   // generationId, invoiceId etc
+  referenceType   String?
+  
+  createdAt       DateTime  @default(now())
+  
+  @@map("credit_logs")
+}
+
+// ==========================================
+// Trender & Nyckelord
+// ==========================================
+
+model TrendingKeyword {
+  id              String    @id @default(cuid())
+  keyword         String
+  language        Language  @default(SV)
+  category        String?
+  
+  // Trenddata
+  searchVolume    Int?
+  trendScore      Float?
+  source          String?   // google, tiktok, instagram
+  
+  // Metadata
+  fetchedAt       DateTime  @default(now())
+  expiresAt       DateTime
+  
+  @@unique([keyword, language])
+  @@map("trending_keywords")
+}
+
+// ==========================================
+// Analytics
+// ==========================================
+
+model AnalyticsEvent {
+  id              String    @id @default(cuid())
+  organizationId  String?
+  userId          String?
+  
+  eventType       String
+  eventData       Json?
+  
+  createdAt       DateTime  @default(now())
+  
+  @@index([organizationId, eventType, createdAt])
+  @@map("analytics_events")
+}
+
+// ==========================================
+// A/B Testing
+// ==========================================
+
+model AbTest {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  name            String
+  description     String?
+  status          AbTestStatus @default(DRAFT)
+  
+  // Varianter
+  variants        AbTestVariant[]
+  
+  // Mål och mätning
+  goalType        String    // clicks, conversions, revenue
+  startedAt       DateTime?
+  endedAt         DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("ab_tests")
+}
+
+model AbTestVariant {
+  id              String    @id @default(cuid())
+  testId          String
+  test            AbTest    @relation(fields: [testId], references: [id], onDelete: Cascade)
+  
+  name            String    // A, B, C...
+  content         Json      // { description, title, etc }
+  
+  // Statistik
+  impressions     Int       @default(0)
+  clicks          Int       @default(0)
+  conversions     Int       @default(0)
+  revenue         Float     @default(0)
+  
+  isControl       Boolean   @default(false)
+  isWinner        Boolean   @default(false)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("ab_test_variants")
+}
+
+enum AbTestStatus {
+  DRAFT
+  RUNNING
+  PAUSED
+  COMPLETED
+}
+
+// ==========================================
+// AI Image Generation
+// ==========================================
+
+model GeneratedImage {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId          String
+  
+  // Input
+  prompt          String    @db.Text
+  style           String?   // product, lifestyle, minimalist
+  aspectRatio     String    @default("1:1")
+  
+  // Output
+  imageUrl        String?
+  thumbnailUrl    String?
+  
+  // Metadata
+  model           String    // dall-e-3, midjourney, stable-diffusion
+  status          GeneratedImageStatus @default(PENDING)
+  errorMessage    String?
+  creditsUsed     Int       @default(2)
+  
+  createdAt       DateTime  @default(now())
+  
+  @@map("generated_images")
+}
+
+enum GeneratedImageStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+// ==========================================
+// Plagiarism Check
+// ==========================================
+
+model PlagiarismCheck {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  generationId    String?
+  
+  // Content checked
+  content         String    @db.Text
+  
+  // Results
+  uniquenessScore Float     // 0-100%
+  matches         Json?     // [{ source, similarity, snippet }]
+  
+  status          PlagiarismStatus @default(PENDING)
+  checkedAt       DateTime?
+  
+  createdAt       DateTime  @default(now())
+  
+  @@map("plagiarism_checks")
+}
+
+enum PlagiarismStatus {
+  PENDING
+  CHECKING
+  COMPLETED
+  FAILED
+}
+
+// ==========================================
+// Competitor Analysis
+// ==========================================
+
+model CompetitorAnalysis {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  // Competitor info
+  competitorUrl   String
+  competitorName  String?
+  
+  // Analysis results
+  productCount    Int?
+  avgDescLength   Int?
+  topKeywords     String[]
+  toneAnalysis    Json?     // { formal, casual, technical }
+  seoAnalysis     Json?     // { avgScore, commonPatterns }
+  priceRange      Json?     // { min, max, avg }
+  
+  // Status
+  status          AnalysisStatus @default(PENDING)
+  analyzedAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("competitor_analyses")
+}
+
+enum AnalysisStatus {
+  PENDING
+  ANALYZING
+  COMPLETED
+  FAILED
+}
+
+// ==========================================
+// Scheduled Publishing
+// ==========================================
+
+model ScheduledPublish {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  generationId    String
+  
+  // Destination
+  platform        PublishPlatform
+  storeId         String?   // shopifyStoreId, wooStoreId, etc
+  productId       String?   // external product ID
+  
+  // Schedule
+  scheduledFor    DateTime
+  publishedAt     DateTime?
+  
+  // Status
+  status          PublishStatus @default(SCHEDULED)
+  errorMessage    String?
+  retryCount      Int       @default(0)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("scheduled_publishes")
+}
+
+enum PublishPlatform {
+  SHOPIFY
+  WOOCOMMERCE
+  AMAZON
+  ZALANDO
+}
+
+enum PublishStatus {
+  SCHEDULED
+  PUBLISHING
+  PUBLISHED
+  FAILED
+  CANCELLED
+}
+
+// ==========================================
+// Webhooks & Automation
+// ==========================================
+
+model Webhook {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  name            String
+  url             String
+  secret          String?   // HMAC signature secret
+  
+  // Events to trigger
+  events          String[]  // generation.completed, test.completed, etc
+  
+  // Status
+  isActive        Boolean   @default(true)
+  lastTriggeredAt DateTime?
+  failureCount    Int       @default(0)
+  
+  // Logs
+  deliveries      WebhookDelivery[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("webhooks")
+}
+
+model WebhookDelivery {
+  id              String    @id @default(cuid())
+  webhookId       String
+  webhook         Webhook   @relation(fields: [webhookId], references: [id], onDelete: Cascade)
+  
+  event           String
+  payload         Json
+  
+  // Response
+  statusCode      Int?
+  responseBody    String?   @db.Text
+  duration        Int?      // ms
+  
+  success         Boolean   @default(false)
+  attemptNumber   Int       @default(1)
+  
+  createdAt       DateTime  @default(now())
+  
+  @@map("webhook_deliveries")
+}
+
+// ==========================================
+// White-Label
+// ==========================================
+
+model WhiteLabelConfig {
+  id              String    @id @default(cuid())
+  organizationId  String    @unique
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  // Branding
+  companyName     String
+  logo            String?
+  favicon         String?
+  
+  // Colors
+  primaryColor    String    @default("#1E3A8A")
+  secondaryColor  String    @default("#FFD700")
+  
+  // Domain
+  customDomain    String?   @unique
+  
+  // Features
+  hidePoweredBy   Boolean   @default(false)
+  customEmailFrom String?
+  
+  isActive        Boolean   @default(false)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("white_label_configs")
+}
+
+// ==========================================
+// Amazon Integration
+// ==========================================
+
+model AmazonStore {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  sellerId        String
+  marketplaceId   String    // A1PA6795UKMFR9 (DE), A1RKKUPIHCS9HS (ES), etc
+  region          String    // EU, NA, FE
+  
+  // OAuth tokens
+  refreshToken    String
+  accessToken     String?
+  tokenExpiresAt  DateTime?
+  
+  isActive        Boolean   @default(true)
+  lastSyncAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("amazon_stores")
+}
+
+// ==========================================
+// Zalando Integration
+// ==========================================
+
+model ZalandoStore {
+  id              String    @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  merchantId      String
+  clientId        String
+  clientSecret    String
+  
+  // Zalando markets
+  salesChannels   String[]  // DE, SE, NO, etc
+  
+  isActive        Boolean   @default(true)
+  lastSyncAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("zalando_stores")
+}
+
+// ==========================================
+// BankID / Nordic Auth
+// ==========================================
+
+model BankIdSession {
+  id              String    @id @default(cuid())
+  userId          String?
+  
+  // BankID specific
+  orderRef        String    @unique
+  autoStartToken  String?
+  provider        BankIdProvider
+  
+  // Status
+  status          BankIdStatus @default(PENDING)
+  personalNumber  String?   // AES-256-GCM encrypted for GDPR compliance
+  name            String?
+  
+  // Timestamps
+  completedAt     DateTime?
+  expiresAt       DateTime
+  
+  createdAt       DateTime  @default(now())
+  
+  @@map("bankid_sessions")
+}
+
+enum BankIdProvider {
+  BANKID_SE    // Swedish BankID
+  MITID_DK     // Danish MitID
+  BANKID_NO    // Norwegian BankID
+  FTNMT_FI     // Finnish FTN/Mobiilivarmenne
+}
+
+enum BankIdStatus {
+  PENDING
+  USER_SIGN
+  COMPLETED
+  FAILED
+  EXPIRED
+}
