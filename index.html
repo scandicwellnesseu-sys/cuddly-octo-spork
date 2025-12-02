@@ -3,37 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScandicWellness Chatbot</title>
+    <title>AI-baserad strategi för kryptohandelssignaler</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <main class="app">
-        <header class="app__header">
-            <h1>ScandicWellness</h1>
-            <p>Din digitala coach för vitaminer och kosttillskott</p>
-        </header>
+    <header class="hero">
+        <div class="hero__content">
+            <p class="hero__eyebrow">AI-drivna kryptosignaler</p>
+            <h1>Trendföljning möter maskininlärning och sentimentanalys</h1>
+            <p class="hero__lead">
+                En komplett strategi och affärsmodell för att leverera träffsäkra kryptohandelssignaler i realtid via Telegram –
+                med fokus på riskjusterad avkastning, transparens och kundvärde.
+            </p>
+            <a class="hero__cta" href="#distribution">Utforska signalflödet</a>
+        </div>
+    </header>
 
-        <section class="chat" aria-live="polite">
-            <div class="chat__messages" id="chatMessages"></div>
-            <div class="chat__suggestions" id="chatSuggestions" aria-label="Snabbrekommendationer"></div>
-            <form class="chat__form" id="chatForm" aria-label="Skicka meddelande till ScandicWellness chatbot">
-                <label class="chat__label" for="userInput">Skriv din fråga</label>
-                <div class="chat__input-wrapper">
-                    <input type="text" id="userInput" name="userInput" placeholder="Fråga om produkter, leverans eller råd" autocomplete="off" required>
-                    <button type="submit" class="chat__send">Skicka</button>
+    <main class="layout">
+        <aside class="sidebar" aria-label="Innehåll och nyckelpunkter">
+            <section class="card">
+                <h2>Innehåll</h2>
+                <nav id="toc" aria-label="Avsnittsmeny"></nav>
+            </section>
+            <section class="card card--accent">
+                <h2>Snabba fakta</h2>
+                <ul class="quickfacts">
+                    <li><strong>Signaltyper:</strong> Trendföljande köp-/säljrekommendationer med TP/SL.</li>
+                    <li><strong>AI-stack:</strong> LSTM för prisdata + Transformer för sentiment.</li>
+                    <li><strong>Leverans:</strong> Telegram-bot med realtidsutskick & visualiseringar.</li>
+                    <li><strong>Affärsmodell:</strong> Gratis smakprov + premiumprenumeration.</li>
+                </ul>
+            </section>
+        </aside>
+
+        <article class="content">
+            <section id="overview">
+                <h2>Strategiöversikt</h2>
+                <p>
+                    Strategin kombinerar klassisk trendföljning med adaptiv artificiell intelligens. AI-modellen analyserar
+                    prisrörelser, volym, volatilitet och sentimentdata i realtid för att generera lönsamma, riskjusterade
+                    handelssignaler. Fokus ligger på att filtrera bort marknadsbrus, identifiera hållbara trender snabbare än
+                    traditionella indikatorer och ge användaren tydliga instruktioner för varje affär.
+                </p>
+                <ul class="checklist">
+                    <li>Trendidentifiering förstärkt av AI för snabbare entry och exit.</li>
+                    <li>Hybridmodell (LSTM + Transformer) som väger samman pris- och sentimentsignaler.</li>
+                    <li>Strikt riskhantering med stop-loss, take-profit och sannolikhetspoäng.</li>
+                    <li>Distribution via Telegram för omedelbar åtkomst och automation.</li>
+                </ul>
+            </section>
+
+            <section id="trend-ai">
+                <h2>Trendföljande handel förstärkt av AI</h2>
+                <p>
+                    Den trendföljande delen använder indikatorer som glidande medelvärden, ADX och prisutbrott för att fånga
+                    etablerade rörelser. AI-komponenten tolkar fler datapunkter än en traditionell setup, upptäcker tidiga
+                    momentumskiften och eliminerar falska signaler i sidledes marknader. Resultatet blir färre whipsaws och
+                    snabbare respons när trender bryter ut eller bryter samman.
+                </p>
+                <p>
+                    Genom att kontinuerligt justera parametrar efter marknadsklimat fungerar AI som ett beslutsstöd som
+                    optimerar entry- och exitnivåer, samtidigt som mänskliga bias minimeras. Modellen lär sig av historik och
+                    pågående resultat, vilket ger en dynamisk edge över statiska indikatorer.
+                </p>
+            </section>
+
+            <section id="ml-stack">
+                <h2>Maskininlärningsmodeller (LSTM &amp; Transformer)</h2>
+                <p>
+                    Kärnan i signalmotorn är en hybridmodell. LSTM-nätverket tränas på flera års pris- och volymdata för
+                    nyckelvalutor. Det fångar säsongsmönster, momentumskiften och korrelationer över flera tidsramar.
+                    Parallellt analyserar en Transformer (t.ex. FinBERT) realtidsflöden av nyheter, tweets och forum för att
+                    skatta sentiment. De båda komponenterna sammanförs i ett beslutslager som avgör sannolikheten för en
+                    hållbar prisrörelse.
+                </p>
+                <p>
+                    Modellen arbetar strömmässigt: nya datapunkter uppdaterar prediktionerna fortlöpande och viktar om
+                    viktiga signaler. På så sätt reagerar systemet på både hårda data (pris/volym) och mjuka faktorer
+                    (marknadston) i samma ögonblick, vilket ökar träffsäkerheten.
+                </p>
+            </section>
+
+            <section id="sentiment">
+                <h2>Integrerad sentimentanalys</h2>
+                <p>
+                    Sentimentmotorerna följer Telegram, Twitter, Reddit och branschmedia för att identifiera snabba skiften i
+                    marknadspsykologi. Tonen normaliseras till skalor som används som filter i handelsreglerna. Exempelvis
+                    kan ett kraftigt negativt sentiment stoppa en planerad köpsignal, medan positivt sentiment används för att
+                    bekräfta prisutbrott. NLP-modeller tränade på kryptoslang ("to the moon", "FUD") ökar precisionen.
+                </p>
+                <p>
+                    Sentimentet visas i signalerna som en indikator (t.ex. 0–100). Ett stigande sentimentvärde i kombination
+                    med tekniska brott uppmuntrar till aggressivare positionering, medan avvikelser triggar försiktighet.
+                </p>
+            </section>
+
+            <section id="risk">
+                <h2>Riskhantering för riskjusterad avkastning</h2>
+                <p>
+                    Varje signal innehåller en komplett spelplan: entrépris, stop-loss, ett eller flera take-profit-nivåer och
+                    en sannolikhetsbedömning. AI:n optimerar nivåerna genom att väga historisk volatilitet, aktuella stöd- och
+                    motståndszoner samt önskad risk:reward, ofta minst 2:1. Sharpe-kvot, max-drawdown och andra nyckeltal
+                    utvärderas löpande för att säkerställa att signalflödet behåller sin edge.
+                </p>
+                <p>
+                    Om riskbilden är för ogynnsam avstår systemet från att skicka signal. Användare kan dimensionera sina
+                    positioner efter sannolikhetspoängen och därmed hantera portföljens totala risknivå.
+                </p>
+            </section>
+
+            <section id="distribution">
+                <h2>Implementation och signaldistribution via Telegram</h2>
+                <p>
+                    En Telegram-bot publicerar signalerna i realtid med tydlig struktur: tillgång, riktning, entré, SL, TP,
+                    sannolikhet och en kort kommentar. Varje utskick kompletteras med en auto-genererad bild eller GIF som
+                    visar den tekniska setupen i exempelvis TradingView. Telegrams notifieringar säkerställer att användare
+                    reagerar inom sekunder.
+                </p>
+                <p>
+                    Botens backend kopplas till Cornix eller liknande auto-tradinglösningar för de kunder som vill spegla
+                    signalerna automatiskt. Pushnotiser kan segmenteras (t.ex. BTC/ETH vs altcoins) så att prenumeranter bara
+                    får relevant flöde.
+                </p>
+            </section>
+
+            <section id="business-model">
+                <h2>Affärsmodell med prenumerationsfokus</h2>
+                <p>
+                    Tjänsten lanseras med en freemium-struktur: en öppen kanal med 2–3 utvalda signaler per vecka samt
+                    uppgraderingshake till VIP-kanalen där samtliga signaler levereras i realtid. Premiumnivån förstärks med
+                    direkt support, utbildningsmaterial och månatliga marknadsgenomgångar.
+                </p>
+                <div class="table-wrapper">
+                    <table>
+                        <caption>Rekommenderad prisstruktur</caption>
+                        <thead>
+                            <tr>
+                                <th>Paket</th>
+                                <th>Innehåll</th>
+                                <th>Prisexempel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Gratis smakprov</td>
+                                <td>2–3 signaler/vecka, fördröjd publicering, månadsvisa resultatrapporter.</td>
+                                <td>0 kr</td>
+                            </tr>
+                            <tr>
+                                <td>Premium månadsvis</td>
+                                <td>Alla signaler i realtid, sentimentdashboard, supportkanal.</td>
+                                <td>ca 150 USD/mån</td>
+                            </tr>
+                            <tr>
+                                <td>Premium kvartalsvis</td>
+                                <td>Som månadsvis + exklusiva webinarier och indikatorer.</td>
+                                <td>ca 300 USD/kvartal</td>
+                            </tr>
+                            <tr>
+                                <td>Livstid</td>
+                                <td>Full åtkomst, ev. begränsad kampanj – engångsbetalning.</td>
+                                <td>ca 500 USD</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
-        </section>
+                <p>
+                    Betalning kan ske via kort, PayPal eller kryptovalutor (USDT, BTC, ETH). Onboarding automatiseras genom
+                    att betalning triggar ett API-anrop som lägger till användaren i rätt Telegram-grupp.
+                </p>
+            </section>
 
-        <section class="info">
-            <h2>Så fungerar chatten</h2>
-            <ul>
-                <li>Få snabba svar om vitaminer, mineraler och wellnessprogram.</li>
-                <li>Be om rekommendationer efter mål som energi, immunförsvar eller återhämtning.</li>
-                <li>Få hjälp med beställningar, frakt och prenumerationer.</li>
-            </ul>
-        </section>
+            <section id="transparency">
+                <h2>Transparens och kundförtroende</h2>
+                <p>
+                    För att sticka ut i en konkurrensutsatt marknad behövs full spårbarhet. Alla signaler loggas i ett öppet
+                    arkiv eller dashboard med tidsstämplar, resultat (TP/SL) och procentuellt utfall. Regelbundna rapporter
+                    (vecko- eller månadsvis) sammanfattar träffsäkerhet, riskmått och lärdomar.
+                </p>
+                <p>
+                    Ett aktivt community på Telegram eller Discord stärker kundrelationen. Teamet ger löpande marknadskommentarer,
+                    erkänner misstag och visar hur AI-modellen utvecklas. Transparens kring metodik – utan att avslöja
+                    källkod – ger trovärdighet och differentierar mot oseriösa aktörer.
+                </p>
+            </section>
+
+            <section id="operations">
+                <h2>Tekniskt arbetsflöde</h2>
+                <ol class="workflow">
+                    <li><strong><a href="#step-1">Datainsamling</a>:</strong> Strömmar av pris, volym, orderböcker, nyheter och sociala medier.</li>
+                    <li><strong>Feature engineering:</strong> Trendindikatorer, volatilitet, sentimentpoäng och makrotaggar.</li>
+                    <li><strong>Prediktion:</strong> LSTM + Transformer genererar sannolikhet för prisriktning.</li>
+                    <li><strong>Signalvalidering:</strong> Riskfilter beräknar TP/SL, Sharpe och konfidensnivå.</li>
+                    <li><strong>Distribution:</strong> Telegram-bot publicerar text, grafik och API-signal.</li>
+                    <li><strong>Feedbackloop:</strong> Utfallet loggas och används för reträning och parameterjustering.</li>
+                </ol>
+            </section>
+
+            <section id="step-1">
+                <h2>Steg 1: Bygg dataplattformen</h2>
+                <p>
+                    För att AI-strategin ska kunna fatta beslut i realtid krävs en robust dataplattform som samlar in,
+                    kvalitetssäkrar och levererar både marknads- och sentimentdata med låg latens. Arkitekturen bör vara
+                    modulär så att nya källor kan läggas till utan att störa befintliga flöden.
+                </p>
+                <div class="step-grid" role="list">
+                    <article class="step-grid__item" role="listitem">
+                        <h3>1.1 Datakällor &amp; anslutningar</h3>
+                        <ul>
+                            <li>Pris- och volymdata via websockets/REST från börser som Binance, Coinbase och Bybit.</li>
+                            <li>Orderboksdjup och derivatdata för att mäta likviditet och upptäcka squeeze-scenarion.</li>
+                            <li>Nyhets- och sociala medier-flöden (Twitter API v2, Reddit, Telegram-kanaler, RSS-feeds).</li>
+                        </ul>
+                    </article>
+                    <article class="step-grid__item" role="listitem">
+                        <h3>1.2 Ingestionslager</h3>
+                        <ul>
+                            <li>Använd ett streamingramverk (t.ex. Kafka eller Redpanda) för att buffra inkommande händelser.</li>
+                            <li>Normalisera datapunkter till ett gemensamt schema med tidsstämplar i UTC.</li>
+                            <li>Inför kvalitetskontroller: schema-validering, dubblettfilter och felhantering per källa.</li>
+                        </ul>
+                    </article>
+                    <article class="step-grid__item" role="listitem">
+                        <h3>1.3 Lagring &amp; åtkomst</h3>
+                        <ul>
+                            <li>Lagrat historiska tidsserier i ett kolumnorienterat lager (Parquet på S3/GCS eller TimescaleDB).</li>
+                            <li>Bygg ett "feature store" (t.ex. Feast) för beräknade indikatorer och sentimentpoäng.</li>
+                            <li>Tillhandahåll cachade realtidsvyer (Redis/Memgraph) till modeller och signalmotor.</li>
+                        </ul>
+                    </article>
+                    <article class="step-grid__item" role="listitem">
+                        <h3>1.4 Övervakning &amp; drift</h3>
+                        <ul>
+                            <li>Sätt upp dashboards i Grafana/Datadog för latens, felkvoter och datatäckning.</li>
+                            <li>Använd schemalagda hälsokontroller och alerting (PagerDuty/Slack) för kritiska källor.</li>
+                            <li>Logga alla transformationer för revision och modellspårbarhet.</li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="callout">
+                    <h3>Leverabel för Steg 1</h3>
+                    <p>
+                        En fungerande staging-miljö där pris, volym, orderböcker och sentiment kontinuerligt landar i
+                        streaminglagret och historiska arkivet. Dokumentera anslutningsnycklar, datakontrakt och
+                        övervakningsrutiner innan du går vidare till feature engineering i steg två.
+                    </p>
+                </div>
+            </section>
+
+            <section id="cta">
+                <h2>Nästa steg</h2>
+                <p>
+                    Med denna strategi kan teamet lansera en differentierad signalprodukt som kombinerar avancerad AI,
+                    transparent affärsmodell och kundfokuserad kommunikation. Nästa steg är att implementera datapipelines,
+                    träna modellerna och bygga Telegram-infrastrukturen – därefter kan marknadsföring och onboarding ta vid.
+                </p>
+                <a class="cta" href="#overview">Tillbaka till toppen</a>
+            </section>
+        </article>
     </main>
+
+    <footer class="footer">
+        <p>© 2025 AI Signals Collective. All rights reserverade.</p>
+    </footer>
+
     <script src="script.js" defer></script>
 </body>
 </html>
