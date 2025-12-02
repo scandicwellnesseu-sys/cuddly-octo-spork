@@ -20,9 +20,21 @@ AI Product Description Generator PRO är ett svenskt/nordiskt SaaS-verktyg för 
 - **🎤 Brand Voice Trainer** - Lär AI din unika ton och stil
 - **🌍 Flerspråkighet** - Svenska, engelska, norska, danska, finska, tyska
 - **📈 Trend-detektor** - Analyserar TikTok, Instagram & Google Trends
-- **🛒 E-handelsintegration** - Shopify & WooCommerce direktkoppling
+- **🛒 E-handelsintegration** - Shopify, WooCommerce, Amazon & Zalando
 - **💳 Stripe-betalningar** - Prenumerationer och kreditköp
 - **👥 Teamkonton** - Roller (owner, editor, viewer) och delade krediter
+
+### 🚀 PRO-funktioner (Marknadens bästa)
+
+- **🧪 A/B-testning** - Testa produkttexter och se vilka som konverterar bäst
+- **🎨 AI-bildgenerering** - Skapa produktbilder med DALL-E 3
+- **📝 Plagiatkontroll** - Verifiera att texter är unika
+- **🎯 Konkurrentanalys** - Analysera konkurrenters produkttexter
+- **📅 Automatisk publicering** - Schemalägg publicering till alla plattformar
+- **🔗 Webhooks/Zapier** - Automatisera arbetsflöden
+- **🏷️ White-Label** - Byråer kan sälja under eget varumärke
+- **🔐 BankID/MitID** - Nordisk säker inloggning
+- **🧩 Chrome Extension** - Generera direkt i webbläsaren
 
 ## 🛠️ Teknisk Stack
 
@@ -38,7 +50,7 @@ AI Product Description Generator PRO är ett svenskt/nordiskt SaaS-verktyg för 
 ### Backend
 - **NestJS** (TypeScript)
 - **Prisma ORM** med PostgreSQL
-- **OpenAI GPT-4o** (Vision + Text)
+- **OpenAI GPT-4o** (Vision + Text + DALL-E)
 - **Anthropic Claude 3.5 Sonnet** (fallback)
 - **Google Cloud Vision API** (OCR)
 - **Stripe API** (subscriptions + credits)
@@ -51,53 +63,80 @@ ai-product-description-pro/
 ├── backend/
 │   ├── src/
 │   │   ├── modules/
-│   │   │   ├── ai/           # AI-generering (GPT-4o, Claude, OCR)
-│   │   │   ├── auth/         # Autentisering (JWT)
-│   │   │   ├── users/        # Användarhantering
-│   │   │   ├── orgs/         # Organisationer & team
-│   │   │   ├── seo/          # SEO-analys & scoring
-│   │   │   ├── keywords/     # Nyckelordsmotor
-│   │   │   ├── brand-voice/  # Brand Voice Trainer
-│   │   │   ├── billing/      # Stripe-betalningar
-│   │   │   ├── shopify/      # Shopify-integration
-│   │   │   ├── woocommerce/  # WooCommerce-integration
-│   │   │   ├── trends/       # Trend-analys
-│   │   │   ├── analytics/    # Statistik & diagram
-│   │   │   └── files/        # Filuppladdning
-│   │   └── prisma/           # Prisma-tjänst
+│   │   │   ├── ai/                  # AI-generering (GPT-4o, Claude, OCR)
+│   │   │   ├── auth/                # Autentisering (JWT)
+│   │   │   ├── users/               # Användarhantering
+│   │   │   ├── orgs/                # Organisationer & team
+│   │   │   ├── seo/                 # SEO-analys & scoring
+│   │   │   ├── keywords/            # Nyckelordsmotor
+│   │   │   ├── brand-voice/         # Brand Voice Trainer
+│   │   │   ├── billing/             # Stripe-betalningar
+│   │   │   ├── shopify/             # Shopify-integration
+│   │   │   ├── woocommerce/         # WooCommerce-integration
+│   │   │   ├── amazon/              # Amazon Seller Central
+│   │   │   ├── zalando/             # Zalando Partner Program
+│   │   │   ├── trends/              # Trend-analys
+│   │   │   ├── analytics/           # Statistik & diagram
+│   │   │   ├── files/               # Filuppladdning
+│   │   │   ├── ab-testing/          # A/B-testning
+│   │   │   ├── image-generation/    # DALL-E bildgenerering
+│   │   │   ├── plagiarism/          # Plagiatkontroll
+│   │   │   ├── competitor-analysis/ # Konkurrentanalys
+│   │   │   ├── scheduled-publishing/# Schemalagd publicering
+│   │   │   ├── webhooks/            # Webhooks & automation
+│   │   │   ├── white-label/         # White-label konfiguration
+│   │   │   └── bankid/              # BankID/MitID autentisering
+│   │   └── prisma/                  # Prisma-tjänst
 │   ├── prisma/
-│   │   └── schema.prisma     # Databasschema
+│   │   └── schema.prisma            # Databasschema
 │   ├── package.json
 │   └── tsconfig.json
 │
 ├── frontend/
 │   ├── app/
-│   │   ├── page.tsx          # Landing page
-│   │   ├── dashboard/        # Dashboard
+│   │   ├── page.tsx                 # Landing page
+│   │   ├── dashboard/               # Dashboard
 │   │   ├── generate/
-│   │   │   ├── single/       # Enkel generering
-│   │   │   └── bulk/         # Bulkgenerering
-│   │   ├── seo-score/        # SEO-analys
-│   │   ├── brand-voice/      # Brand Voice
-│   │   ├── trends/           # Trendande nyckelord
-│   │   ├── billing/          # Betalning
+│   │   │   ├── single/              # Enkel generering
+│   │   │   └── bulk/                # Bulkgenerering
+│   │   ├── seo-score/               # SEO-analys
+│   │   ├── brand-voice/             # Brand Voice
+│   │   ├── trends/                  # Trendande nyckelord
+│   │   ├── billing/                 # Betalning
+│   │   ├── ab-testing/              # A/B-testning
+│   │   ├── image-generation/        # AI-bildgenerering
+│   │   ├── plagiarism/              # Plagiatkontroll
+│   │   ├── competitor-analysis/     # Konkurrentanalys
+│   │   ├── webhooks/                # Webhooks
+│   │   ├── white-label/             # White-label
+│   │   ├── auth/bankid/             # BankID inloggning
 │   │   ├── integrations/
-│   │   │   ├── shopify/      # Shopify
-│   │   │   └── woocommerce/  # WooCommerce
-│   │   └── settings/team/    # Teamhantering
+│   │   │   ├── shopify/             # Shopify
+│   │   │   ├── woocommerce/         # WooCommerce
+│   │   │   ├── amazon/              # Amazon
+│   │   │   └── zalando/             # Zalando
+│   │   └── settings/team/           # Teamhantering
 │   ├── components/
-│   │   ├── layout/           # Sidebar, Header
-│   │   ├── charts/           # SEO Gauge, Charts
-│   │   └── ui/               # UI-komponenter
+│   │   ├── layout/                  # Sidebar, Header
+│   │   ├── charts/                  # SEO Gauge, Charts
+│   │   └── ui/                      # UI-komponenter
 │   ├── lib/
-│   │   └── api.ts            # API-klient
+│   │   └── api.ts                   # API-klient
 │   ├── types/
-│   │   └── index.ts          # TypeScript-typer
+│   │   └── index.ts                 # TypeScript-typer
 │   ├── package.json
 │   └── tailwind.config.ts
 │
+├── chrome-extension/                # Chrome Extension
+│   ├── manifest.json
+│   ├── src/
+│   │   ├── popup/                   # Extension popup
+│   │   ├── content/                 # Content scripts
+│   │   └── background/              # Background worker
+│   └── README.md
+│
 ├── .env.example
-├── package.json              # Monorepo root
+├── package.json                     # Monorepo root
 └── README.md
 ```
 
@@ -148,13 +187,26 @@ Backend körs på `http://localhost:4000`
 Frontend körs på `http://localhost:3000`
 Swagger dokumentation: `http://localhost:4000/api/docs`
 
+### Chrome Extension
+
+```bash
+cd chrome-extension
+# Ladda mappen som okomprimerat tillägg i Chrome
+# chrome://extensions/ → Utvecklarläge → Läs in okomprimerat
+```
+
 ## 💳 Prismodell
 
 | Plan | Pris | Krediter | Funktioner |
 |------|------|----------|------------|
 | **Starter** | 0 kr/mån | 10 gratis | Grundläggande generering |
-| **Pro** | 490 kr/mån | 500/mån | Brand Voice, Bulk, Flerspråk |
-| **Agency** | 2 990 kr/mån | Obegränsat | API, Team, Integrationer |
+| **Pro** | 490 kr/mån | 500/mån | Brand Voice, Bulk, Flerspråk, A/B-testning |
+| **Agency** | 2 990 kr/mån | Obegränsat | API, Team, White-label, Alla integrationer |
+
+### Add-ons
+- **AI-bildgenerering**: 99 kr/mån (50 bilder)
+- **Konkurrentanalys**: 199 kr/mån (10 analyser)
+- **Avancerad A/B-testning**: 299 kr/mån
 
 ## 🎨 Design
 
@@ -228,6 +280,10 @@ STRIPE_WEBHOOK_SECRET="whsec_..."
 
 # Google Cloud Vision
 GOOGLE_CLOUD_PROJECT_ID="..."
+
+# BankID (optional)
+BANKID_API_URL="https://appapi2.bankid.com/rp/v6"
+BANKID_PFX_PATH="./certs/bankid.p12"
 ```
 
 ## 🤝 Bidra

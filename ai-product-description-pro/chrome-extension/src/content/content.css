@@ -1,0 +1,101 @@
+/* AI Product Description Generator PRO - Content Script Styles */
+
+#ai-generate-btn {
+  background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  margin: 16px 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+#ai-generate-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
+}
+
+#ai-generate-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* AI Generated Text Preview Modal */
+.ai-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 999999 !important;
+}
+
+.ai-modal {
+  background: white !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  max-width: 500px !important;
+  width: 90% !important;
+  max-height: 80vh !important;
+  overflow-y: auto !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ai-modal h2 {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
+  color: #1e293b !important;
+}
+
+.ai-modal-content {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #475569 !important;
+  margin-bottom: 20px !important;
+}
+
+.ai-modal-actions {
+  display: flex !important;
+  gap: 12px !important;
+  justify-content: flex-end !important;
+}
+
+.ai-modal-btn {
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+}
+
+.ai-modal-btn-primary {
+  background: #1E3A8A !important;
+  color: white !important;
+  border: none !important;
+}
+
+.ai-modal-btn-primary:hover {
+  background: #1d4ed8 !important;
+}
+
+.ai-modal-btn-secondary {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.ai-modal-btn-secondary:hover {
+  background: #e2e8f0 !important;
+}

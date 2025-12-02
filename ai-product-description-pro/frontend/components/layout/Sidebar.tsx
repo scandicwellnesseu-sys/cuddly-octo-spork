@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import {
   Sparkles,
   LayoutDashboard,
@@ -17,6 +16,13 @@ import {
   Mic,
   Globe,
   LogOut,
+  FlaskConical,
+  Image,
+  Search,
+  Target,
+  Webhook,
+  Tag,
+  Key,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -29,14 +35,26 @@ const navigation = [
   { name: 'Trender', href: '/trends', icon: TrendingUp },
 ];
 
+const advancedFeatures = [
+  { name: 'A/B-testning', href: '/ab-testing', icon: FlaskConical },
+  { name: 'AI-bildgenerering', href: '/image-generation', icon: Image },
+  { name: 'Plagiatkontroll', href: '/plagiarism', icon: Search },
+  { name: 'Konkurrentanalys', href: '/competitor-analysis', icon: Target },
+  { name: 'White-Label', href: '/white-label', icon: Tag },
+  { name: 'Webhooks', href: '/webhooks', icon: Webhook },
+];
+
 const integrations = [
   { name: 'Shopify', href: '/integrations/shopify', icon: ShoppingBag },
   { name: 'WooCommerce', href: '/integrations/woocommerce', icon: Globe },
+  { name: 'Amazon', href: '/integrations/amazon', icon: ShoppingBag },
+  { name: 'Zalando', href: '/integrations/zalando', icon: ShoppingBag },
 ];
 
-const settings = [
+const settingsNav = [
   { name: 'Betalning', href: '/billing', icon: CreditCard },
   { name: 'Team', href: '/settings/team', icon: Users },
+  { name: 'BankID', href: '/auth/bankid', icon: Key },
   { name: 'Inställningar', href: '/settings', icon: Settings },
 ];
 
@@ -80,6 +98,33 @@ export function Sidebar() {
           })}
         </div>
 
+        {/* Advanced Features */}
+        <div className="mt-8">
+          <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+            PRO-verktyg
+          </p>
+          <div className="space-y-1">
+            {advancedFeatures.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={clsx(
+                    'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
+                    isActive
+                      ? 'bg-primary text-white'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  )}
+                >
+                  <item.icon className="w-5 h-5" />
+                  {item.name}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Integrations */}
         <div className="mt-8">
           <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
@@ -113,7 +158,7 @@ export function Sidebar() {
             Konto
           </p>
           <div className="space-y-1">
-            {settings.map((item) => {
+            {settingsNav.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
