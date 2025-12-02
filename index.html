@@ -2,38 +2,1169 @@
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScandicWellness Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>App &amp; Hemsida – Skapa, spara och dela idéer</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <main class="app">
-        <header class="app__header">
-            <h1>ScandicWellness</h1>
-            <p>Din digitala coach för vitaminer och kosttillskott</p>
-        </header>
+    <header class="shell-header" data-site-header>
+        <div class="shell-header__inner">
+            <a class="brand" href="/" aria-label="App &amp; Hemsida startsida">
+                <span class="brand__mark" aria-hidden="true">▲</span>
+                <span class="brand__text">App &amp; Hemsida</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Meny</span>
+            </button>
+            <nav class="shell-nav" id="primary-navigation" data-nav>
+                <ul class="shell-nav__list">
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a href="#feature">Funktioner</a></li>
+                    <li><a href="#lab">Profit Lab</a></li>
+                    <li><a href="#dominance">Dominans</a></li>
+                    <li><a href="#apex">Apex</a></li>
+                    <li><a href="#capital">Kapital</a></li>
+                    <li><a href="#supremacy">Supremacy</a></li>
+                    <li><a href="#design-studio">Design Studio</a></li>
+                    <li><a class="button button--small" href="/app/">Logga in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <section class="chat" aria-live="polite">
-            <div class="chat__messages" id="chatMessages"></div>
-            <div class="chat__suggestions" id="chatSuggestions" aria-label="Snabbrekommendationer"></div>
-            <form class="chat__form" id="chatForm" aria-label="Skicka meddelande till ScandicWellness chatbot">
-                <label class="chat__label" for="userInput">Skriv din fråga</label>
-                <div class="chat__input-wrapper">
-                    <input type="text" id="userInput" name="userInput" placeholder="Fråga om produkter, leverans eller råd" autocomplete="off" required>
-                    <button type="submit" class="chat__send">Skicka</button>
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero__content">
+                <p class="hero__eyebrow">Version 0.1 · Nu live</p>
+                <h1 class="hero__title" id="hero-title">Skapa, spara och dela dina smartaste idéer på sekunder</h1>
+                <p class="hero__lead">Från första besök till aktiverad användare – vår app guidar dig genom att samla insikter, samarbeta och dela säkert med kollegor eller kunder.</p>
+                <div class="hero__cta">
+                    <a class="button button--accent" href="/app/">Starta gratis</a>
+                    <a class="button button--ghost" href="/product.html">Utforska produkten</a>
                 </div>
-            </form>
+                <dl class="hero__metrics" aria-label="Nyckeltal">
+                    <div>
+                        <dt>North Star</dt>
+                        <dd>DAU / WAU</dd>
+                    </div>
+                    <div>
+                        <dt>Konvertering</dt>
+                        <dd>Besökare → Registrerad</dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="hero__illustration" aria-hidden="true">
+                <div class="hero-screen">
+                    <header>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </header>
+                    <main>
+                        <p class="hero-screen__title">Senaste idéer</p>
+                        <ul>
+                            <li><span>Team kickoff</span><time>Idag</time></li>
+                            <li><span>Lanseringsplan Q4</span><time>Igår</time></li>
+                            <li><span>Feedback från beta</span><time>2 dagar sedan</time></li>
+                        </ul>
+                    </main>
+                </div>
+            </div>
         </section>
 
-        <section class="info">
-            <h2>Så fungerar chatten</h2>
-            <ul>
-                <li>Få snabba svar om vitaminer, mineraler och wellnessprogram.</li>
-                <li>Be om rekommendationer efter mål som energi, immunförsvar eller återhämtning.</li>
-                <li>Få hjälp med beställningar, frakt och prenumerationer.</li>
-            </ul>
+        <section class="section" id="feature" aria-labelledby="feature-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Funktioner</p>
+                <h2 class="section__title" id="feature-title">Allt du behöver för att leverera värde snabbt</h2>
+            </header>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Snabb onboarding</h3>
+                    <p>Guidat första steg som leder varje ny användare till sitt första “aha”. Inbyggda tips driver nästa handling.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Säker molnlagring</h3>
+                    <p>Dina objekt sparas automatiskt, versionshanteras och är redo för offline-stöd via PWA.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Delning utan friktion</h3>
+                    <p>Skapa publika, länk- eller lösenordsskyddade delningar och följ upp engagemanget.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Analys i realtid</h3>
+                    <p>Se hur besökarna beter sig och optimera konverteringen med integrerad produktanalys.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--tools" aria-labelledby="toolkit-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Tillväxtverktyg</p>
+                <h2 class="section__title" id="toolkit-title">Bygg en konverteringsmotor som skalar med marginal</h2>
+            </header>
+            <div class="toolkit-grid">
+                <article class="tool-card">
+                    <div class="tool-card__icon" aria-hidden="true">📈</div>
+                    <h3>Funnel Control</h3>
+                    <p>Spåra varje steg från klick till betalande kund med realtidsdashboards och färdiga GA4-rapporter.</p>
+                    <ul>
+                        <li>Automatisk synk till CRM</li>
+                        <li>Segmentering per kampanj</li>
+                        <li>Exportera som deck på 1 klick</li>
+                    </ul>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card__icon" aria-hidden="true">🤝</div>
+                    <h3>Revenue Collaboration</h3>
+                    <p>Släpp in sälj, marknad och kundteam i samma arbetsyta med aktivitetsloggar och roller.</p>
+                    <ul>
+                        <li>Deal rooms med mallar</li>
+                        <li>Godkänn flöden &amp; signering</li>
+                        <li>Partnerportal med provisionsspårning</li>
+                    </ul>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card__icon" aria-hidden="true">🪄</div>
+                    <h3>Profit Automations</h3>
+                    <p>Trigger-baserade nudge-kedjor och AI-formulär som fyller din pipeline utan manuellt jobb.</p>
+                    <ul>
+                        <li>NPS → uppsälj-playbooks</li>
+                        <li>AI-kommentarer på delade objekt</li>
+                        <li>Slack/Teams alerts vid heta leads</li>
+                    </ul>
+                </article>
+            </div>
+            <aside class="toolkit-aside">
+                <h3>Profilerad support</h3>
+                <p>Vårt expertteam följer varje lansering, tar fram kampanjidéer och bygger dashboards som fokuserar på lönsamhet.</p>
+                <a class="button button--ghost" href="/pricing.html#roi">Beräkna din ROI</a>
+            </aside>
+        </section>
+
+        <section class="section section--neuro" id="neuro" aria-labelledby="neuro-title" data-neuro-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Hyperverktyg</p>
+                <h2 class="section__title" id="neuro-title">Neuro Revenue Engine – bygga ditt oslagbara edge</h2>
+                <p class="section__lede">Mixtra med marknadsläge, tempo och signalboosters för att skapa en spelplan som konkurrenterna inte kan matcha.</p>
+            </header>
+            <div class="neuro-grid">
+                <form class="neuro-panel" aria-label="Neuro Engine kontroller">
+                    <div class="neuro-group">
+                        <label for="neuro-segment">Marknadsarena</label>
+                        <select id="neuro-segment" data-neuro-segment>
+                            <option value="product">Produktledda lanseringar</option>
+                            <option value="sales">Säljdriven expansion</option>
+                            <option value="enterprise">Enterprise dominans</option>
+                        </select>
+                    </div>
+                    <div class="neuro-group">
+                        <label for="neuro-posture">Strategisk hållning</label>
+                        <select id="neuro-posture" data-neuro-posture>
+                            <option value="launch">Lansera nytt</option>
+                            <option value="accelerate">Accelerera adoption</option>
+                            <option value="dominate">Totalt övertag</option>
+                        </select>
+                    </div>
+                    <div class="neuro-group">
+                        <label for="neuro-ambition">Ambitionsnivå</label>
+                        <input id="neuro-ambition" type="range" min="1" max="5" step="1" value="3" data-neuro-ambition>
+                        <p class="form-hint">Nuvarande nivå: <span data-neuro-level>3</span></p>
+                    </div>
+                    <fieldset class="neuro-group" aria-label="Boosters">
+                        <legend>Signalboosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-neuro-switch="predict" checked>
+                            <span>Prediktiv signalfusion</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-neuro-switch="partner">
+                            <span>Partner co-selling</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-neuro-switch="field" checked>
+                            <span>Field intelligence bots</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-neuro-switch="pricing">
+                            <span>Dynamisk prissättning</span>
+                        </label>
+                    </fieldset>
+                    <div class="neuro-group">
+                        <button class="button button--ghost" type="button" data-neuro-copy>Kopiera game plan</button>
+                        <p class="form-hint" data-neuro-status role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+                <article class="neuro-output" aria-live="polite">
+                    <header>
+                        <p class="neuro-output__badge" data-neuro-tag>Produktledda lanseringar · Lansera nytt</p>
+                        <h3 class="neuro-output__title" data-neuro-title>Accelerera aktivering på 30 dagar</h3>
+                    </header>
+                    <p class="neuro-output__summary" data-neuro-summary>
+                        Synka signalerna mellan produkt och marknad, trigga mikro-demo flows och lås in en tidig betalningsvåg.
+                    </p>
+                    <dl class="neuro-output__metrics">
+                        <div>
+                            <dt>Edge score</dt>
+                            <dd data-neuro-score>184</dd>
+                        </div>
+                        <div>
+                            <dt>Boostfönster</dt>
+                            <dd data-neuro-window>6 veckor</dd>
+                        </div>
+                        <div>
+                            <dt>Dominerande signal</dt>
+                            <dd data-neuro-focus>Predictive lift</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Stack du behöver</h4>
+                        <ul class="neuro-output__list" data-neuro-stack>
+                            <li>Signals + Nudges orkestrerade i realtid</li>
+                            <li>Delade KPI canvas för produkt &amp; revenue</li>
+                            <li>Auto-export till investerardashboard</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Rapport du levererar</h4>
+                        <p data-neuro-report>Vecko-rapport med edge score, pipeline och rekommenderade nästa drag.</p>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--highlight" aria-labelledby="flow-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Flöden</p>
+                <h2 class="section__title" id="flow-title">Designad för återkommande värde</h2>
+            </header>
+            <div class="flow-diagram">
+                <article>
+                    <h3>Onboarding</h3>
+                    <ol>
+                        <li>Landningssida med tydlig CTA.</li>
+                        <li>Registrering via e‑post eller Google.</li>
+                        <li>Guidat första objekt och aha‑ögonblick.</li>
+                    </ol>
+                </article>
+                <article>
+                    <h3>Återkommande användning</h3>
+                    <p>Få snabb åtkomst till senaste objekt och skapa nya med ett klick. Synkat på alla enheter.</p>
+                </article>
+                <article>
+                    <h3>Delning</h3>
+                    <ol>
+                        <li>Skapa delningslänk.</li>
+                        <li>Välj synlighet och lösenord vid behov.</li>
+                        <li>Mät engagemang och följ upp.</li>
+                    </ol>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--apex" id="apex" aria-labelledby="apex-title" data-apex-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Apex Suite</p>
+                <h2 class="section__title" id="apex-title">Apex Intelligence Mesh – bygg marknadens skarpaste drag</h2>
+                <p class="section__lede">Justera strategivektor, tempo och boosters för att modellera en hypermodern plan som kör
+                    ifrån varje konkurrent.</p>
+            </header>
+            <div class="apex-grid">
+                <form class="apex-controls" aria-label="Apex kontroller">
+                    <div class="apex-group">
+                        <label for="apex-vector">Strategivektor</label>
+                        <select id="apex-vector" data-apex-vector>
+                            <option value="velocity">Velocity Surge</option>
+                            <option value="loyalty">Loyalty Orbit</option>
+                            <option value="takeover">Dominance Mesh</option>
+                        </select>
+                    </div>
+                    <fieldset class="apex-group">
+                        <legend>Tempo</legend>
+                        <div class="pill-group" role="group" aria-label="Tempo">
+                            <button class="pill is-active" type="button" data-apex-tempo="pulse">Pulse 24h</button>
+                            <button class="pill" type="button" data-apex-tempo="sprint">Sprint 7d</button>
+                            <button class="pill" type="button" data-apex-tempo="orbit">Orbit 30d</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="apex-group">
+                        <legend>Boosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-apex-booster="ai" checked>
+                            <span>Neural Co-Pilot</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-apex-booster="signal" checked>
+                            <span>Signal Radar</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-apex-booster="alliance">
+                            <span>Alliance Mesh</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-apex-booster="success">
+                            <span>Success Autopilot</span>
+                        </label>
+                    </fieldset>
+                    <div class="apex-group">
+                        <label for="apex-horizon">Horisont</label>
+                        <select id="apex-horizon" data-apex-horizon>
+                            <option value="launch">Launch runway</option>
+                            <option value="scale">Scale engine</option>
+                            <option value="enterprise">Enterprise grid</option>
+                        </select>
+                    </div>
+                </form>
+                <article class="apex-output" aria-live="polite">
+                    <header class="apex-output__header">
+                        <p class="apex-output__tag" data-apex-tag>Launch runway · Velocity</p>
+                        <h3 class="apex-output__title" data-apex-title>Överkör Nova Stack med hypersnabb aktivering</h3>
+                    </header>
+                    <p class="apex-output__summary" data-apex-summary>Pulse 24h kombinerar Neural Co-Pilot och Signal Radar för att
+                        driva en sömlös onboarding-loop som inga konkurrenter kan matcha.</p>
+                    <div class="apex-score">
+                        <div>
+                            <p class="apex-score__label">Score</p>
+                            <p class="apex-score__value" data-apex-score>0</p>
+                        </div>
+                        <div>
+                            <p class="apex-score__label">Δ vs rival</p>
+                            <p class="apex-score__value" data-apex-delta>+0</p>
+                        </div>
+                    </div>
+                    <dl class="apex-metrics">
+                        <div>
+                            <dt>Kadens</dt>
+                            <dd data-apex-metric="cadence">—</dd>
+                        </div>
+                        <div>
+                            <dt>Automation</dt>
+                            <dd data-apex-metric="automation">—</dd>
+                        </div>
+                        <div>
+                            <dt>Signal</dt>
+                            <dd data-apex-metric="signal">—</dd>
+                        </div>
+                        <div>
+                            <dt>Revenue</dt>
+                            <dd data-apex-metric="revenue">—</dd>
+                        </div>
+                    </dl>
+                    <div class="apex-focus">
+                        <h4>Fokus</h4>
+                        <p data-apex-focus>Hyperlansering</p>
+                        <p class="apex-focus__window">Fönster: <span data-apex-window>—</span></p>
+                    </div>
+                    <div class="apex-list">
+                        <h4>Åtgärder</h4>
+                        <ul data-apex-plays>
+                            <li>Välj boosters för att generera åtgärder.</li>
+                        </ul>
+                    </div>
+                    <div class="apex-list">
+                        <h4>Boosters</h4>
+                        <ul data-apex-boosters>
+                            <li>Neural Co-Pilot – Låt AI autopiloten prioritera leads och copy var 6:e timme.</li>
+                            <li>Signal Radar – Mata Command Center med signalpaket i realtid.</li>
+                        </ul>
+                    </div>
+                    <div class="apex-output__actions">
+                        <button class="button button--ghost" type="button" data-apex-copy>Kopiera apex-plan</button>
+                        <span class="apex-output__status" data-apex-status role="status" aria-live="polite"></span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--capital" id="capital" aria-labelledby="capital-title" data-capital-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Kapitalförberedelse</p>
+                <h2 class="section__title" id="capital-title">Capital Readiness Vault – bygg caset investerare vill leda</h2>
+                <p class="section__lede">Simulera din nästa runda med runway, tillväxttakt och due diligence-booster. Verktyget skapar en
+                    färdig investerarstory och checklistor som kan kopieras till deck eller skickas vidare till teamet.</p>
+            </header>
+            <div class="capital-grid">
+                <form class="capital-controls" aria-label="Capital readiness kontroller">
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-stage">Runda</label>
+                        <select id="capital-stage" data-capital-stage>
+                            <option value="preseed">Pre-Seed</option>
+                            <option value="seed" selected>Seed</option>
+                            <option value="seriesa">Serie A</option>
+                            <option value="growth">Tillväxt</option>
+                        </select>
+                    </div>
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-runway">Runway (månader)</label>
+                        <input id="capital-runway" type="range" min="3" max="24" step="1" value="12" data-capital-runway>
+                        <p class="form-hint">Nuvarande runway: <span data-capital-runway-value>12</span> mån</p>
+                    </div>
+                    <div class="capital-group">
+                        <label class="capital-label" for="capital-growth">Tillväxttakt (månlig %)</label>
+                        <input id="capital-growth" type="range" min="0" max="30" step="2" value="12" data-capital-growth>
+                        <p class="form-hint">Månatlig ARR-tillväxt: <span data-capital-growth-value>12</span>%</p>
+                    </div>
+                    <fieldset class="capital-group">
+                        <legend class="capital-label">Due diligence boosters</legend>
+                        <label class="capital-option">
+                            <input type="checkbox" value="dataroom" data-capital-metric checked>
+                            <span>Investor datarum med live KPI:er</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="financials" data-capital-metric checked>
+                            <span>Reviderade månadsrapporter</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="security" data-capital-metric>
+                            <span>Security &amp; compliance pack</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="advisory" data-capital-metric>
+                            <span>Advisor bench med referenser</span>
+                        </label>
+                    </fieldset>
+                    <fieldset class="capital-group">
+                        <legend class="capital-label">Signalboosters</legend>
+                        <label class="capital-option">
+                            <input type="checkbox" value="netdollar" data-capital-signal checked>
+                            <span>Net Dollar Retention &gt; 120%</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="enterprise" data-capital-signal>
+                            <span>Enterprise pipeline &gt; 10 Mkr</span>
+                        </label>
+                        <label class="capital-option">
+                            <input type="checkbox" value="productlove" data-capital-signal checked>
+                            <span>Produktengagemang (WAU/MAU &gt; 55%)</span>
+                        </label>
+                    </fieldset>
+                </form>
+                <article class="capital-output" aria-live="polite">
+                    <header class="capital-output__header">
+                        <p class="capital-output__badge" data-capital-tag>Seed · Readiness Vault</p>
+                        <h3 class="capital-output__title" data-capital-title>Visa hur du dubblar ARR med runway till exit</h3>
+                    </header>
+                    <p class="capital-output__summary" data-capital-summary>
+                        Justera runda, runway och boosters för att se exakt vilka siffror investerarna vill se – och hur du
+                        preppar materialet på rekordtid.
+                    </p>
+                    <dl class="capital-scorecard">
+                        <div>
+                            <dt>Readiness-score</dt>
+                            <dd data-capital-score>0</dd>
+                        </div>
+                        <div>
+                            <dt>Uplift vs bas</dt>
+                            <dd data-capital-delta>+0</dd>
+                        </div>
+                        <div>
+                            <dt>Värderingsfönster</dt>
+                            <dd data-capital-valuation>—</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Investerarfokus</h4>
+                        <ul class="capital-output__list" data-capital-focus>
+                            <li>Välj runda och boosters för att generera fokus.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Dealplan</h4>
+                        <ul class="capital-output__list" data-capital-actions>
+                            <li>Aktivera boosters för att låsa upp checklistan.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Pitchpayload</h4>
+                        <p class="capital-output__payload" data-capital-plan>Uppdatera kontrollerna för att generera payload.</p>
+                    </section>
+                    <div class="capital-output__actions">
+                        <button class="button button--ghost" type="button" data-capital-copy>Kopiera investerarstory</button>
+                        <p class="form-hint" data-capital-status role="status" aria-live="polite"></p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--supremacy" id="supremacy" aria-labelledby="supremacy-title" data-supremacy-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Supremacy Stack</p>
+                <h2 class="section__title" id="supremacy-title">Supremacy Control Nexus – dominera varje marknadsarena</h2>
+                <p class="section__lede">Välj rival, arena och strike-mode för att orkestrera en hypermodern motattack som låser upp ett
+                    Supremacy-index konkurrenterna inte kan nå.</p>
+            </header>
+            <div class="supremacy-grid">
+                <form class="supremacy-controls" aria-label="Supremacy kontroller">
+                    <div class="supremacy-group">
+                        <label for="supremacy-competitor">Rival</label>
+                        <select id="supremacy-competitor" data-supremacy-competitor>
+                            <option value="atlas">Atlas Cloud</option>
+                            <option value="nova">Nova Stack</option>
+                            <option value="zenith">Zenith Labs</option>
+                        </select>
+                    </div>
+                    <div class="supremacy-group">
+                        <label for="supremacy-arena">Spelplan</label>
+                        <select id="supremacy-arena" data-supremacy-arena>
+                            <option value="acquisition">Förvärv</option>
+                            <option value="expansion">Expansion</option>
+                            <option value="retention">Retention</option>
+                        </select>
+                    </div>
+                    <fieldset class="supremacy-group">
+                        <legend>Strike-mode</legend>
+                        <div class="pill-group" role="group" aria-label="Strike-mode">
+                            <button class="pill is-active" type="button" data-supremacy-strike="override">Override Blitz</button>
+                            <button class="pill" type="button" data-supremacy-strike="fortress">Fortress Orbit</button>
+                            <button class="pill" type="button" data-supremacy-strike="singularity">Singularity Flow</button>
+                        </div>
+                    </fieldset>
+                    <div class="supremacy-group">
+                        <label for="supremacy-ambition">Ambitionsnivå</label>
+                        <input id="supremacy-ambition" type="range" min="1" max="5" step="1" value="3" data-supremacy-ambition>
+                        <p class="form-hint">Nuvarande nivå: <span data-supremacy-level>3</span></p>
+                    </div>
+                    <fieldset class="supremacy-group">
+                        <legend>Boosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="signals" checked>
+                            <span>Signal Storm</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="alliances" checked>
+                            <span>Alliance Overdrive</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="automation">
+                            <span>Revenue Automation Grid</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-supremacy-booster="success">
+                            <span>Success Pulse</span>
+                        </label>
+                    </fieldset>
+                    <div class="supremacy-group">
+                        <button class="button button--ghost" type="button" data-supremacy-copy>Kopiera supremacy-plan</button>
+                        <p class="form-hint" data-supremacy-status role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+                <article class="supremacy-output" aria-live="polite">
+                    <header class="supremacy-output__header">
+                        <p class="supremacy-output__tag" data-supremacy-tag>Förvärv · Override Blitz</p>
+                        <h3 class="supremacy-output__title" data-supremacy-title>Lås upp ett nytt övertag i förvärv</h3>
+                    </header>
+                    <p class="supremacy-output__summary" data-supremacy-summary>Välj boosters för att skapa en supremacy-plan som
+                        vinner varje race.</p>
+                    <div class="supremacy-score">
+                        <div>
+                            <p class="supremacy-score__label">Supremacy-index</p>
+                            <p class="supremacy-score__value" data-supremacy-score>0</p>
+                        </div>
+                        <div>
+                            <p class="supremacy-score__label">Δ mot rival</p>
+                            <p class="supremacy-score__value" data-supremacy-delta>+0</p>
+                        </div>
+                        <div>
+                            <p class="supremacy-score__label">Fönster</p>
+                            <p class="supremacy-score__value" data-supremacy-window>—</p>
+                        </div>
+                    </div>
+                    <div class="supremacy-focus">
+                        <h4>Edge</h4>
+                        <p data-supremacy-focus>Välj boosters för att avslöja ditt edge.</p>
+                    </div>
+                    <div class="supremacy-actions">
+                        <h4>Signaturdrag</h4>
+                        <ul data-supremacy-actions>
+                            <li>Aktivera boosters för att generera drag.</li>
+                        </ul>
+                    </div>
+                    <p class="supremacy-effect" data-supremacy-effect>Effekten visas när du väljer arena och boosters.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--lab" id="lab" aria-labelledby="lab-title" data-profit-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Profit DNA Lab</p>
+                <h2 class="section__title" id="lab-title">Forma din egen signaturupplevelse på minuter</h2>
+                <p>Justera ton, tempo och KPI-fokus för att få en direktförhandsvisning av hur din produktlinje kommer att
+                    kännas för olika kundsegment.</p>
+            </header>
+            <div class="lab-grid">
+                <div class="lab-panel">
+                    <h3>Välj spelplan</h3>
+                    <div class="lab-archetypes" role="list">
+                        <button class="lab-chip" type="button" data-lab-archetype="launch">
+                            🚀 Early Launch
+                        </button>
+                        <button class="lab-chip" type="button" data-lab-archetype="scale">
+                            📈 Scale Engine
+                        </button>
+                        <button class="lab-chip" type="button" data-lab-archetype="premium">
+                            💎 Premium Boutique
+                        </button>
+                        <button class="lab-chip" type="button" data-lab-archetype="community">
+                            🤝 Community Pulse
+                        </button>
+                    </div>
+                    <form class="lab-form" data-lab-form>
+                        <label for="lab-tone">Tonläge</label>
+                        <select id="lab-tone" name="tone" data-lab-control="tone">
+                            <option value="visionary">Visionärt</option>
+                            <option value="tactical">Taktiskt</option>
+                            <option value="playful">Lekfullt</option>
+                        </select>
+                        <label for="lab-kpi">Primär KPI</label>
+                        <select id="lab-kpi" name="kpi" data-lab-control="kpi">
+                            <option value="activation">Aktivering</option>
+                            <option value="retention">Retention</option>
+                            <option value="expansion">Expansion</option>
+                        </select>
+                        <label for="lab-intensity">Momentum</label>
+                        <input type="range" id="lab-intensity" name="intensity" min="1" max="5" value="3" data-lab-control="intensity">
+                        <p class="form-hint">Dra reglaget för att simulera marknadstempo. 1 = trygg uppstart, 5 = hyperskala.</p>
+                    </form>
+                </div>
+                <article class="lab-output" data-lab-output aria-live="polite">
+                    <div class="lab-output__header">
+                        <p class="lab-output__label" data-lab-label>Scenario</p>
+                        <p class="lab-output__tag" data-lab-tag>Early Launch</p>
+                    </div>
+                    <h3 class="lab-output__title" data-lab-title>Skapa er första profitloop på två sprintar</h3>
+                    <p class="lab-output__body" data-lab-body>
+                        Vi kombinerar snabb onboarding med aktiveringsmål på 35 % för att ge teamet omedelbar feedback på vad som driver era mest lojala användare.
+                    </p>
+                    <ul class="lab-output__stats" data-lab-stats>
+                        <li><span>Time-to-value</span><strong>3 dagar</strong></li>
+                        <li><span>Experiment per kvartal</span><strong>8</strong></li>
+                        <li><span>Nettoeffekt</span><strong>+72 % WAU</strong></li>
+                    </ul>
+                    <p class="lab-output__cta" data-lab-cta>Rekommenderad åtgärd: lansera ett guidat första objekt och aktivera notiser inom 48 timmar.</p>
+                </article>
+            </div>
+            <footer class="lab-footer">
+                <p>Exportera resultatet in i appen via Profitpanelen för att jämföra mot verkliga siffror. Inbyggd synk säkrar att teamet arbetar mot samma scenariomål.</p>
+                <a class="button button--ghost" href="/product.html#signature">Utforska signaturmoduler</a>
+            </footer>
+        </section>
+
+        <section class="section section--command" id="command" aria-labelledby="command-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Command Center</p>
+                <h2 class="section__title" id="command-title">Orkestrera hyperskarpa growth-sprintar med ett klick</h2>
+                <p>Profit Command Center kombinerar dina labbscenarier med verkliga datapunkter. Välj spår, segment och
+                    signalstyrka för att få en skräddarsydd blitz som går från idé till pipeline-intäkt.</p>
+            </header>
+            <div class="command-shell" data-command-center>
+                <form class="command-shell__form" data-command-form>
+                    <div class="command-shell__group">
+                        <span class="command-shell__label">Spår</span>
+                        <div class="pill-group" role="group" aria-label="Spår">
+                            <button class="pill is-active" type="button" data-command-program="launch">Launch Momentum</button>
+                            <button class="pill" type="button" data-command-program="scale">Revenue Amplifier</button>
+                            <button class="pill" type="button" data-command-program="enterprise">Enterprise Signal Mesh</button>
+                        </div>
+                    </div>
+                    <div class="command-shell__group">
+                        <label class="command-shell__label" for="command-segment">Segment</label>
+                        <select id="command-segment" data-command-segment>
+                            <option value="product">Produktledd tillväxt</option>
+                            <option value="sales">Säljteam &amp; partner</option>
+                            <option value="ops">Operations &amp; ledning</option>
+                        </select>
+                    </div>
+                    <div class="command-shell__group">
+                        <label class="command-shell__label" for="command-level">Signalstyrka</label>
+                        <input id="command-level" type="range" min="1" max="5" value="3" step="1" data-command-level>
+                        <p class="form-hint">Steg 1 = mjuk validering, steg 5 = global kampanj med multichannel-synk.</p>
+                    </div>
+                    <fieldset class="command-shell__group">
+                        <legend class="command-shell__label">Boosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-command-addon="ai" checked>
+                            <span>AI-signal scoring</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-command-addon="partner">
+                            <span>Partner co-selling</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-command-addon="retention">
+                            <span>Retention pulse</span>
+                        </label>
+                    </fieldset>
+                    <button class="button button--accent" type="button" data-command-run>Simulera sprint</button>
+                </form>
+                <article class="command-shell__output" aria-live="polite">
+                    <header>
+                        <p class="command-shell__badge" data-command-tag>Launch Momentum</p>
+                        <h3 class="command-shell__title" data-command-title>Profitpod som konverterar var tredje besökare</h3>
+                    </header>
+                    <p class="command-shell__summary" data-command-summary>
+                        En tvåveckors blitz som kombinerar produktledd onboarding med AI-signal scoring för att skapa en själv-
+                        optimerande funnel.
+                    </p>
+                    <dl class="command-shell__metrics">
+                        <div>
+                            <dt>Förväntad lyft</dt>
+                            <dd data-command-boost>+38 %</dd>
+                        </div>
+                        <div>
+                            <dt>Åtgärdsfönster</dt>
+                            <dd data-command-window>14 dagar</dd>
+                        </div>
+                        <div>
+                            <dt>Signalkarta</dt>
+                            <dd data-command-map>Produkt + beteende</dd>
+                        </div>
+                    </dl>
+                    <div class="command-shell__playbook">
+                        <h4>Rekommenderad spelplan</h4>
+                        <ul data-command-playbook>
+                            <li>Synka onboarding-mallar till segmentet Produktledd tillväxt.</li>
+                            <li>Aktivera AI-signal scoring för att prioritera heta konton.</li>
+                            <li>Starta retentionspuls efter 7 dagar för att driva expansion.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--quantum" id="quantum" aria-labelledby="quantum-title" data-quantum-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Signal Intelligence</p>
+                <h2 class="section__title" id="quantum-title">Quantum Revenue Forge – orkestrera dominans i varje zon</h2>
+                <p class="section__lede">Välj spelplan, datakälla och horizontrytm för att generera ett autopilot-uppdrag som
+                    synkar pitch, produkt och pipeline på sekunder.</p>
+            </header>
+            <div class="quantum-grid">
+                <form class="quantum-panel" aria-label="Quantum Forge kontroller">
+                    <div class="quantum-group">
+                        <span class="quantum-label">Spelplan</span>
+                        <div class="pill-group" role="group" aria-label="Spelplan">
+                            <button class="pill is-active" type="button" data-quantum-track="ignition">Ignition Wave</button>
+                            <button class="pill" type="button" data-quantum-track="dominion">Dominion Mesh</button>
+                            <button class="pill" type="button" data-quantum-track="harvest">Harvest Loop</button>
+                        </div>
+                    </div>
+                    <div class="quantum-group">
+                        <label class="quantum-label" for="quantum-source">Datakälla</label>
+                        <select id="quantum-source" data-quantum-source>
+                            <option value="signals">Signals + Product</option>
+                            <option value="revenue">Revenue + CRM</option>
+                            <option value="intel">Competitive Intel</option>
+                        </select>
+                    </div>
+                    <div class="quantum-group">
+                        <label class="quantum-label" for="quantum-horizon">Horisont</label>
+                        <input id="quantum-horizon" type="range" min="2" max="12" value="6" step="1" data-quantum-horizon>
+                        <p class="form-hint">Antal veckor: <span data-quantum-level>6</span></p>
+                    </div>
+                    <fieldset class="quantum-group">
+                        <legend class="quantum-label">Autopilot boosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-quantum-switch="copy" checked>
+                            <span>AI copy deployment</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-quantum-switch="pricing">
+                            <span>Dynamic pricing sync</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-quantum-switch="success" checked>
+                            <span>Customer success surge</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-quantum-switch="alliances">
+                            <span>Alliance catalysts</span>
+                        </label>
+                    </fieldset>
+                    <button class="button button--ghost" type="button" data-quantum-copy>Kopiera autoplan</button>
+                    <p class="form-hint" data-quantum-status role="status" aria-live="polite"></p>
+                </form>
+                <article class="quantum-output" aria-live="polite">
+                    <header>
+                        <p class="quantum-output__badge" data-quantum-tag>Ignition Wave · Signals + Product</p>
+                        <h3 class="quantum-output__title" data-quantum-title>Tryck ut nya playbooks i 6-veckors hyperloop</h3>
+                    </header>
+                    <p class="quantum-output__summary" data-quantum-summary>
+                        Kombinerar tidiga produkt-signaler med AI-copy så att varje kampanj är färdig att lanseras inom 48
+                        timmar – utan att vänta på handoffs.
+                    </p>
+                    <dl class="quantum-output__metrics">
+                        <div>
+                            <dt>Quantum score</dt>
+                            <dd data-quantum-score>398</dd>
+                        </div>
+                        <div>
+                            <dt>Momentumfönster</dt>
+                            <dd data-quantum-window>6 veckor</dd>
+                        </div>
+                        <div>
+                            <dt>Dominerande kraft</dt>
+                            <dd data-quantum-focus>Activation surge</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Autopilot uppdrag</h4>
+                        <ul class="quantum-output__list" data-quantum-actions>
+                            <li>Synka Signals och Profit Command Center till gemensam scoreboard.</li>
+                            <li>Distribuera AI-copy till alla demo flows.</li>
+                            <li>Aktivera success surge för att låsa retention.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Effekt</h4>
+                        <p data-quantum-effect>Prognostiserad marginalökning på 34% och 3x snabbare deal-cykel.</p>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--dominance" id="dominance" aria-labelledby="dominance-title" data-dominance-lab>
+            <header class="section__header">
+                <p class="section__eyebrow">Marknadsdominans</p>
+                <h2 class="section__title" id="dominance-title">Dominance Benchmark – bevisa att vi slår varje konkurrent</h2>
+                <p class="section__lede">Välj scenario, fas och boosters för att se hur vår plattform accelererar intäkter och
+                    överträffar konkurrenter på varje KPI.</p>
+            </header>
+            <div class="dominance-grid">
+                <form class="dominance-controls" aria-label="Dominanskontroller">
+                    <div class="dominance-group">
+                        <span class="dominance-label">Scenario</span>
+                        <div class="pill-group" role="group" aria-label="Scenario">
+                            <button class="pill is-active" type="button" data-dominance-mode="launch">Startup-launch</button>
+                            <button class="pill" type="button" data-dominance-mode="scale">Scaleups</button>
+                            <button class="pill" type="button" data-dominance-mode="enterprise">Enterprise</button>
+                        </div>
+                    </div>
+                    <div class="dominance-group">
+                        <label class="dominance-label" for="dominance-focus">Fas</label>
+                        <select id="dominance-focus" data-dominance-focus>
+                            <option value="acquisition">Förvärv</option>
+                            <option value="expansion">Expansion</option>
+                            <option value="retention">Retention</option>
+                        </select>
+                    </div>
+                    <div class="dominance-group">
+                        <label class="dominance-label" for="dominance-level">Tempo</label>
+                        <input id="dominance-level" type="range" min="2" max="6" value="4" step="1" data-dominance-level>
+                        <p class="form-hint">Nivå: <span data-dominance-level-value>Hyperdrive</span></p>
+                    </div>
+                    <fieldset class="dominance-group">
+                        <legend class="dominance-label">Boosters</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-dominance-signal="autopilot" checked>
+                            <span>AI Autopilot</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-dominance-signal="intel" checked>
+                            <span>Edge Radar</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-dominance-signal="alliances">
+                            <span>Alliance Mesh</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-dominance-signal="success">
+                            <span>Success Surge</span>
+                        </label>
+                    </fieldset>
+                    <div class="dominance-actions">
+                        <button class="button button--accent" type="button" data-dominance-copy>Kopiera dominansplan</button>
+                        <p class="form-hint" data-dominance-status role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+                <article class="dominance-output" aria-live="polite">
+                    <header>
+                        <p class="dominance-badge" data-dominance-tag>Startups · Förvärv</p>
+                        <h3 class="dominance-title" data-dominance-title>Ta 36% mer lanseringsmomentum än Atlas Cloud</h3>
+                    </header>
+                    <p class="dominance-summary" data-dominance-summary>
+                        Hyperdrive kombinerar AI Autopilot + Edge Radar för att trycka ut aktivering på timmar. Atlas Cloud
+                        fastnar i manuella onboardingsteg, vilket öppnar hela funneln.
+                    </p>
+                    <dl class="dominance-metrics">
+                        <div>
+                            <dt>Dominerande score</dt>
+                            <dd data-dominance-score>112</dd>
+                        </div>
+                        <div>
+                            <dt>Överträffar konkurrent</dt>
+                            <dd data-dominance-delta>+36</dd>
+                        </div>
+                        <div>
+                            <dt>Momentumfokus</dt>
+                            <dd data-dominance-focus-output>Top-of-funnel ignition</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Bevisade övertag</h4>
+                        <ul class="dominance-edge-list" data-dominance-edges>
+                            <li>AI Autopilot guidar leads till aha utan handoff.</li>
+                            <li>Neutraliserar manuella onboardingsteg och ger +40% pipeline.</li>
+                            <li>Hyperdrive-rytmen håller hela teamet synkat runt ignition.</li>
+                        </ul>
+                    </section>
+                    <section class="dominance-table-wrapper">
+                        <h4>Benchmark mot konkurrenter</h4>
+                        <table class="dominance-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Plattform</th>
+                                    <th scope="col">Aktivering</th>
+                                    <th scope="col">Automation</th>
+                                    <th scope="col">AI-kraft</th>
+                                    <th scope="col">Intäktseffekt</th>
+                                    <th scope="col">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody data-dominance-table>
+                                <tr data-dominance-best>
+                                    <th scope="row">App &amp; Hemsida</th>
+                                    <td>Hyperdrive aktivering på 1,5 dagar</td>
+                                    <td>Autopilot blueprint kopplad till AI Autopilot + Edge Radar</td>
+                                    <td>Prediktiv copy + ROI-simulering</td>
+                                    <td>+40% pipeline-lyft</td>
+                                    <td>112</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Atlas Cloud</th>
+                                    <td>4 dagar (manuell onboarding)</td>
+                                    <td>Segmenterade handoffs</td>
+                                    <td>Promptbibliotek för copy</td>
+                                    <td>+19% pipeline-tillväxt</td>
+                                    <td>72</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Nova Stack</th>
+                                    <td>3,5 dagar (self-service med manuell uppsättning)</td>
+                                    <td>API-byggen kräver kod</td>
+                                    <td>Promptarbetsflöden</td>
+                                    <td>+16% pipeline-tillväxt</td>
+                                    <td>69</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Zenith Labs</th>
+                                    <td>5 dagar (konsultledd setup)</td>
+                                    <td>Workshops per kund</td>
+                                    <td>AI-deckar 1 gång/vecka</td>
+                                    <td>+17% pipeline-tillväxt</td>
+                                    <td>71</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="growth-playbook">
+            <header class="section__header">
+                <p class="section__eyebrow">Revenue Playbook</p>
+                <h2 class="section__title" id="growth-playbook">Lansera kampanjer, följ upp och optimera i samma vy</h2>
+            </header>
+            <div class="playbook-grid">
+                <article>
+                    <h3>1. Attrahera premium-leads</h3>
+                    <p>Aktivera färdiga kampanjer för webinar, event och gated content. Varje lead synkas till din CRM-favorit.</p>
+                    <p class="playbook-tip">Bonus: Markera prioriterade konton och få automatiska påminnelser när de återkommer.</p>
+                </article>
+                <article>
+                    <h3>2. Övertyga med interaktiv demo</h3>
+                    <p>Skapa personliga demo-boards med AI-text, video och kalkyler. Följ öppningar i realtid och trigga nudge-mail.</p>
+                    <p class="playbook-tip">Sätt mål för första vecka och få varningar om engagemanget sjunker.</p>
+                </article>
+                <article>
+                    <h3>3. Stäng och väx ARR</h3>
+                    <p>Planera uppföljning med färdiga playbooks för onboarding, uppgraderingar och expansion. Koppla Stripe för auto-fakturor.</p>
+                    <p class="playbook-tip">Följ intäktsprognosen i appens nya profitpanel och jämför mot månadsmål.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--design" id="design-studio" aria-labelledby="design-studio-title" data-design-studio>
+            <header class="section__header">
+                <p class="section__eyebrow">Design DNA</p>
+                <h2 class="section__title" id="design-studio-title">Design Studio – mappa upplevelsen efter persona och scenario</h2>
+                <p class="section__lede">Välj persona, kärnflöde och vilka signaturmoduler som ska ingå. Studion bygger ett visuellt narrativ och
+                    ett KPI-fokuserat blueprint som kan exporteras till pitchar och produktgenomgångar.</p>
+            </header>
+            <div class="design-studio__grid">
+                <form class="design-studio__controls" aria-label="Design Studio kontroller">
+                    <div class="design-studio__group">
+                        <span class="design-studio__label">Persona</span>
+                        <div class="pill-group" role="group" aria-label="Persona">
+                            <button class="pill is-active" type="button" data-studio-persona="founder">Grundare</button>
+                            <button class="pill" type="button" data-studio-persona="revops">Revenue Ops</button>
+                            <button class="pill" type="button" data-studio-persona="enterprise">Enterprise-ledning</button>
+                        </div>
+                    </div>
+                    <div class="design-studio__group">
+                        <label class="design-studio__label" for="studio-flow">Kärnflöde</label>
+                        <select id="studio-flow" data-studio-flow>
+                            <option value="launch">Lanseringskampanj</option>
+                            <option value="sales">Enterprise-försäljning</option>
+                            <option value="adoption">Kundsucce &amp; adoption</option>
+                        </select>
+                    </div>
+                    <div class="design-studio__group">
+                        <label class="design-studio__label" for="studio-tempo">Tempo</label>
+                        <input id="studio-tempo" type="range" min="1" max="5" value="3" step="1" data-studio-pace>
+                        <p class="form-hint">Intensitetsnivå: <span data-studio-level>3</span></p>
+                    </div>
+                    <fieldset class="design-studio__group">
+                        <legend class="design-studio__label">Signaturmoduler</legend>
+                        <label class="command-option">
+                            <input type="checkbox" data-studio-module="pitch" checked>
+                            <span>Pitch Generator Lab</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-studio-module="intel" checked>
+                            <span>Edge Radar</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-studio-module="forge">
+                            <span>Quantum Forge</span>
+                        </label>
+                        <label class="command-option">
+                            <input type="checkbox" data-studio-module="profit">
+                            <span>Profit Command Center</span>
+                        </label>
+                    </fieldset>
+                    <div class="design-studio__actions">
+                        <button class="button button--accent" type="button" data-studio-copy>Kopiera blueprint</button>
+                        <button class="button button--ghost" type="button" data-studio-export>Exportera pitch</button>
+                        <p class="form-hint" data-studio-status role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+                <article class="design-studio__output" aria-live="polite">
+                    <header>
+                        <p class="design-studio__badge" data-studio-tag>Grundare · Lanseringskampanj</p>
+                        <h3 class="design-studio__title" data-studio-title>Visuell funnel som visar momentum på varje slide</h3>
+                    </header>
+                    <p class="design-studio__summary" data-studio-summary>
+                        Studio-layouten fokuserar på snabb validering: hero med tydlig ROI, proof modul med live-siffror och ett CTA-band som förklarar hur profitpanelen guidar besluten.
+                    </p>
+                    <dl class="design-studio__metrics">
+                        <div>
+                            <dt>Designfokus</dt>
+                            <dd data-studio-focus>Momentum storytelling</dd>
+                        </div>
+                        <div>
+                            <dt>Visuellt sprintfönster</dt>
+                            <dd data-studio-sprint>14 dagar</dd>
+                        </div>
+                        <div>
+                            <dt>Accent-förslag</dt>
+                            <dd data-studio-accent>Neon Plasma</dd>
+                        </div>
+                    </dl>
+                    <section>
+                        <h4>Nyckelmoduler</h4>
+                        <ul class="design-studio__list" data-studio-kpis>
+                            <li>Hero blueprint med aktiveringsgraf.</li>
+                            <li>Proofwall med kundcitat och KPI-taggar.</li>
+                            <li>CTA-band med dubbla handlingsval.</li>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="pricing-teaser">
+            <header class="section__header">
+                <p class="section__eyebrow">Erbjudande</p>
+                <h2 class="section__title" id="pricing-teaser">Passar team i alla storlekar</h2>
+            </header>
+            <div class="pricing-teaser">
+                <article class="plan-card">
+                    <p class="plan-card__name">Free</p>
+                    <p class="plan-card__price">0 kr</p>
+                    <ul>
+                        <li>Obegränsade privata objekt</li>
+                        <li>Enkelt delningsflöde</li>
+                        <li>E‑postsupport</li>
+                    </ul>
+                    <a class="button button--outline" href="/pricing.html">Välj Free</a>
+                </article>
+                <article class="plan-card plan-card--accent">
+                    <p class="plan-card__name">Pro</p>
+                    <p class="plan-card__price">149 kr/mån</p>
+                    <ul>
+                        <li>Delningspanel med statistik</li>
+                        <li>Versionshistorik och export</li>
+                        <li>Prioriterad support</li>
+                    </ul>
+                    <a class="button" href="/pricing.html#pro">Uppgradera</a>
+                </article>
+                <article class="plan-card">
+                    <p class="plan-card__name">Team</p>
+                    <p class="plan-card__price">Kontakta oss</p>
+                    <ul>
+                        <li>Central admin och SSO</li>
+                        <li>Delade arbetsytor</li>
+                        <li>Dedikerad kundsuccé</li>
+                    </ul>
+                    <a class="button button--outline" href="/pricing.html#team">Boka demo</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="testimonial-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Röster</p>
+                <h2 class="section__title" id="testimonial-title">Älskat av produktteam och konsultbolag</h2>
+            </header>
+            <div class="testimonial-grid">
+                <figure>
+                    <blockquote>”Vi gick från idé till lansering på tre veckor och kunde följa varje steg i konverteringstratten.”</blockquote>
+                    <figcaption><span>Alex</span> · Grundare, Flowly</figcaption>
+                </figure>
+                <figure>
+                    <blockquote>”Delningslänkar med lösenord är perfekta när vi samarbetar med kunder kring känsliga projekt.”</blockquote>
+                    <figcaption><span>Sara</span> · Projektledare, CreateCo</figcaption>
+                </figure>
+                <figure>
+                    <blockquote>”Vi älskar hur appen sparar allt automatiskt och synkar mellan webben och mobilen.”</blockquote>
+                    <figcaption><span>Jonas</span> · Produktchef, Northwind</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="section section--cta" aria-labelledby="cta-title">
+            <div class="section__content">
+                <h2 class="section__title" id="cta-title">Redo att skapa något nytt?</h2>
+                <p>Registrera dig på några sekunder och upplev hur snabbt du kommer till ditt nästa “aha”.</p>
+                <div class="hero__cta">
+                    <a class="button button--accent" href="/app/">Kom igång</a>
+                    <a class="button button--ghost" href="/pricing.html">Se alla planer</a>
+                </div>
+            </div>
         </section>
     </main>
-    <script src="script.js" defer></script>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <nav aria-label="Sidfot">
+                <ul>
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a href="/legal/privacy.html">Integritet</a></li>
+                    <li><a href="/legal/terms.html">Villkor</a></li>
+                </ul>
+            </nav>
+            <p>© <span data-current-year></span> App &amp; Hemsida. Alla rättigheter förbehållna.</p>
+        </div>
+    </footer>
 </body>
 </html>

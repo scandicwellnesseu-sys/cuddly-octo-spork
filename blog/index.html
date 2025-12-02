@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blogg – App &amp; Hemsida</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script defer src="/script.js"></script>
+</head>
+<body>
+    <header class="shell-header" data-site-header>
+        <div class="shell-header__inner">
+            <a class="brand" href="/" aria-label="App &amp; Hemsida startsida">
+                <span class="brand__mark" aria-hidden="true">▲</span>
+                <span class="brand__text">App &amp; Hemsida</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Meny</span>
+            </button>
+            <nav class="shell-nav" id="primary-navigation" data-nav>
+                <ul class="shell-nav__list">
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a class="is-active" aria-current="page" href="/blog/">Blogg</a></li>
+                    <li><a href="/app/">Logga in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="page-hero" aria-labelledby="blog-hero">
+            <h1 id="blog-hero">Blogg &amp; resurser</h1>
+            <p>Utforska våra bästa tips om onboarding, delning och produktanalys. Filtrera efter ämne och hitta det du behöver.</p>
+            <form class="blog-filter" data-blog-filter>
+                <label for="blog-query">Sök</label>
+                <input id="blog-query" type="search" name="q" placeholder="Sök artiklar" autocomplete="off">
+                <div class="tag-row">
+                    <button type="button" data-tag="onboarding">Onboarding</button>
+                    <button type="button" data-tag="delning">Delning</button>
+                    <button type="button" data-tag="analys">Analys</button>
+                    <button type="button" data-tag="produkt">Produkt</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="blog-grid" data-blog-list>
+            <article data-tags="onboarding produkt">
+                <time datetime="2024-05-12">12 maj 2024</time>
+                <h2><a href="#">Så skapar du ett guidat första steg som faktiskt aktiverar</a></h2>
+                <p>Vi bryter ned vår metod för att hitta aha-ögonblicket och mäta om onboardingflödet levererar.</p>
+            </article>
+            <article data-tags="delning analys">
+                <time datetime="2024-04-28">28 april 2024</time>
+                <h2><a href="#">Delningslänkar med insikter – vilka KPI:er ska du följa?</a></h2>
+                <p>Lär dig hur du använder vår delningspanel för att förstå vilka mottagare som engagerar sig.</p>
+            </article>
+            <article data-tags="analys produkt">
+                <time datetime="2024-03-15">15 mars 2024</time>
+                <h2><a href="#">PostHog vs GA4 – hur kombinerar vi produkt- och marknadsdata?</a></h2>
+                <p>Vi jämför verktyg och visar hur du kopplar dem för att hitta verkliga konverteringshinder.</p>
+            </article>
+            <article data-tags="produkt onboarding">
+                <time datetime="2024-02-02">2 februari 2024</time>
+                <h2><a href="#">Designprinciper för en luftig och tillgänglig produktupplevelse</a></h2>
+                <p>Så designar du vyer med fokus på kontrast, tabb-navigering och tydliga CTA:er.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <nav aria-label="Sidfot">
+                <ul>
+                    <li><a href="/">Hem</a></li>
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a href="/legal/privacy.html">Integritet</a></li>
+                    <li><a href="/legal/terms.html">Villkor</a></li>
+                </ul>
+            </nav>
+            <p>© <span data-current-year></span> App &amp; Hemsida.</p>
+        </div>
+    </footer>
+</body>
+</html>

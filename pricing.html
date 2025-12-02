@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Priser – App &amp; Hemsida</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header class="shell-header" data-site-header>
+        <div class="shell-header__inner">
+            <a class="brand" href="/" aria-label="App &amp; Hemsida startsida">
+                <span class="brand__mark" aria-hidden="true">▲</span>
+                <span class="brand__text">App &amp; Hemsida</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__bar" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Meny</span>
+            </button>
+            <nav class="shell-nav" id="primary-navigation" data-nav>
+                <ul class="shell-nav__list">
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a class="is-active" aria-current="page" href="/pricing.html">Priser</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a href="/app/">Logga in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="page-hero" aria-labelledby="pricing-hero">
+            <h1 id="pricing-hero">Flexibla planer för varje team</h1>
+            <p>Bygg, dela och väx utan att fastna i långa avtal. Byt plan när som helst och få full insyn i kostnader.</p>
+            <div class="billing-toggle" data-pricing-toggle>
+                <span>Månad</span>
+                <button type="button" data-toggle role="switch" aria-checked="false">År (spara 20%)</button>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="pricing-table">
+            <header class="section__header">
+                <p class="section__eyebrow">Planer</p>
+                <h2 class="section__title" id="pricing-table">Välj rätt nivå direkt</h2>
+            </header>
+            <div class="pricing-grid" data-pricing-table>
+                <article class="plan-card" id="free" data-plan data-monthly="0" data-yearly="0">
+                    <p class="plan-card__name">Free</p>
+                    <p class="plan-card__price" data-price>0 kr</p>
+                    <p class="plan-card__period" data-period>/ månad</p>
+                    <ul>
+                        <li>Obegränsade privata objekt</li>
+                        <li>Grundläggande delning</li>
+                        <li>E-postsupport</li>
+                    </ul>
+                    <a class="button button--outline" href="/app/">Kom igång</a>
+                </article>
+
+                <article class="plan-card plan-card--accent" id="pro" data-plan data-monthly="149" data-yearly="119">
+                    <p class="plan-card__name">Pro</p>
+                    <p class="plan-card__price" data-price>149 kr</p>
+                    <p class="plan-card__period" data-period>/ månad</p>
+                    <ul>
+                        <li>Delningspanel med statistik</li>
+                        <li>Versionshistorik och export</li>
+                        <li>Prioriterad support</li>
+                    </ul>
+                    <a class="button" href="/app/">Uppgradera</a>
+                </article>
+
+                <article class="plan-card" id="team" data-plan data-monthly="399" data-yearly="319">
+                    <p class="plan-card__name">Team</p>
+                    <p class="plan-card__price" data-price>399 kr</p>
+                    <p class="plan-card__period" data-period>/ månad</p>
+                    <ul>
+                        <li>Teamarbetsytor och mallbibliotek</li>
+                        <li>SSO &amp; avancerad säkerhet</li>
+                        <li>Dedikerad kundsuccé</li>
+                    </ul>
+                    <a class="button button--outline" href="mailto:sales@apphemsida.se">Boka demo</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--highlight" id="roi" aria-labelledby="roi-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Räkna hem investeringen</p>
+                <h2 class="section__title" id="roi-title">Se hur snabbt du går plus redan första kvartalet</h2>
+            </header>
+            <div class="roi-calculator">
+                <form class="roi-form" data-roi-form>
+                    <div class="roi-form__group">
+                        <label for="roi-team">Teamstorlek</label>
+                        <input id="roi-team" type="number" min="1" step="1" value="5" data-roi-input="team">
+                    </div>
+                    <div class="roi-form__group">
+                        <label for="roi-hours">Timmar sparade per person/vecka</label>
+                        <input id="roi-hours" type="number" min="0" step="0.5" value="2" data-roi-input="hours">
+                    </div>
+                    <div class="roi-form__group">
+                        <label for="roi-value">Värde per timme (SEK)</label>
+                        <input id="roi-value" type="number" min="0" step="50" value="850" data-roi-input="value">
+                    </div>
+                    <div class="roi-form__group">
+                        <label for="roi-plan">Plan</label>
+                        <select id="roi-plan" data-roi-plan>
+                            <option value="0">Free – 0 kr/mån</option>
+                            <option value="149" selected>Pro – 149 kr/mån</option>
+                            <option value="399">Team – 399 kr/mån</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="roi-results">
+                    <article>
+                        <h3>Årlig nettobesparing</h3>
+                        <p class="roi-results__value" data-roi-output="savings">0 kr</p>
+                        <p>Din kombination av tidssparande och planpris ger ett tydligt plusresultat.</p>
+                    </article>
+                    <article>
+                        <h3>ROI</h3>
+                        <p class="roi-results__value" data-roi-output="roi">0%</p>
+                        <p>Mät hur många procent du får tillbaka jämfört med investeringen i verktyget.</p>
+                    </article>
+                    <article>
+                        <h3>Break-even</h3>
+                        <p class="roi-results__value" data-roi-output="break-even">Direkt</p>
+                        <p>Så snabbt behöver teamet skapa värde för att planen ska vara helt självfinansierad.</p>
+                    </article>
+                </div>
+                <aside class="roi-aside">
+                    <h3>Tips för maximal vinst</h3>
+                    <ul>
+                        <li>Automatisera onboarding-mails och driva fler kvalificerade leads till appen.</li>
+                        <li>A/B-testa delningsflöden direkt i produktpanelen.</li>
+                        <li>Aktivera add-ons för fakturering och partnerprovision när du är redo.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="faq-title">
+            <header class="section__header">
+                <p class="section__eyebrow">Vanliga frågor</p>
+                <h2 class="section__title" id="faq-title">Allt du behöver veta</h2>
+            </header>
+            <div class="faq-list">
+                <details open>
+                    <summary>Kan jag byta plan när som helst?</summary>
+                    <p>Ja, du kan uppgradera eller nedgradera direkt. Priset justeras automatiskt via Stripe Billing.</p>
+                </details>
+                <details>
+                    <summary>Finns det rabatt för ideella organisationer?</summary>
+                    <p>Kontakta oss på <a href="mailto:hello@apphemsida.se">hello@apphemsida.se</a> så hittar vi en lösning.</p>
+                </details>
+                <details>
+                    <summary>Har ni PWA-stöd?</summary>
+                    <p>Ja, du kan installera appen på desktop och mobil. Offline-stöd lanseras löpande.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <nav aria-label="Sidfot">
+                <ul>
+                    <li><a href="/">Hem</a></li>
+                    <li><a href="/product.html">Produkt</a></li>
+                    <li><a href="/design.html">Design</a></li>
+                    <li><a href="/blog/">Blogg</a></li>
+                    <li><a href="/legal/privacy.html">Integritet</a></li>
+                    <li><a href="/legal/terms.html">Villkor</a></li>
+                </ul>
+            </nav>
+            <p>© <span data-current-year></span> App &amp; Hemsida.</p>
+        </div>
+    </footer>
+</body>
+</html>
